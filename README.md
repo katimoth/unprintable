@@ -10,3 +10,8 @@ Built by (╯°□°)╯︵ ┻━┻ (unprintable_ios)
 - Mary Keta (maryketa)
 - Avery Link (avlink)
 - Wesley Watson (weswats)
+
+## Installation
+To run dotti on your iPhone, Apple requires you to sign this project with a development team. You can create a personal team using your Apple ID. Follow the instructions from [lab 0](https://eecs441.eecs.umich.edu/asns/lab0-swiftChatter#creating-an-xcode-project) to create a personal team and sign dotti with it. Start reading from where it says `If you selected None` towards the end of the `Creating an Xcode project` section.
+
+**YOU WILL HAVE TO DO THIS EVERY TIME AFTER `git pull` CHANGES YOUR CODE!**
