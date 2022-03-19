@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A6A631727E655810089A620 /* LibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6A631627E655810089A620 /* LibraryView.swift */; };
+		3A6A631927E67FC40089A620 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6A631827E67FC40089A620 /* Utilities.swift */; };
 		3AA3A1CB27E5BCC900D5E005 /* Fonts in Resources */ = {isa = PBXBuildFile; fileRef = 3AA3A1CA27E5BCC900D5E005 /* Fonts */; };
 		3ABDCBEB27E0E91B006AC03A /* Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ABDCBEA27E0E91B006AC03A /* Styles.swift */; };
 		3AD178C127DBAA1300E2A774 /* dottiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD178C027DBAA1300E2A774 /* dottiApp.swift */; };
@@ -16,6 +18,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3A6A631627E655810089A620 /* LibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryView.swift; sourceTree = "<group>"; };
+		3A6A631827E67FC40089A620 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		3AA3A1CA27E5BCC900D5E005 /* Fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Fonts; sourceTree = "<group>"; };
 		3AA3A1CC27E5BCFB00D5E005 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		3ABDCBEA27E0E91B006AC03A /* Styles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Styles.swift; sourceTree = "<group>"; };
@@ -63,6 +67,8 @@
 				3AD178C627DBAA1700E2A774 /* Preview Content */,
 				3ABDCBEA27E0E91B006AC03A /* Styles.swift */,
 				3AA3A1CA27E5BCC900D5E005 /* Fonts */,
+				3A6A631627E655810089A620 /* LibraryView.swift */,
+				3A6A631827E67FC40089A620 /* Utilities.swift */,
 			);
 			path = dotti;
 			sourceTree = "<group>";
@@ -146,6 +152,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A6A631927E67FC40089A620 /* Utilities.swift in Sources */,
+				3A6A631727E655810089A620 /* LibraryView.swift in Sources */,
 				3ABDCBEB27E0E91B006AC03A /* Styles.swift in Sources */,
 				3AD178C327DBAA1300E2A774 /* TitleView.swift in Sources */,
 				3AD178C127DBAA1300E2A774 /* dottiApp.swift in Sources */,

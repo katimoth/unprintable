@@ -42,5 +42,6 @@ extension Color {
 }
 
 extension Font {
-    static let gochiHand = Font.custom("GochiHand-Regular", size: 16)
+    static let h1 = Font.custom("Comfortaa-Regular", size: 40)
+    static let h2 = Font.custom("Comfortaa-Regular", size: 30)
 }

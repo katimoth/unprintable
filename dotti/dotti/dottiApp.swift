@@ -11,7 +11,8 @@ import SwiftUI
 struct dottiApp: App {
     var body: some Scene {
         WindowGroup {
-            TitleView()
+            // TitleView()
+            LibraryView()
         }
     }
 }
