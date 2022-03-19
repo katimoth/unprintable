@@ -7,16 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3AA3A1CB27E5BCC900D5E005 /* Fonts in Resources */ = {isa = PBXBuildFile; fileRef = 3AA3A1CA27E5BCC900D5E005 /* Fonts */; };
+		3ABDCBEB27E0E91B006AC03A /* Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ABDCBEA27E0E91B006AC03A /* Styles.swift */; };
 		3AD178C127DBAA1300E2A774 /* dottiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD178C027DBAA1300E2A774 /* dottiApp.swift */; };
-		3AD178C327DBAA1300E2A774 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD178C227DBAA1300E2A774 /* ContentView.swift */; };
+		3AD178C327DBAA1300E2A774 /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD178C227DBAA1300E2A774 /* TitleView.swift */; };
 		3AD178C527DBAA1700E2A774 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AD178C427DBAA1700E2A774 /* Assets.xcassets */; };
 		3AD178C827DBAA1700E2A774 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AD178C727DBAA1700E2A774 /* Preview Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3AA3A1CA27E5BCC900D5E005 /* Fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Fonts; sourceTree = "<group>"; };
+		3AA3A1CC27E5BCFB00D5E005 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		3ABDCBEA27E0E91B006AC03A /* Styles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Styles.swift; sourceTree = "<group>"; };
 		3AD178BD27DBAA1300E2A774 /* dotti.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dotti.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AD178C027DBAA1300E2A774 /* dottiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dottiApp.swift; sourceTree = "<group>"; };
-		3AD178C227DBAA1300E2A774 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		3AD178C227DBAA1300E2A774 /* TitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
 		3AD178C427DBAA1700E2A774 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3AD178C727DBAA1700E2A774 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -51,10 +56,13 @@
 		3AD178BF27DBAA1300E2A774 /* dotti */ = {
 			isa = PBXGroup;
 			children = (
+				3AA3A1CC27E5BCFB00D5E005 /* Info.plist */,
 				3AD178C027DBAA1300E2A774 /* dottiApp.swift */,
-				3AD178C227DBAA1300E2A774 /* ContentView.swift */,
+				3AD178C227DBAA1300E2A774 /* TitleView.swift */,
 				3AD178C427DBAA1700E2A774 /* Assets.xcassets */,
 				3AD178C627DBAA1700E2A774 /* Preview Content */,
+				3ABDCBEA27E0E91B006AC03A /* Styles.swift */,
+				3AA3A1CA27E5BCC900D5E005 /* Fonts */,
 			);
 			path = dotti;
 			sourceTree = "<group>";
@@ -125,6 +133,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3AA3A1CB27E5BCC900D5E005 /* Fonts in Resources */,
 				3AD178C827DBAA1700E2A774 /* Preview Assets.xcassets in Resources */,
 				3AD178C527DBAA1700E2A774 /* Assets.xcassets in Resources */,
 			);
@@ -137,7 +146,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3AD178C327DBAA1300E2A774 /* ContentView.swift in Sources */,
+				3ABDCBEB27E0E91B006AC03A /* Styles.swift in Sources */,
+				3AD178C327DBAA1300E2A774 /* TitleView.swift in Sources */,
 				3AD178C127DBAA1300E2A774 /* dottiApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -272,6 +282,7 @@
 				DEVELOPMENT_TEAM = WSB3PDR76Q;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = dotti/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -301,6 +312,7 @@
 				DEVELOPMENT_TEAM = WSB3PDR76Q;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = dotti/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
