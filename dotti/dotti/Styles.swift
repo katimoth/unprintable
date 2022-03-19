@@ -40,3 +40,7 @@ extension Color {
     static let pearl_aqua = Color("pearl-aqua")
     static let ruber = Color("ruber")
 }
+
+extension Font {
+    static let gochiHand = Font.custom("GochiHand-Regular", size: 16)
+}

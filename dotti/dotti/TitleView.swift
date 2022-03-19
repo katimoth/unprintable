@@ -11,7 +11,11 @@ struct TitleView: View {
     var body: some View {
         ZStack {
             LinearGradient(
-                gradient: Gradient(colors: [Color.deep_champagne, Color.deep_champagne, Color.floral_white]),
+                gradient: Gradient(colors: [
+                    Color.deep_champagne,
+                    Color.deep_champagne,
+                    Color.floral_white
+                ]),
                 startPoint: .top,
                 endPoint: .bottom
             ).edgesIgnoringSafeArea(.all)
@@ -24,7 +28,7 @@ struct TitleView: View {
                             .scaledToFit()
                             .frame(width: 150.0, height: 150.0)
                         Text("dotti")
-                            .font(.title)
+                            .font(Font.custom("GochiHand-Regular", size: 50))
                             .foregroundColor(Color.american_bronze)
                     }
                     Spacer()
@@ -37,9 +41,7 @@ struct TitleView: View {
                                 .frame(width: 120, height: 40)
                                 .background(.clear)
                                 .cornerRadius(5)
-                                .font(
-                                    .system(size: 16)
-                                )
+                                .font(.system(size: 16))
                                 .overlay(
                                     RoundedRectangle(cornerRadius: 5.0)
                                         .stroke(Color.american_bronze, lineWidth: 2.0)
@@ -53,14 +55,12 @@ struct TitleView: View {
                                 .foregroundColor(Color.floral_white)
                                 .frame(width: 180, height: 40)
                                 .background(Color.american_bronze)
-                                .font(
-                                    .system(size: 16)
-                                )
+                                .font(.system(size: 16))
                                 .cornerRadius(5)
                                 .padding()
                         })
                     }
-                }//.frame(maxHeight: .infinity, alignment: .bottom)
+                }
             }
         }
     }
