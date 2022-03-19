@@ -7,12 +7,11 @@
 
 import SwiftUI
 
-// rgb(252,209,162) navajo white
 struct TitleView: View {
     var body: some View {
         ZStack {
             LinearGradient(
-                gradient: Gradient(colors: [Color(red: 252 / 255, green: 209 / 255, blue: 162 / 255), Color(red: 252 / 255, green: 209 / 255, blue: 162 / 255), .white]),
+                gradient: Gradient(colors: [Color.deep_champagne, Color.deep_champagne, Color.floral_white]),
                 startPoint: .top,
                 endPoint: .bottom
             ).edgesIgnoringSafeArea(.all)
@@ -26,7 +25,7 @@ struct TitleView: View {
                             .frame(width: 150.0, height: 150.0)
                         Text("dotti")
                             .font(.title)
-                        
+                            .foregroundColor(Color.american_bronze)
                     }
                     Spacer()
                     HStack{
@@ -34,7 +33,7 @@ struct TitleView: View {
                             print("tapped!")
                         }, label: {
                             Text("**REGISTER**")
-                                .foregroundColor(Color(red: 52 / 255, green: 28 / 255, blue: 9 / 255))
+                                .foregroundColor(Color.american_bronze)
                                 .frame(width: 120, height: 40)
                                 .background(.clear)
                                 .cornerRadius(5)
@@ -43,7 +42,7 @@ struct TitleView: View {
                                 )
                                 .overlay(
                                     RoundedRectangle(cornerRadius: 5.0)
-                                        .stroke(Color(red: 52 / 255, green: 28 / 255, blue: 9 / 255), lineWidth: 2.0)
+                                        .stroke(Color.american_bronze, lineWidth: 2.0)
                                 )
                                 .padding()
                         })
@@ -51,9 +50,9 @@ struct TitleView: View {
                             print("tapped!")
                         }, label: {
                             Text("**LOGIN**")
-                                .foregroundColor(.white)
+                                .foregroundColor(Color.floral_white)
                                 .frame(width: 180, height: 40)
-                                .background(Color(red: 52 / 255, green: 28 / 255, blue: 9 / 255))
+                                .background(Color.american_bronze)
                                 .font(
                                     .system(size: 16)
                                 )
