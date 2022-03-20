@@ -38,7 +38,7 @@ extension Color {
     static let deep_champagne = Color("deep-champagne")
     static let floral_white = Color("floral-white")
     static let pearl_aqua = Color("pearl-aqua")
-    static let ruber = Color("ruber")
+    static let ruber = Color(red: 206/255, green: 70/255, blue: 116/255)
 }
 
 extension Font {
