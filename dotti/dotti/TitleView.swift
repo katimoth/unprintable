@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct TitleView: View {
+
+    @Binding var currentView = $currentView
+
     var body: some View {
         ZStack {
             LinearGradient(
@@ -35,6 +38,7 @@ struct TitleView: View {
                     HStack{
                         Button(action: {
                             print("tapped!")
+                            currentView = AppViews.libraryView
                         }, label: {
                             Text("**REGISTER**")
                                 .foregroundColor(Color.american_bronze)
@@ -50,6 +54,7 @@ struct TitleView: View {
                         })
                         Button(action: {
                             print("tapped!")
+                            currentView = AppViews.libraryView
                         }, label: {
                             Text("**LOGIN**")
                                 .foregroundColor(Color.floral_white)
