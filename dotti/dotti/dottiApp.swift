@@ -10,6 +10,7 @@ import SwiftUI
 enum AppViews {
     case titleView
     case libraryView
+    case resultsView
 }
 
 @main
@@ -19,15 +20,15 @@ struct dottiApp: App {
         WindowGroup {
             switch (currentView) {
             case .titleView:
-                TitleView($currentView)
+                TitleView(currentView: $currentView).transition(.move(edge: .bottom))
             case .libraryView:
-                LibraryView($currentView)
-            default:
-                print("Nope")
-                throw NSError()
+                LibraryView(currentView: $currentView).transition(.move(edge: .bottom))
+            case .resultsView:
+                ResultsView(currentView: $currentView).transition(.move(edge: .bottom))
+//            default:
+//                throw NSError()
             }
-            // TitleView()
-            // LibraryView()
+            EmptyView()
         }
     }
 }

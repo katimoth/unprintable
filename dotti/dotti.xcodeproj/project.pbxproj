@@ -15,6 +15,8 @@
 		3AD178C327DBAA1300E2A774 /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD178C227DBAA1300E2A774 /* TitleView.swift */; };
 		3AD178C527DBAA1700E2A774 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AD178C427DBAA1700E2A774 /* Assets.xcassets */; };
 		3AD178C827DBAA1700E2A774 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AD178C727DBAA1700E2A774 /* Preview Assets.xcassets */; };
+		8370B1A527F921B900C53EC0 /* ResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8370B1A427F921B900C53EC0 /* ResultsView.swift */; };
+		8370B1A727F9238400C53EC0 /* GuitarLessonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8370B1A627F9238400C53EC0 /* GuitarLessonView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +30,8 @@
 		3AD178C227DBAA1300E2A774 /* TitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
 		3AD178C427DBAA1700E2A774 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3AD178C727DBAA1700E2A774 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		8370B1A427F921B900C53EC0 /* ResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsView.swift; sourceTree = "<group>"; };
+		8370B1A627F9238400C53EC0 /* GuitarLessonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuitarLessonView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +73,8 @@
 				3AA3A1CA27E5BCC900D5E005 /* Fonts */,
 				3A6A631627E655810089A620 /* LibraryView.swift */,
 				3A6A631827E67FC40089A620 /* Utilities.swift */,
+				8370B1A427F921B900C53EC0 /* ResultsView.swift */,
+				8370B1A627F9238400C53EC0 /* GuitarLessonView.swift */,
 			);
 			path = dotti;
 			sourceTree = "<group>";
@@ -152,8 +158,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8370B1A727F9238400C53EC0 /* GuitarLessonView.swift in Sources */,
 				3A6A631927E67FC40089A620 /* Utilities.swift in Sources */,
 				3A6A631727E655810089A620 /* LibraryView.swift in Sources */,
+				8370B1A527F921B900C53EC0 /* ResultsView.swift in Sources */,
 				3ABDCBEB27E0E91B006AC03A /* Styles.swift in Sources */,
 				3AD178C327DBAA1300E2A774 /* TitleView.swift in Sources */,
 				3AD178C127DBAA1300E2A774 /* dottiApp.swift in Sources */,

@@ -13,6 +13,7 @@ struct LibraryView: View {
     //For Scroll Offset
     @State private var scrollViewOffset: CGFloat = 0
     @State private var startOffset: CGFloat = 0
+    @Binding var currentView: AppViews
 
     var body: some View {
         ZStack {
@@ -52,7 +53,7 @@ struct LibraryView: View {
                     .padding(EdgeInsets(top: 20, leading: 0, bottom: 0, trailing: 0))
                 
                 //ScrollView
-                
+                    .transition(.move(edge: .bottom))
                 //Scroll to top
                 ScrollViewReader { proxyReader in
                     ScrollView(.vertical, showsIndicators: false, content: {
@@ -80,6 +81,8 @@ struct LibraryView: View {
                                     })
                                 }.background(Color.ruber.opacity(0.2))
                                     .cornerRadius(10)
+                            }.onTapGesture {
+                                currentView = AppViews.resultsView
                             }
                         }
                         .padding()
@@ -132,20 +135,21 @@ struct LibraryView: View {
                             .animation(.easeInOut(duration: 1))
                             ,alignment: .bottomTrailing
                     )
-                }
+                }.transition(.move(edge: .bottom))
             }.frame(maxWidth: .infinity)
                 .padding()
             
-        }
+        }.transition(.slide)
     }
 }
 
-struct LibraryView_Previews: PreviewProvider {
-    static var previews: some View {
-        LibraryView()
-.previewInterfaceOrientation(.portraitUpsideDown)
-    }
-}
+//struct LibraryView_Previews: PreviewProvider {
+//    @Binding var currentView: AppViews
+//    static var previews: some View {
+//        LibraryView(currentView: $currentView)
+//.previewInterfaceOrientation(.portraitUpsideDown)
+//    }
+//}
 
 extension View{
     

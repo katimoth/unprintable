@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TitleView: View {
 
-    @Binding var currentView = $currentView
+    @Binding var currentView: AppViews
 
     var body: some View {
         ZStack {
@@ -70,9 +70,9 @@ struct TitleView: View {
         }
     }
 }
-
-struct TitleView_Previews: PreviewProvider {
-    static var previews: some View {
-        TitleView()
-    }
-}
+//
+//struct TitleView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        TitleView()
+//    }
+//}
