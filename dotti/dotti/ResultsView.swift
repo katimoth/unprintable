@@ -9,7 +9,7 @@ import SwiftUI
 
 
 //Think this should be similar to a "detail view" where it pops out of the library shit
-struct ResultsView: View {
+struct LibraryOverlayView: View {
     @Binding var currentView: AppViews
     var body: some View {
         NavigationView{
@@ -25,8 +25,9 @@ struct ResultsView: View {
                     Text("Back")
                 }
             })
-        }.transition(.move(edge: .leading))
-            .animation(.easeInOut(duration: 1))
+        }
+        .animation(.linear(duration: 0.7))
+
     }
 }
 

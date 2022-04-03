@@ -24,7 +24,7 @@ struct dottiApp: App {
             case .libraryView:
                 LibraryView(currentView: $currentView).transition(.move(edge: .bottom))
             case .resultsView:
-                ResultsView(currentView: $currentView).transition(.move(edge: .bottom))
+                EmptyView()
 //            default:
 //                throw NSError()
             }

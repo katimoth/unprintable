@@ -17,3 +17,10 @@ extension View {
 		)
     }
 }
+
+//struct Song {
+//    private var songName = "All too Well"
+//    private var songBPM: CGFloat
+//    private var songDifficulty = "Easy"
+//    
+//}

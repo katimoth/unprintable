@@ -13,6 +13,7 @@ struct LibraryView: View {
     //For Scroll Offset
     @State private var scrollViewOffset: CGFloat = 0
     @State private var startOffset: CGFloat = 0
+    @State private var overlayActive: Bool = false
     @Binding var currentView: AppViews
 
     var body: some View {
@@ -56,34 +57,18 @@ struct LibraryView: View {
                     //ScrollView
                         .transition(.move(edge: .bottom))
                     //Scroll to top
+                    
+                    /// THIS IS WHERE ALL SONGS WIL:L BE PUT
+                    ///
+                    ///BACKEND TEAM: link songs from database to each area below
+                    ///
+                    ///
                     ScrollViewReader { proxyReader in
                         ScrollView(.vertical, showsIndicators: false, content: {
                             
                             VStack(spacing: 25) {
                                 ForEach(1...30, id: \.self){index in
-                                    HStack(spacing: 15){
-                                        Text("***All Too Well***")
-                                            .foregroundColor(Color.american_bronze)
-                                            .frame(width:160, height: 60)
-                                            .multilineTextAlignment(.trailing)
-                                            
-                                        
-                                        VStack(alignment: .leading, spacing: 6, content: {
-                                            
-                                            RoundedRectangle(cornerRadius: 4)
-                                                .fill(Color.gray.opacity(0.5))
-                                                .frame(height: 22)
-                                                .padding(.trailing)
-                                            
-                                            RoundedRectangle(cornerRadius: 4)
-                                                .fill(Color.gray.opacity(0.5))
-                                                .frame(height: 22)
-                                                .padding(.trailing, 100)
-                                        })
-                                    }.background(Color.ruber.opacity(0.2))
-                                        .cornerRadius(10)
-                                }.onTapGesture {
-                                    currentView = AppViews.resultsView
+                                    SongItem(currentView: $currentView)
                                 }
                             }
                             .padding()
@@ -139,8 +124,8 @@ struct LibraryView: View {
                     }.transition(.move(edge: .bottom))
                 }.frame(maxWidth: .infinity)
                     .padding()
-            }.transition(.move(edge: .leading))
-                .animation(.easeInOut(duration: 1))
+            }
+            .animation(.linear(duration: 0.7))
         }
         
     }
