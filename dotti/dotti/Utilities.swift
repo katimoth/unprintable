@@ -18,6 +18,13 @@ extension View {
     }
 }
 
+class AppDelegate: NSObject, UIApplicationDelegate {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        print("Your code here")
+        return true
+    }
+}
+
 //struct Song {
 //    private var songName = "All too Well"
 //    private var songBPM: CGFloat

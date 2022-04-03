@@ -34,7 +34,7 @@ struct SongItem: View {
                 })
             } else {
                 VStack(alignment: .center, spacing: 6, content: {
-                    Button("begin lesson") {currentView = AppViews.titleView }
+                    Button("begin lesson") {currentView = AppViews.lessonView }
                         .foregroundColor(Color.american_bronze)
                         .frame(width: 140, height: 40)
                         .background(Color.pearl_aqua)

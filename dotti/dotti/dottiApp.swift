@@ -11,11 +11,14 @@ enum AppViews {
     case titleView
     case libraryView
     case resultsView
+    case lessonView
 }
 
 @main
 struct dottiApp: App {
     @State var currentView = AppViews.titleView
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    
     var body: some Scene {
         WindowGroup {
             switch (currentView) {
@@ -25,6 +28,8 @@ struct dottiApp: App {
                 LibraryView(currentView: $currentView).transition(.move(edge: .bottom))
             case .resultsView:
                 EmptyView()
+            case .lessonView:
+                GuitarLessonView()
 //            default:
 //                throw NSError()
             }

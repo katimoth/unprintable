@@ -8,17 +8,32 @@
 import SwiftUI
 
 struct GuitarLessonView: View {
+    @State private var orientation = UIDeviceOrientation.unknown
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Group{
+            if orientation.isLandscape {
+                Text("Hello, World!")
+            } else {
+                Text("Please turn to landscape")
+            }
+        } 
+        .onRotate { newOrientation in
+            if orientation.isPortrait {
+                changeOrientation(to: .landscapeLeft)
+            }
+            // orientation = newOrientation
+            newOrientation=newOrientation
+        }
+        ///
+
+        func changeOrientation(to orientation: UIInterfaceOrientation) {
+            // tell the app to change the orientation
+            UIDevice.current.setValue(orientation.rawValue, forKey: "orientation")
+            print("Changing to", orientation.isPortrait ? "Portrait" : "Landscape")
+        }
     }
 }
-
-//struct GuitarLessonView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        GuitarLessonView()
-//    }
-//}
-
 
 
 // Our custom view modifier to track rotation and
@@ -28,9 +43,12 @@ struct DeviceRotationViewModifier: ViewModifier {
 
     func body(content: Content) -> some View {
         content
-            .onAppear()
-            .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
+            .onAppear(perform: {
+                print("rotated")
+            })
+            .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) {_ in
                 action(UIDevice.current.orientation)
+                
             }
     }
 }
