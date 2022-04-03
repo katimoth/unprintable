@@ -7,10 +7,26 @@
 
 import SwiftUI
 
+
+//Think this should be similar to a "detail view" where it pops out of the library shit
 struct ResultsView: View {
     @Binding var currentView: AppViews
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationView{
+            NavigationLink(destination: LibraryView(currentView: $currentView)) {
+                Text("Trade View Link")
+            }.simultaneousGesture(TapGesture().onEnded(){
+                currentView = AppViews.libraryView
+                
+            })
+                .navigationBarItems(leading: Button(action: {currentView = .libraryView}) {
+                HStack {
+                    Image(systemName: "arrow.left")
+                    Text("Back")
+                }
+            })
+        }.transition(.move(edge: .leading))
+            .animation(.easeInOut(duration: 1))
     }
 }
 

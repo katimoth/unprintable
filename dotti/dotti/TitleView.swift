@@ -67,7 +67,8 @@ struct TitleView: View {
                     }
                 }
             }
-        }
+        }.transition(.move(edge: .leading))
+            .animation(.easeInOut(duration: 1))
     }
 }
 //
