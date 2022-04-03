@@ -19,11 +19,10 @@ struct GuitarLessonView: View {
             }
         } 
         .onRotate { newOrientation in
-            if orientation.isPortrait {
+            if self.orientation.isPortrait {
                 changeOrientation(to: .landscapeLeft)
             }
-            // orientation = newOrientation
-            newOrientation=newOrientation
+            orientation = newOrientation
         }
         ///
 
