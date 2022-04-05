@@ -7,6 +7,20 @@
 
 import SwiftUI
 
+// Our custom view modifier to track rotation and call our action
+struct DeviceRotationViewModifier: ViewModifier {
+    let action: (UIDeviceOrientation) -> Void
+
+    func body(content: Content) -> some View {
+        content
+            .onReceive(NotificationCenter.default.publisher(
+                for: UIDevice.orientationDidChangeNotification
+            )) { _ in
+                action(UIDevice.current.orientation)
+            }
+    }
+}
+
 extension View {
     func hideKeyboard() {
         UIApplication.shared.sendAction(
@@ -16,13 +30,37 @@ extension View {
 			for: nil
 		)
     }
+
+    func onRotate(perform action: @escaping (UIDeviceOrientation) -> Void) -> some View {
+        self.modifier(DeviceRotationViewModifier(action: action))
+    }
+
+    /// Change UI's orientation
+    /// - Parameter orientation: Desired UI orientation
+    ///
+    /// - Warning
+    /// This function has not been tested with anything other than `landscapeLeft` and
+    /// `landscapeRight`
+    func setUIOrientation(to orientation: UIInterfaceOrientation) {
+        switch orientation {
+        case UIInterfaceOrientation.landscapeLeft:
+            UIDevice.current.setValue(UIInterfaceOrientation.landscapeRight.rawValue, forKey: "orientation")
+        case UIInterfaceOrientation.landscapeRight:
+            UIDevice.current.setValue(UIInterfaceOrientation.landscapeLeft.rawValue, forKey: "orientation")
+        default: break
+        }
+    }
 }
 
 class AppDelegate: NSObject, UIApplicationDelegate {
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-        print("Your code here")
-        return true
-    }
+    // static var orientationLock = UIInterfaceOrientationMask.portrait
+    //
+    // func application(
+    //     _ application: UIApplication,
+    //     supportedInterfaceOrientationsFor window: UIWindow?
+    // ) -> UIInterfaceOrientationMask {
+    //     return AppDelegate.orientationLock
+    // }
 }
 
 //struct Song {

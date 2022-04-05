@@ -7,54 +7,49 @@
 
 import SwiftUI
 
+/// - Invariant: UI orientation must always be landscape
+/// If for some reason it becomes portrait, immediately correct it
 struct GuitarLessonView: View {
-    @State private var orientation = UIDeviceOrientation.unknown
-    
+    /// Tracks previous UI landscape orientation (landscape left by default)
+    ///
+    /// Whenever the user reorients the device to
+    /// `UIDeviceOrientation.landscapeLeft` or
+    /// `UIDeviceOrientation.landscapeRight`, this variable will be updated.
+    /// Other device orientation changes do not affect this variable.
+    ///
+    /// - Remark: `UIInterfaceOrientation` is different from `UIDeviceOrientation`
+    ///
+    /// - Invariant
+    /// Value will always be either `UIInterfaceOrientation.landscapeLeft` or
+    /// `UIInterfaceOrientation.landscapeRight`
+    @State private var prevLandscapeOrientation = UIInterfaceOrientation.landscapeLeft
+
     var body: some View {
         Group{
-            if orientation.isLandscape {
-                Text("Hello, World!")
-            } else {
-                Text("Please turn to landscape")
-            }
-        } 
+            Text("Hello, world!")
+        }
+        .onAppear { setUIOrientation(to: prevLandscapeOrientation) }
         .onRotate { newOrientation in
-            if self.orientation.isPortrait {
-                changeOrientation(to: .landscapeLeft)
+            switch prevLandscapeOrientation {
+            case UIInterfaceOrientation.landscapeLeft:
+                print("landscapeLeft")
+            case UIInterfaceOrientation.landscapeRight:
+                print("landscapeRight")
+            default: break
             }
-            orientation = newOrientation
-        }
-        ///
 
-        func changeOrientation(to orientation: UIInterfaceOrientation) {
-            // tell the app to change the orientation
-            UIDevice.current.setValue(orientation.rawValue, forKey: "orientation")
-            print("Changing to", orientation.isPortrait ? "Portrait" : "Landscape")
-        }
-    }
-}
+            switch newOrientation {
+            case UIDeviceOrientation.landscapeLeft:
+                prevLandscapeOrientation = UIInterfaceOrientation.landscapeLeft
+            case UIDeviceOrientation.landscapeRight:
+                prevLandscapeOrientation = UIInterfaceOrientation.landscapeRight
 
+            // UI must be displayed in landscape. Force it into landscape
+            case UIDeviceOrientation.portrait, UIDeviceOrientation.portraitUpsideDown:
+                setUIOrientation(to: prevLandscapeOrientation)
 
-// Our custom view modifier to track rotation and
-// call our action
-struct DeviceRotationViewModifier: ViewModifier {
-    let action: (UIDeviceOrientation) -> Void
-
-    func body(content: Content) -> some View {
-        content
-            .onAppear(perform: {
-                print("rotated")
-            })
-            .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) {_ in
-                action(UIDevice.current.orientation)
-                
+            default: break
             }
-    }
-}
-
-// A View wrapper to make the modifier easier to use
-extension View {
-    func onRotate(perform action: @escaping (UIDeviceOrientation) -> Void) -> some View {
-        self.modifier(DeviceRotationViewModifier(action: action))
+        }
     }
 }

@@ -30,8 +30,6 @@ struct dottiApp: App {
                 EmptyView()
             case .lessonView:
                 GuitarLessonView()
-//            default:
-//                throw NSError()
             }
             EmptyView()
         }
