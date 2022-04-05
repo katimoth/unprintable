@@ -42,6 +42,8 @@ extension View {
     /// This function has not been tested with anything other than `landscapeLeft` and
     /// `landscapeRight`
     func setUIOrientation(to orientation: UIInterfaceOrientation) {
+        // For some strange reason, if you want to set the orientation to
+        // landscape left, you must use `landscapeRight.rawValue` and vice versa
         switch orientation {
         case UIInterfaceOrientation.landscapeLeft:
             UIDevice.current.setValue(UIInterfaceOrientation.landscapeRight.rawValue, forKey: "orientation")
@@ -52,15 +54,16 @@ extension View {
     }
 }
 
-class AppDelegate: NSObject, UIApplicationDelegate {
-    // static var orientationLock = UIInterfaceOrientationMask.portrait
-    //
-    // func application(
-    //     _ application: UIApplication,
-    //     supportedInterfaceOrientationsFor window: UIWindow?
-    // ) -> UIInterfaceOrientationMask {
-    //     return AppDelegate.orientationLock
-    // }
+class AppDelegate: NSObject, UIApplicationDelegate, ObservableObject {
+    /// Controls what UI orientations are allowed. By default, all orientations are allowed
+    static var orientationMask = UIInterfaceOrientationMask.all
+
+    func application(
+        _ application: UIApplication,
+        supportedInterfaceOrientationsFor window: UIWindow?
+    ) -> UIInterfaceOrientationMask {
+        return AppDelegate.orientationMask
+    }
 }
 
 //struct Song {

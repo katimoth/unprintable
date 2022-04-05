@@ -28,28 +28,13 @@ struct GuitarLessonView: View {
         Group{
             Text("Hello, world!")
         }
-        .onAppear { setUIOrientation(to: prevLandscapeOrientation) }
-        .onRotate { newOrientation in
-            switch prevLandscapeOrientation {
-            case UIInterfaceOrientation.landscapeLeft:
-                print("landscapeLeft")
-            case UIInterfaceOrientation.landscapeRight:
-                print("landscapeRight")
-            default: break
+            // This view is landscape orientation only
+            .onAppear { 
+                AppDelegate.orientationMask = UIInterfaceOrientationMask.landscape
+                setUIOrientation(to: UIInterfaceOrientation.landscapeLeft)
             }
-
-            switch newOrientation {
-            case UIDeviceOrientation.landscapeLeft:
-                prevLandscapeOrientation = UIInterfaceOrientation.landscapeLeft
-            case UIDeviceOrientation.landscapeRight:
-                prevLandscapeOrientation = UIInterfaceOrientation.landscapeRight
-
-            // UI must be displayed in landscape. Force it into landscape
-            case UIDeviceOrientation.portrait, UIDeviceOrientation.portraitUpsideDown:
-                setUIOrientation(to: prevLandscapeOrientation)
-
-            default: break
+            .onDisappear { 
+                AppDelegate.orientationMask = UIInterfaceOrientationMask.all
             }
-        }
     }
 }
