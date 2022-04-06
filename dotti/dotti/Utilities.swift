@@ -37,22 +37,8 @@ extension View {
 
     /// Change UI's orientation
     /// - Parameter orientation: Desired UI orientation
-    ///
-    /// - Warning
-    /// This function has not been tested with anything other than `landscapeLeft` and
-    /// `landscapeRight`
     func setUIOrientation(to orientation: UIInterfaceOrientation) {
-        switch orientation {
-        // For some strange reason, if you want to set the orientation to
-        // landscape left, you must use `landscapeRight.rawValue` and vice versa
-        case UIInterfaceOrientation.landscapeLeft:
-            UIDevice.current.setValue(UIInterfaceOrientation.landscapeRight.rawValue, forKey: "orientation")
-        case UIInterfaceOrientation.landscapeRight:
-            UIDevice.current.setValue(UIInterfaceOrientation.landscapeLeft.rawValue, forKey: "orientation")
-
-        default:
-            UIDevice.current.setValue(orientation.rawValue, forKey: "orientation")
-        }
+        UIDevice.current.setValue(orientation.rawValue, forKey: "orientation")
     }
 }
 
