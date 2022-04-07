@@ -11,7 +11,7 @@ import SwiftUI
 struct GuitarLessonView: View {
     let sidebarWidth: CGFloat = 150
 
-    /// The full chord progression of the song
+    /// The full chord progression of the song with indices
     let chordProgression: [Chord]
 
     /// A slice of `chordProgression` representing the user's next chords.
@@ -53,23 +53,17 @@ struct GuitarLessonView: View {
                     Text("Next:")
                     if let nextChords = nextChords, nextChords.count > 1 {
                         Text(chordProgression[nextChords.startIndex + 1].root.rawValue)
-
-                        // ForEach(2..<maxNumNextChords) { i in
-                        //     if nextChords.indices.contains(nextChords.startIndex + i) {
-                        //         Text(nextChords[nextChords.startIndex + i].root.rawValue)
-                        //     }
-                        // }
                     }
 
                     // Display next few chords
                     if let nextChords = nextChords, nextChords.count > 2 {
-                        ForEach(2..<nextChords.count) { i in
-                            Text(chordProgression[nextChords.startIndex + i].root.rawValue)
+                        ForEach(2..<nextChords.count, id: \.self) { i in
+                            Text(nextChords[nextChords.startIndex + i].root.rawValue)
                         }
                     }
 
                     Button("next chord") {
-                        nextChord()
+                        getNextChord()
                     }
                 }
                     .padding(5)
@@ -94,10 +88,10 @@ struct GuitarLessonView: View {
     /// Updates `nextChords`, shifting the array slice to the right by 1.
     ///
     /// The slice will shrink in size if there are too few chords remaining in
-    /// `chordProgression`.
+    /// `chordProgression`. It becomes `nil` once there are no chords left.
     ///
     /// If the song is already over, nothing happens.
-    func nextChord() {
+    func getNextChord() {
         guard let nextChords = nextChords, nextChords.count > 1 else {
             self.nextChords = nil
             return
