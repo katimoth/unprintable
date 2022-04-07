@@ -9,8 +9,29 @@ import SwiftUI
 
 /// - Invariant: UI orientation must always be landscape
 struct GuitarLessonView: View {
-    @State var currentChord: Chord?
-    @State var nextChords: [Chord] = []
+    let sidebarWidth: CGFloat = 150
+
+    /// The full chord progression of the song
+    let chordProgression: [Chord]
+
+    /// A slice of `chordProgression` representing the user's next chords.
+    /// Chords in this slice will be visible in the sidebar.
+    ///
+    /// Slice size is always `maxNumNextChords` unless user is near the end of the
+    /// song and there are too few chords remaining in `chordProgression`, in
+    /// which case it will shrink.
+    ///
+    /// When the user has finished the song and there are no chords left, this
+    /// variable's value is `nil`.
+    ///
+    /// - Example: 1st element of this slice is the current chord
+    @State var nextChords: ArraySlice<Chord>? = []
+
+    /// Defines the size of `nextChords`. In other words, defines the number of
+    /// chords the user can preview in the sidebar.
+    ///
+    /// - Invariant: Must be >= 2
+    let maxNumNextChords = 5
 
     var body: some View {
         ZStack {
@@ -23,16 +44,37 @@ struct GuitarLessonView: View {
                     .background(Color.deep_champagne)
 
                 // Sidebar
-                GroupBox {
+                VStack {
                     Text("Current Chord")
-                    if let currentChord = currentChord {
-                        Text(currentChord.root.rawValue)
+                    if let nextChords = nextChords {
+                        Text(chordProgression[nextChords.startIndex].root.rawValue)
                     }
-                    Text("Next")
+
+                    Text("Next:")
+                    if let nextChords = nextChords, nextChords.count > 1 {
+                        Text(chordProgression[nextChords.startIndex + 1].root.rawValue)
+
+                        // ForEach(2..<maxNumNextChords) { i in
+                        //     if nextChords.indices.contains(nextChords.startIndex + i) {
+                        //         Text(nextChords[nextChords.startIndex + i].root.rawValue)
+                        //     }
+                        // }
+                    }
+
+                    // Display next few chords
+                    if let nextChords = nextChords, nextChords.count > 2 {
+                        ForEach(2..<nextChords.count) { i in
+                            Text(chordProgression[nextChords.startIndex + i].root.rawValue)
+                        }
+                    }
+
+                    Button("next chord") {
+                        nextChord()
+                    }
                 }
                     .padding(5)
                     .frame(maxHeight: .infinity)
-                    .frame(width: 150)
+                    .frame(width: sidebarWidth)
                     .background(Color.ruber)
             }
         }
@@ -41,23 +83,29 @@ struct GuitarLessonView: View {
                 AppDelegate.orientationMask = UIInterfaceOrientationMask.landscape
                 setUIOrientation(to: UIInterfaceOrientation.landscapeRight)
 
-                currentChord = Chord(root: Note.g_sharp, quality: Chord.Quality.maj)
-                nextChords = [
-                    Chord(root: Note.e_sharp, quality: Chord.Quality.min),
-                    Chord(root: Note.c_sharp, quality: Chord.Quality.maj),
-                    Chord(root: Note.d_sharp, quality: Chord.Quality.maj, seventh: true),
-                    Chord(root: Note.g_sharp, quality: Chord.Quality.maj)
-                ]
+                // Load sidebar data
+                nextChords = chordProgression.prefix(maxNumNextChords)
             }
             .onDisappear { 
                 AppDelegate.orientationMask = UIInterfaceOrientationMask.all
             }
     }
-}
 
-struct GuitarLessonView_Previews: PreviewProvider {
-    static var previews: some View {
-        GuitarLessonView()
-            .previewInterfaceOrientation(.landscapeRight)
+    /// Updates `nextChords`, shifting the array slice to the right by 1.
+    ///
+    /// The slice will shrink in size if there are too few chords remaining in
+    /// `chordProgression`.
+    ///
+    /// If the song is already over, nothing happens.
+    func nextChord() {
+        guard let nextChords = nextChords, nextChords.count > 1 else {
+            self.nextChords = nil
+            return
+        }
+
+        // When remaining chords are few, we must not index beyond right edge
+        let newEndIndex = min(chordProgression.count, nextChords.endIndex + 1)
+
+        self.nextChords = chordProgression[nextChords.startIndex + 1..<newEndIndex]
     }
 }
