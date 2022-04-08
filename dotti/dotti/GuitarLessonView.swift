@@ -9,6 +9,18 @@ import SwiftUI
 
 /// - Invariant: UI orientation must always be landscape
 struct GuitarLessonView: View {
+    enum TextSize: CGFloat {
+        case xs = 20
+        case s = 35
+        case m = 50
+        case l = 70
+        case xl = 100
+
+        func callAsFunction() -> CGFloat {
+            return self.rawValue
+        }
+    }
+
     let sidebarWidth: CGFloat = 150
 
     /// The full chord progression of the song with indices
@@ -47,19 +59,32 @@ struct GuitarLessonView: View {
                 // Sidebar
                 VStack (alignment: .trailing) {
                     Text("Current Chord")
-                    if let nextChords = nextChords {
-                        Text(chordProgression[nextChords.startIndex].root.rawValue)
+                        .font(.system(size: TextSize.xs()))
+                    ZStack {
+                        Circle()
+                            .stroke(Color.ruber, lineWidth: 4)
+                            .frame(width: TextSize.l() * 1.2, height: TextSize.l() * 1.2)
+                        if let nextChords = nextChords {
+                            Text(chordProgression[nextChords.startIndex].root())
+                                .font(.system(size: TextSize.l()))
+                                .foregroundColor(Color.ruber)
+                        }
                     }
 
-                    Text("Next:")
-                    if let nextChords = nextChords, nextChords.count > 1 {
-                        Text(chordProgression[nextChords.startIndex + 1].root.rawValue)
+                    HStack {
+                        Text("Next")
+                            .font(.system(size: TextSize.xs()))
+                        Spacer()
+                        if let nextChords = nextChords, nextChords.count > 1 {
+                            Text(chordProgression[nextChords.startIndex + 1].root())
+                                .font(.system(size: TextSize.m()))
+                        }
                     }
 
                     // Display next few chords
                     if let nextChords = nextChords, nextChords.count > 2 {
                         ForEach(2..<nextChords.count, id: \.self) { i in
-                            Text(nextChords[nextChords.startIndex + i].root.rawValue)
+                            Text(nextChords[nextChords.startIndex + i].root())
                         }
                     }
 
@@ -70,7 +95,7 @@ struct GuitarLessonView: View {
                     .padding(5)
                     .frame(maxHeight: .infinity)
                     .frame(width: sidebarWidth)
-                    .background(Color.ruber)
+                    .background(Color.pearl_aqua)
             }
         }
             .onAppear {
