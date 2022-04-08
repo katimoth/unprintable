@@ -33,18 +33,19 @@ struct GuitarLessonView: View {
     /// - Invariant: Must be >= 2
     let maxNumNextChords = 5
 
+    /// Camera View Helper
+    ///
+    @StateObject private var model = ContentViewModel()
     var body: some View {
         ZStack {
             HStack(spacing: 0) {
                 // Camera Feed
-                Text("[insert camera feed here]")
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .padding()
-                    .foregroundColor(Color.american_bronze)
-                    .background(Color.deep_champagne)
-
+                
+                FrameView(image: model.frame)
+                    .edgesIgnoringSafeArea(.all)
+                Spacer()
                 // Sidebar
-                VStack {
+                VStack (alignment: .trailing) {
                     Text("Current Chord")
                     if let nextChords = nextChords {
                         Text(chordProgression[nextChords.startIndex].root.rawValue)

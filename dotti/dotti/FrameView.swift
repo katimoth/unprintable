@@ -8,13 +8,36 @@
 import SwiftUI
 
 struct FrameView: View {
+    var image: CGImage?
+    private let label = Text("Camera feed")
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        // 1
+        if let image = image {
+          // 2
+          GeometryReader { geometry in
+            // 3
+              Image(image, scale: 1.0, orientation: .upMirrored, label: label)
+              .resizable()
+             .scaledToFill()
+              .frame(
+                width: geometry.size.width,
+                height: geometry.size.height,
+                alignment: .center)
+              .clipped()
+          }
+        } else {
+          // 4
+          Text("Please allow access to your camera.")
+                .frame(
+                    alignment: .center
+                )
+        }
     }
 }
 
-struct FrameView_Previews: PreviewProvider {
-    static var previews: some View {
-        FrameView()
-    }
-}
+//struct FrameView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        FrameView()
+//    }
+//}
