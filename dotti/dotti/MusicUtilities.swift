@@ -54,6 +54,10 @@ enum Note: String {
     case b_natural = "B♮"
     case b_sharp = "B♯"
     case b_doubleSharp = "B𝄪"
+
+    func callAsFunction() -> String {
+        return self.rawValue
+    }
 }
 
 struct Chord {
