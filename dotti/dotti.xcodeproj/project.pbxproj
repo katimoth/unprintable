@@ -20,6 +20,8 @@
 		830B38D22800E98C00CDA7A7 /* CameraManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830B38D12800E98C00CDA7A7 /* CameraManager.swift */; };
 		830B38D42800EE6600CDA7A7 /* FrameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830B38D32800EE6600CDA7A7 /* FrameManager.swift */; };
 		830B38D72800EF8500CDA7A7 /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830B38D62800EF8500CDA7A7 /* ContentViewModel.swift */; };
+		8310C88028011983001C5210 /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8310C87F28011983001C5210 /* AudioPlayer.swift */; };
+		8310C88328012032001C5210 /* AudioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8310C88228012032001C5210 /* AudioView.swift */; };
 		8370B1A527F921B900C53EC0 /* ResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8370B1A427F921B900C53EC0 /* ResultsView.swift */; };
 		8370B1A727F9238400C53EC0 /* GuitarLessonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8370B1A627F9238400C53EC0 /* GuitarLessonView.swift */; };
 		83E7903927FA1E5200BC742A /* SongItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E7903827FA1E5200BC742A /* SongItem.swift */; };
@@ -41,6 +43,8 @@
 		830B38D12800E98C00CDA7A7 /* CameraManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraManager.swift; sourceTree = "<group>"; };
 		830B38D32800EE6600CDA7A7 /* FrameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameManager.swift; sourceTree = "<group>"; };
 		830B38D62800EF8500CDA7A7 /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
+		8310C87F28011983001C5210 /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
+		8310C88228012032001C5210 /* AudioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioView.swift; sourceTree = "<group>"; };
 		8370B1A427F921B900C53EC0 /* ResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsView.swift; sourceTree = "<group>"; };
 		8370B1A627F9238400C53EC0 /* GuitarLessonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuitarLessonView.swift; sourceTree = "<group>"; };
 		83E7903827FA1E5200BC742A /* SongItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongItem.swift; sourceTree = "<group>"; };
@@ -76,6 +80,7 @@
 		3AD178BF27DBAA1300E2A774 /* dotti */ = {
 			isa = PBXGroup;
 			children = (
+				8310C87E28011940001C5210 /* Audio */,
 				830B38D52800EF7200CDA7A7 /* ViewModels */,
 				830B38D02800E97800CDA7A7 /* Camera */,
 				3AA3A1CC27E5BCFB00D5E005 /* Info.plist */,
@@ -92,6 +97,7 @@
 				8370B1A627F9238400C53EC0 /* GuitarLessonView.swift */,
 				3A8AE82A27FE499E00308BF0 /* MusicUtilities.swift */,
 				830B38CE2800E57600CDA7A7 /* FrameView.swift */,
+				8310C88228012032001C5210 /* AudioView.swift */,
 			);
 			path = dotti;
 			sourceTree = "<group>";
@@ -119,6 +125,14 @@
 				830B38D62800EF8500CDA7A7 /* ContentViewModel.swift */,
 			);
 			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		8310C87E28011940001C5210 /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				8310C87F28011983001C5210 /* AudioPlayer.swift */,
+			);
+			path = Audio;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -205,6 +219,8 @@
 				3AD178C127DBAA1300E2A774 /* dottiApp.swift in Sources */,
 				83E7903927FA1E5200BC742A /* SongItem.swift in Sources */,
 				830B38D22800E98C00CDA7A7 /* CameraManager.swift in Sources */,
+				8310C88028011983001C5210 /* AudioPlayer.swift in Sources */,
+				8310C88328012032001C5210 /* AudioView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
