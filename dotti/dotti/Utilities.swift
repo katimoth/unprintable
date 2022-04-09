@@ -7,6 +7,23 @@
 
 import SwiftUI
 
+#if DEBUG
+extension UIDeviceOrientation: CustomStringConvertible {
+    public var description: String {
+        switch self {
+        case .unknown: return "unknown"
+        case .portrait: return "portrait"
+        case .portraitUpsideDown: return "portraitUpsideDown"
+        case .landscapeLeft: return "landscapeLeft"
+        case .landscapeRight: return "landscapeRight"
+        case .faceUp: return "faceUp"
+        case .faceDown: return "faceDown"
+        default: return "this is here to silence a compiler warning"
+        }
+    }
+}
+#endif
+
 // Our custom view modifier to track rotation and call our action
 struct DeviceRotationViewModifier: ViewModifier {
     let action: (UIDeviceOrientation) -> Void

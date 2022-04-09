@@ -61,6 +61,14 @@ struct GuitarLessonView: View {
     /// - Invariant: Must be >= 2
     let maxNumNextChords = 5
 
+    /// Starting orientation of this view
+    let startingOrientation = UIInterfaceOrientation.landscapeRight
+
+    /// Tracks orientation of this view
+    ///
+    /// - Invariant: Either `landscapeRight` or `landscapeLeft`
+    @State var orientation: UIInterfaceOrientation
+
     /// Camera View Helper
     ///
     @StateObject private var model = ContentViewModel()
@@ -68,6 +76,12 @@ struct GuitarLessonView: View {
     ///Audio View Helper
     ///
 //    @StateObject private var audioPlayer = AudioPlayer()
+
+    init(chordProgression: [Chord]) {
+        self.chordProgression = chordProgression
+        self.orientation = startingOrientation
+    }
+
     var body: some View {
         ZStack {
             HStack(spacing: 0) {
@@ -76,37 +90,32 @@ struct GuitarLessonView: View {
                     .edgesIgnoringSafeArea(.all)
                     /**
                      Hi Evan,
-                     
+
                      The camera code looked very complicated. I think it would be
                      better if you fixed our camera orientation problem.
                      
                      Let me tell you how orientation works. There are 6 different
                      orientations, but we're only interested in `landscapeLeft`
-                     and `landscapeRight`. `landscapeLeft` is where the home
-                     button is on the left. `landscapeRight` is where the home
-                     button is on the right. A Google search will tell you about
+                     and `landscapeRight`. A Google search will tell you about
                      the others.
-                     
-                     Below is the `onRotate` event handler, and it will trigger
-                     whenever the user rotates their device. The `switch` block
-                     after that will determine what the new orientation of the
-                     device is. You will need to somehow update the camera
-                     manager from here.
-                     
-                     And before you get confused, there are several different
-                     orientation types. The parameter `newOrientation` in the
-                     `onRotate` event handler's type is `UIDeviceOrientation`.
-                     The type of `videoOrientation` on line 129 of
-                     `CameraManager.swift` is of type `AVCaptureVideoOrientation`.
-                     
+
+                     HOWEVER! There are several different orientation types, and
+                     they DO NOT agree with each other. For example,
+                     `UIInterfaceOrientation.landscapeLeft` is where the home
+                     button is on the left, but
+                     `UIDeviceOrientation.landscapeLeft` is where the home
+                     button is on the RIGHT. It's confusing, so be CAREFUL!
+
                      Good luck,
                      Tohei
                     */
                     .onRotate { newOrientation in
                         switch newOrientation {
+                        // home button on the RIGHT
                         case .landscapeLeft:
                             // TODO
                             break
+                        // home button on the LEFT
                         case .landscapeRight:
                             // TODO
                             break
@@ -175,14 +184,35 @@ struct GuitarLessonView: View {
                     .onTapGesture(count: 2) { getPrevChord() }
                     .onTapGesture(count: 1) { getNextChord() }
             }
-        }
+        }  
+            // Want sidebar to go into safe area only when `landscapeRight`
+            .ignoresSafeArea(
+                edges: orientation == .landscapeRight ?
+                    .trailing :
+                    .leading // which does not change the look of the UI
+            )
             .onAppear {
                 // This view is landscape orientation only
                 AppDelegate.orientationMask = UIInterfaceOrientationMask.landscape
-                setUIOrientation(to: UIInterfaceOrientation.landscapeRight)
+                setUIOrientation(to: startingOrientation)
 
                 // Load sidebar data
                 nextChords = chordProgression.prefix(maxNumNextChords)
+            }
+            .onRotate { newOrientation in
+                // Keep track of UI's orientation
+                //
+                // WARNING: `UIDeviceOrientation.landscapeLeft` is where home
+                // button is on the RIGHT, whereas
+                // `UIInterfaceOrientation.landscapeLeft` is where home button
+                // is on the LEFT!
+                switch newOrientation {
+                case UIDeviceOrientation.landscapeRight:
+                    orientation = UIInterfaceOrientation.landscapeLeft
+                case UIDeviceOrientation.landscapeLeft:
+                    orientation = UIInterfaceOrientation.landscapeRight
+                default: break
+                }
             }
             .onDisappear { 
                 AppDelegate.orientationMask = UIInterfaceOrientationMask.all
