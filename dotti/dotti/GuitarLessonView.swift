@@ -66,6 +66,7 @@ struct GuitarLessonView: View {
         self.orientation = startingOrientation
     }
     
+    @StateObject private var audioPlayer = AudioPlayer()
     
     var body: some View {
         ZStack {
