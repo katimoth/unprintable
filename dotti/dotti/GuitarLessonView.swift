@@ -65,12 +65,13 @@ struct GuitarLessonView: View {
         self.chordProgression = chordProgression
         self.orientation = startingOrientation
     }
-
+    
+    
     var body: some View {
         ZStack {
             HStack(spacing: 0) {
                 // Camera Feed
-                FrameView(image: model.frame)
+                FrameView(image: model.frame, orientation: $orientation)
                     .edgesIgnoringSafeArea(.all)
                     /**
                      Hi Evan,
@@ -97,16 +98,19 @@ struct GuitarLessonView: View {
                         switch newOrientation {
                         // home button on the RIGHT
                         case .landscapeLeft:
-                            // TODO
+                            FrameView(image: model.frame, orientation: $orientation)
+                                .edgesIgnoringSafeArea(.all)
                             break
                         // home button on the LEFT
                         case .landscapeRight:
-                            // TODO
+                            FrameView(image: model.frame, orientation: $orientation)
+                                .edgesIgnoringSafeArea(.all)
                             break
                         default: break
                         }
                     }
                 // Sidebar
+                Spacer()
                 VStack(alignment: .trailing) {
                     HStack {
                         Image(systemName: "pause.fill")

@@ -9,6 +9,7 @@ import AVFoundation
 // 1
 class CameraManager: ObservableObject {
     // 2
+    
     enum Status {
         case unconfigured
         case configured

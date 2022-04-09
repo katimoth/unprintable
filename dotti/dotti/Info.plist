@@ -4,10 +4,6 @@
 <dict>
 	<key>Privacy - Audio</key>
 	<string></string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>For results</string>
-	<key>NSCameraUsageDescription</key>
-	<string>For the lessons</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Fonts/GochiHand-Regular.ttf</string>
