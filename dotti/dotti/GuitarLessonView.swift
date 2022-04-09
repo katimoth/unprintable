@@ -77,34 +77,16 @@ struct GuitarLessonView: View {
     }
     
     @StateObject private var audioPlayer = AudioPlayer()
-    
+    @State private var lessonStarted = false
+    @State private var playHidden = true
+    @State private var recHidden = false
     var body: some View {
         ZStack {
             HStack(spacing: 0) {
                 // Camera Feed
                 FrameView(image: model.frame, orientation: $orientation)
                     .edgesIgnoringSafeArea(.all)
-                    /**
-                     Hi Evan,
-
-                     The camera code looked very complicated. I think it would be
-                     better if you fixed our camera orientation problem.
-                     
-                     Let me tell you how orientation works. There are 6 different
-                     orientations, but we're only interested in `landscapeLeft`
-                     and `landscapeRight`. A Google search will tell you about
-                     the others.
-
-                     HOWEVER! There are several different orientation types, and
-                     they DO NOT agree with each other. For example,
-                     `UIInterfaceOrientation.landscapeLeft` is where the home
-                     button is on the left, but
-                     `UIDeviceOrientation.landscapeLeft` is where the home
-                     button is on the RIGHT. It's confusing, so be CAREFUL!
-
-                     Good luck,
-                     Tohei
-                    */
+            
                     .onRotate { newOrientation in
                         switch newOrientation {
                         // home button on the RIGHT
@@ -124,11 +106,44 @@ struct GuitarLessonView: View {
                 Spacer()
                 VStack(alignment: .trailing) {
                     HStack {
-                        Image(systemName: "pause.fill")
-                            .onTapGesture { pause() }
+                        
+                        /// RECORDING AREA
+                        ///
+                        /// When recording is clicked then re-clicked, a new recording is made (essentially the lesson should restart)
+                        if recHidden {
+                            Image(systemName: "pause")
+                                .onTapGesture {
+                                    audioPlayer.recTapped()
+                                    playHidden = false
+                                    recHidden.toggle()
+                                }
+                        } else {
+                            Image(systemName: "largecircle.fill.circle")
+                                .onTapGesture {
+                                    audioPlayer.recTapped()
+                                    recHidden.toggle()
+                                }
+                        }
+                        
                         Spacer()
+                        
+                        ///Playback button - disabled until a recording is made, hidden while recording
+                        if !recHidden {
+                            Image(systemName: "play")
+                                .onTapGesture {
+                                    audioPlayer.playTapped()
+                                }
+                                .disabled(playHidden)
+                        } else {
+                            Image(systemName: "play")
+                                .hidden()
+                        }
+                        
+                        Spacer()
+                        
+                        ///Done button - sends the recording to the chord analyzer that tim made, just returns a json back that means essentially nothing (Tim implementing it rn)
                         Image(systemName: "xmark")
-                            .onTapGesture { exit() }
+                            .onTapGesture { audioPlayer.doneTapped() }
                     }
                         .font(.system(size: TextSize.s()))
                         .padding(.top, 5)
