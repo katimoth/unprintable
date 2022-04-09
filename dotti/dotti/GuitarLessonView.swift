@@ -20,22 +20,6 @@ struct GuitarLessonView: View {
             return self.rawValue
         }
     }
-    
-    /// View for labels in the sidebar
-    struct Label: View {
-        let text: String
-
-        init(_ text: String) {
-            self.text = text
-        }
-
-        var body: some View {
-            Text(text)
-                .font(.system(size: TextSize.xs()))
-                .foregroundColor(.white)
-        }
-    }
-
 
     let sidebarWidth: CGFloat = 150
 
@@ -59,7 +43,7 @@ struct GuitarLessonView: View {
     /// chords the user can preview in the sidebar.
     ///
     /// - Invariant: Must be >= 2
-    let maxNumNextChords = 5
+    let maxNumNextChords = 4
 
     /// Starting orientation of this view
     let startingOrientation = UIInterfaceOrientation.landscapeRight
@@ -124,7 +108,19 @@ struct GuitarLessonView: View {
                     }
                 // Sidebar
                 VStack(alignment: .trailing) {
-                    Label("Current Chord")
+                    HStack {
+                        Image(systemName: "pause.fill")
+                            .onTapGesture { pause() }
+                        Spacer()
+                        Image(systemName: "xmark")
+                            .onTapGesture { exit() }
+                    }
+                        .font(.system(size: TextSize.s()))
+                        .padding(.top, 5)
+                        .foregroundColor(Color.pearl_aqua)
+
+                    Text("Current Chord")
+                        .padding(.top, 15)
                     ZStack {
                         Circle()
                             .stroke(Color.ruber, lineWidth: 4)
@@ -138,7 +134,7 @@ struct GuitarLessonView: View {
                         .frame(maxWidth: .infinity)
 
                     HStack {
-                        Label("Next")
+                        Text("Next")
                         Spacer()
                         // if let nextChords = nextChords, nextChords.count > 1 {
                             Text(
@@ -154,7 +150,8 @@ struct GuitarLessonView: View {
                                 .foregroundColor(Color.deep_champagne)
                         // }
                     }
-                        .offset(y: -15)
+                        .padding(.top, -5)
+                        .padding(.bottom, 1) // surprisingly makes a huge difference
 
                     // Display next few chords
                     if let nextChords = nextChords, nextChords.count > 2 {
@@ -170,6 +167,7 @@ struct GuitarLessonView: View {
                                     .foregroundColor(.gray)
                             }
                         }
+                            .padding(.bottom, 0)
                     }
 
                     // Top-aligns VStack contents
@@ -177,9 +175,11 @@ struct GuitarLessonView: View {
                     
                     // AudioView(audioPlayer: audioPlayer)
                 }
+                    .font(.system(size: TextSize.xs()))
                     .padding(10)
                     .frame(maxHeight: .infinity)
                     .frame(width: sidebarWidth)
+                    .foregroundColor(Color.floral_white)
                     .background(.black)
                     .onTapGesture(count: 2) { getPrevChord() }
                     .onTapGesture(count: 1) { getNextChord() }
@@ -217,6 +217,14 @@ struct GuitarLessonView: View {
             .onDisappear { 
                 AppDelegate.orientationMask = UIInterfaceOrientationMask.all
             }
+    }
+
+    func pause() {
+        print("pause")
+    }
+
+    func exit() {
+        print("exit")
     }
 
     /// Updates `nextChords`, shifting the array slice to the right by 1.
