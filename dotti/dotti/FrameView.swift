@@ -14,21 +14,21 @@ struct FrameView: View {
     var body: some View {
         // 1
         if let image = image {
-          // 2
-          GeometryReader { geometry in
-            // 3
-              Image(image, scale: 1.0, orientation: .upMirrored, label: label)
-              .resizable()
-             .scaledToFill()
-              .frame(
-                width: geometry.size.width,
-                height: geometry.size.height,
-                alignment: .center)
-              .clipped()
-          }
+            // 2
+            GeometryReader { geometry in
+                // 3
+                Image(image, scale: 1.0, orientation: .upMirrored, label: label)
+                    .resizable()
+                    .scaledToFill()
+                    .frame(
+                        width: geometry.size.width,
+                        height: geometry.size.height,
+                        alignment: .center)
+                    .clipped()
+            }
         } else {
-          // 4
-          Text("Please allow access to your camera.")
+            // 4
+            Text("Please allow access to your camera.")
                 .frame(
                     alignment: .center
                 )

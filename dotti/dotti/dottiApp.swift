@@ -30,7 +30,7 @@ struct dottiApp: App {
                 EmptyView()
             case .lessonView:
                 GuitarLessonView(chordProgression: [
-                    // Chord(root: Note.g_sharp, quality: Chord.Quality.maj),
+                    Chord(root: Note.g_sharp, quality: Chord.Quality.maj),
                     // Chord(root: Note.e_sharp, quality: Chord.Quality.min),
                     // Chord(root: Note.c_sharp, quality: Chord.Quality.maj),
                     // Chord(root: Note.d_sharp, quality: Chord.Quality.maj, seventh: true),
