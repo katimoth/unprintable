@@ -64,6 +64,10 @@ struct GuitarLessonView: View {
     /// Camera View Helper
     ///
     @StateObject private var model = ContentViewModel()
+    
+    ///Audio View Helper
+    ///
+//    @StateObject private var audioPlayer = AudioPlayer()
     var body: some View {
         ZStack {
             HStack(spacing: 0) {
@@ -161,6 +165,8 @@ struct GuitarLessonView: View {
 
                     // Top-aligns VStack contents
                     Spacer()
+                    
+                    // AudioView(audioPlayer: audioPlayer)
                 }
                     .padding(10)
                     .frame(maxHeight: .infinity)

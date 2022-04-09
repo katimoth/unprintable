@@ -2,6 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>Privacy - Audio</key>
+	<string></string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>For results</string>
+	<key>NSCameraUsageDescription</key>
+	<string>For the lessons</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Fonts/GochiHand-Regular.ttf</string>
