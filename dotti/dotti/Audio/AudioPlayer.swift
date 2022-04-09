@@ -218,7 +218,7 @@ final class AudioPlayer: NSObject, ObservableObject, AVAudioRecorderDelegate, AV
     func sendToML() {
         ///audioFilePath <- path to file ->
         ///
-        guard let apiUrl =  URL(string: "https://34.139.144.50/extractchord") else {
+        guard let apiUrl =  URL(string: "https://34.139.144.50/extractchord/") else {
             print("Bad URL")
             return
         }
@@ -248,6 +248,11 @@ final class AudioPlayer: NSObject, ObservableObject, AVAudioRecorderDelegate, AV
                     return
                 }
             }
+            
+            if let data = data, let dataString = String(data: data, encoding: .utf8) {
+                print("Response data string:\n \(dataString)")
+            }
+            
         }.resume()
     }
 }

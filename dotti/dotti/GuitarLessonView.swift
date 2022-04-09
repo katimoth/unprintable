@@ -76,6 +76,7 @@ struct GuitarLessonView: View {
         }
     }
     
+    @StateObject private var audioPlayer = AudioPlayer()
     
     var body: some View {
         ZStack {
