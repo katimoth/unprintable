@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct LibraryView: View {
+    @ObservedObject var store = SongStore.shared
     @State private var searchText = ""
     @State private var isSearching = false
     //For Scroll Offset
@@ -15,6 +16,7 @@ struct LibraryView: View {
     @State private var startOffset: CGFloat = 0
     @State private var overlayActive: Bool = false
     @Binding var currentView: AppViews
+    
 
     var body: some View {
         if currentView == AppViews.libraryView {
@@ -67,9 +69,25 @@ struct LibraryView: View {
                         ScrollView(.vertical, showsIndicators: false, content: {
                             
                             VStack(spacing: 25) {
-                                ForEach(1...30, id: \.self){index in
-                                    SongItem(currentView: $currentView)
+                                ForEach(store.songs){index in
+                                    SongItem(currentView: $currentView, song: index)
                                 }
+//                                List(store.songs.indices, id: \.self) {
+//                                    //SongItem(currentView: $currentView, song: store.songs[$0])
+//                                    Text(store.songs[$0].title!)
+//                                }
+//                                .refreshable {
+//                                    await store.getSongs()
+//                                }
+//                                .task {
+//                                    await store.getSongs()
+//                                }
+                            }
+                            .refreshable {
+                                await store.getSongs()
+                            }
+                            .task {
+                                await store.getSongs()
                             }
                             .padding()
                             

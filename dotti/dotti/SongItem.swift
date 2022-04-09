@@ -10,10 +10,10 @@ import SwiftUI
 struct SongItem: View {
     @State private var overlayActive: Bool = false
     @Binding var currentView: AppViews
-//    @Binding var song: Song
+    @State var song: Song
     var body: some View {
         HStack(spacing: 15){
-            Text("***All Too Well***")
+            Text(song.title!)
                 .foregroundColor(Color.american_bronze)
                 .frame(width:160, height: 60)
                 .multilineTextAlignment(.trailing)
