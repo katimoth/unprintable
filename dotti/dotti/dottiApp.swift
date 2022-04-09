@@ -17,7 +17,7 @@ enum AppViews {
 @main
 struct dottiApp: App {
     @State var currentView = AppViews.titleView
-    @State var currentChords: [[Any]]?
+    @State var song: Song?
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     
     
@@ -27,11 +27,11 @@ struct dottiApp: App {
             case .titleView:
                 TitleView(currentView: $currentView).transition(.move(edge: .bottom))
             case .libraryView:
-                LibraryView(currentView: $currentView, currentChords: $currentChords).transition(.move(edge: .bottom))
+                LibraryView(currentView: $currentView, song: $song).transition(.move(edge: .bottom))
             case .resultsView:
                 EmptyView()
             case .lessonView:
-                GuitarLessonView(chordProgression: currentChords!)
+                GuitarLessonView(song: song!)
             
 //            case .lessonView:
 //                GuitarLessonView(chordProgression: $song.chords!)

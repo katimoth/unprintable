@@ -45,11 +45,12 @@ final class SongStore: ObservableObject {
             self.songs = [Song]()
             for songEntry in songsReceived {
                 print(songEntry)
+                let beats_per_min = songEntry[2] as! Int
                 if songEntry.count == self.nFields {
                     self.songs.append(Song(id: String(describing: songEntry[0]),
                                            title: String(describing: songEntry[0]),
                                            artist: String(describing: songEntry[1]),
-                                           bpm: String(describing: songEntry[2]),
+                                           bpm: (beats_per_min),
                                            chords: songEntry[3] as! Array<Array<Any?>>))
                 } else {
                     print("getSongs: Received unexpected number of fields: \(songEntry.count) instead of \(self.nFields).")

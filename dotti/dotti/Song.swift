@@ -11,6 +11,6 @@ struct Song: Identifiable {
     var id: String
     var title: String?
     var artist: String?
-    var bpm: String?
+    var bpm: Int?
     var chords: Array<Array<Any>>?
 }

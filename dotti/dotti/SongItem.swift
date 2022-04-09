@@ -10,7 +10,7 @@ import SwiftUI
 struct SongItem: View {
     @State private var overlayActive: Bool = false
     @Binding var currentView: AppViews
-    @Binding var currentChords: [[Any]]?
+    @Binding var songVar: Song?
     @State var song: Song
     var body: some View {
         HStack(spacing: 15){
@@ -36,7 +36,7 @@ struct SongItem: View {
             } else {
                 VStack(alignment: .center, spacing: 6, content: {
                     Button("begin lesson") {
-                        currentChords = song.chords
+                        songVar = song
                         currentView = .lessonView }
                         .foregroundColor(Color.american_bronze)
                         .frame(width: 140, height: 40)

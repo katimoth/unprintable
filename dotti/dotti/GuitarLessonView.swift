@@ -25,7 +25,7 @@ struct GuitarLessonView: View {
     let sidebarWidth: CGFloat = 150
 
     /// The full chord progression of the song with indices
-    let chordProgression: [[Any]]
+    let song: Song
     var chords: [String]
     var beats: [Int]
 
@@ -64,13 +64,13 @@ struct GuitarLessonView: View {
     ///
 //    @StateObject private var audioPlayer = AudioPlayer()
 
-    init(chordProgression: [[Any]]) {
-        self.chordProgression = chordProgression
+    init(song: Song) {
+        self.song = song
         self.orientation = startingOrientation
         
         self.chords = []
         self.beats = []
-        for arr in chordProgression {
+        for arr in song.chords! {
             self.chords.append(arr[0] as! String)
             self.beats.append(arr[1] as! Int)
         }
@@ -80,28 +80,61 @@ struct GuitarLessonView: View {
     @State private var lessonStarted = false
     @State private var playHidden = true
     @State private var recHidden = false
+    @State private var startBtnHidden = false
+    
     var body: some View {
         ZStack {
             HStack(spacing: 0) {
-                // Camera Feed
-                FrameView(image: model.frame, orientation: $orientation)
-                    .edgesIgnoringSafeArea(.all)
-            
-                    .onRotate { newOrientation in
-                        switch newOrientation {
-                        // home button on the RIGHT
-                        case .landscapeLeft:
-                            FrameView(image: model.frame, orientation: $orientation)
-                                .edgesIgnoringSafeArea(.all)
-                            break
-                        // home button on the LEFT
-                        case .landscapeRight:
-                            FrameView(image: model.frame, orientation: $orientation)
-                                .edgesIgnoringSafeArea(.all)
-                            break
-                        default: break
+                ZStack {
+                    // Camera Feed
+                    FrameView(image: model.frame, orientation: $orientation)
+                        .edgesIgnoringSafeArea(.all)
+                
+                        .onRotate { newOrientation in
+                            switch newOrientation {
+                            // home button on the RIGHT
+                            case .landscapeLeft:
+                                FrameView(image: model.frame, orientation: $orientation)
+                                    .edgesIgnoringSafeArea(.all)
+                                break
+                            // home button on the LEFT
+                            case .landscapeRight:
+                                FrameView(image: model.frame, orientation: $orientation)
+                                    .edgesIgnoringSafeArea(.all)
+                                break
+                            default: break
+                            }
                         }
-                    }
+                    
+                        if !startBtnHidden {
+                            Button(action: {
+                                Task {
+                                    startBtnHidden = true
+                                    for beat in beats {
+                                        let time = (Double(beat) * 60.0) / Double(song.bpm!)
+                                        try? await Task.sleep(nanoseconds: UInt64(time * 1_000_000_000))
+                                        getNextChord()
+                                    }
+                                    //await changeChords.setChord(song: currentSong ?? Song())
+                                }
+                            }, label: {
+                                Text("start")
+                                    .foregroundColor(Color.black)
+                                    .frame(width: 120, height: 40)
+                                    .background(.blue)
+                                    .cornerRadius(5)
+                                    .font(.system(size: 30))
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 5.0)
+                                            .stroke(Color.blue, lineWidth: 2.0)
+                                    )
+                                    .padding()
+                            })
+                        }
+                }
+                
+                
+
                 // Sidebar
                 Spacer()
                 VStack(alignment: .trailing) {
@@ -157,7 +190,7 @@ struct GuitarLessonView: View {
                             .frame(width: TextSize.l() * 1.5, height: TextSize.l() * 1.5)
                         if let nextChords = nextChords {
                             Text(chords[nextChords.startIndex])
-                                .font(.system(size: TextSize.l(), weight: .heavy))
+                                .font(.system(size: TextSize.m(), weight: .heavy))
                                 .foregroundColor(Color.ruber)
                         }
                     }
@@ -175,7 +208,7 @@ struct GuitarLessonView: View {
                                     chords[nextChords!.startIndex + 1] :
                                     " "
                             )
-                                .font(.system(size: TextSize.m(), weight: .heavy))
+                                .font(.system(size: TextSize.s(), weight: .heavy))
                                 .underline()
                                 .foregroundColor(Color.deep_champagne)
                         // }
@@ -270,7 +303,7 @@ struct GuitarLessonView: View {
         }
 
         // When remaining chords are few, we must not index beyond right edge
-        let newEndIndex = min(chordProgression.count, nextChords.endIndex + 1)
+        let newEndIndex = min(chords.count, nextChords.endIndex + 1)
 
         self.nextChords = chords[nextChords.startIndex + 1..<newEndIndex]
     }

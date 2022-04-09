@@ -16,7 +16,7 @@ struct LibraryView: View {
     @State private var startOffset: CGFloat = 0
     @State private var overlayActive: Bool = false
     @Binding var currentView: AppViews
-    @Binding var currentChords: [[Any]]?
+    @Binding var song: Song?
     
 
     var body: some View {
@@ -71,7 +71,7 @@ struct LibraryView: View {
                             
                             VStack(spacing: 25) {
                                 ForEach(store.songs){index in
-                                    SongItem(currentView: $currentView, currentChords: $currentChords, song: index)
+                                    SongItem(currentView: $currentView, songVar: $song, song: index)
                                 }
 //                                List(store.songs.indices, id: \.self) {
 //                                    //SongItem(currentView: $currentView, song: store.songs[$0])
