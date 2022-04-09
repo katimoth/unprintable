@@ -16,37 +16,6 @@ final class SongStore: ObservableObject {
 
     private let serverUrl = "https://34.139.144.50/"
 
-//    func postChatt(_ chatt: Chatt) async {
-//        let jsonObj = ["chatterID": ChatterID.shared.id,
-//                       "message": chatt.message]
-//        guard let jsonData = try? JSONSerialization.data(withJSONObject: jsonObj) else {
-//            print("postChatt: jsonData serialization error")
-//            return
-//        }
-//
-//        guard let apiUrl = URL(string: serverUrl+"postauth/") else {
-//            print("postChatt: Bad URL")
-//            return
-//        }
-//
-//        var request = URLRequest(url: apiUrl)
-//        request.httpMethod = "POST"
-//        request.httpBody = jsonData
-//
-//        do {
-//            let (_, response) = try await URLSession.shared.data(for: request)
-//
-//            if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {
-//                print("postChatt: HTTP STATUS: \(httpStatus.statusCode)")
-//                return
-//            } else {
-//                await getChatts()
-//            }
-//        } catch {
-//            print("postChatt: NETWORKING ERROR")
-//        }
-//    }
-
     @MainActor
     func getSongs() async {
         guard let apiUrl = URL(string: serverUrl+"getsong/") else {
@@ -91,51 +60,5 @@ final class SongStore: ObservableObject {
         }
     }
 
-//    func addUser(_ idToken: String?) async {
-//        guard let idToken = idToken else {
-//            return
-//        }
-//
-//        let jsonObj = ["clientID": "461601811012-mupq1mi8t66aeppqrf7s04bcslooetrs.apps.googleusercontent.com",
-//                    "idToken" : idToken]
-//
-//        guard let jsonData = try? JSONSerialization.data(withJSONObject: jsonObj) else {
-//            print("addUser: jsonData serialization error")
-//            return
-//        }
-//
-//        guard let apiUrl = URL(string: serverUrl+"adduser/") else {
-//            print("addUser: Bad URL")
-//            return
-//        }
-//
-//        var request = URLRequest(url: apiUrl)
-//        request.httpMethod = "POST"
-//        request.httpBody = jsonData
-//
-//        do {
-//            let (data, response) = try await URLSession.shared.data(for: request)
-//
-//            if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {
-//                print("addUser: HTTP STATUS: \(httpStatus.statusCode)")
-//                return
-//            }
-//
-//            guard let jsonObj = try? JSONSerialization.jsonObject(with: data) as? [String:Any] else {
-//                print("addUser: failed JSON deserialization")
-//                return
-//            }
-//
-//            ChatterID.shared.id = jsonObj["chatterID"] as? String
-//            ChatterID.shared.expiration = Date()+(jsonObj["lifetime"] as! TimeInterval)
-//
-//            guard let _ = ChatterID.shared.id else {
-//                return
-//            }
-//            ChatterID.shared.save()
-//        } catch {
-//            print("addUser: NETWORKING ERROR")
-//        }
-//    }
 }
 

@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+
 /// - Invariant: UI orientation must always be landscape
 struct GuitarLessonView: View {
     enum TextSize: CGFloat {
@@ -24,7 +25,9 @@ struct GuitarLessonView: View {
     let sidebarWidth: CGFloat = 150
 
     /// The full chord progression of the song with indices
-    let chordProgression: [Chord]
+    let chordProgression: [[Any]]
+    var chords: [String]
+    var beats: [Int]
 
     /// A slice of `chordProgression` representing the user's next chords.
     /// Chords in this slice will be visible in the sidebar.
@@ -37,7 +40,7 @@ struct GuitarLessonView: View {
     /// variable's value is `nil`.
     ///
     /// - Example: 1st element of this slice is the current chord
-    @State var nextChords: ArraySlice<Chord>? = []
+    @State var nextChords: ArraySlice<String>? = []
 
     /// Defines the size of `nextChords`. In other words, defines the number of
     /// chords the user can preview in the sidebar.
@@ -61,9 +64,16 @@ struct GuitarLessonView: View {
     ///
 //    @StateObject private var audioPlayer = AudioPlayer()
 
-    init(chordProgression: [Chord]) {
+    init(chordProgression: [[Any]]) {
         self.chordProgression = chordProgression
         self.orientation = startingOrientation
+        
+        self.chords = []
+        self.beats = []
+        for arr in chordProgression {
+            self.chords.append(arr[0] as! String)
+            self.beats.append(arr[1] as! Int)
+        }
     }
     
     
@@ -130,7 +140,7 @@ struct GuitarLessonView: View {
                             .stroke(Color.ruber, lineWidth: 4)
                             .frame(width: TextSize.l() * 1.5, height: TextSize.l() * 1.5)
                         if let nextChords = nextChords {
-                            Text(chordProgression[nextChords.startIndex].root())
+                            Text(chords[nextChords.startIndex])
                                 .font(.system(size: TextSize.l(), weight: .heavy))
                                 .foregroundColor(Color.ruber)
                         }
@@ -146,7 +156,7 @@ struct GuitarLessonView: View {
                                 // blankspace instead of removing this `Text`
                                 // view or else UI will change and become ugly
                                 nextChords != nil && nextChords!.count > 1 ?
-                                    chordProgression[nextChords!.startIndex + 1].root() :
+                                    chords[nextChords!.startIndex + 1] :
                                     " "
                             )
                                 .font(.system(size: TextSize.m(), weight: .heavy))
@@ -166,7 +176,7 @@ struct GuitarLessonView: View {
                         // to the trailing edge of the sidebar looks better
                         VStack {
                             ForEach(2..<nextChords.count, id: \.self) { i in
-                                Text(nextChords[nextChords.startIndex + i].root())
+                                Text(nextChords[nextChords.startIndex + i])
                                     .font(.system(size: TextSize.s()))
                                     .foregroundColor(.gray)
                             }
@@ -201,7 +211,7 @@ struct GuitarLessonView: View {
                 setUIOrientation(to: startingOrientation)
 
                 // Load sidebar data
-                nextChords = chordProgression.prefix(maxNumNextChords)
+                nextChords = chords.prefix(maxNumNextChords)
             }
             .onRotate { newOrientation in
                 // Keep track of UI's orientation
@@ -246,7 +256,7 @@ struct GuitarLessonView: View {
         // When remaining chords are few, we must not index beyond right edge
         let newEndIndex = min(chordProgression.count, nextChords.endIndex + 1)
 
-        self.nextChords = chordProgression[nextChords.startIndex + 1..<newEndIndex]
+        self.nextChords = chords[nextChords.startIndex + 1..<newEndIndex]
     }
 
     #if DEBUG
@@ -263,7 +273,7 @@ struct GuitarLessonView: View {
     /// - Attention: For development use only
     func getPrevChord() {
         guard let nextChords = nextChords else {
-            self.nextChords = chordProgression.suffix(1)
+            self.nextChords = chords.suffix(1)
             return
         }
 
@@ -277,7 +287,7 @@ struct GuitarLessonView: View {
             nextChords.endIndex - 1 :
             nextChords.endIndex
 
-        self.nextChords = chordProgression[nextChords.startIndex - 1..<newEndIndex]
+        self.nextChords = chords[nextChords.startIndex - 1..<newEndIndex]
     }
     #endif
 }

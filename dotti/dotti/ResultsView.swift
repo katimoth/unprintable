@@ -11,9 +11,10 @@ import SwiftUI
 //Think this should be similar to a "detail view" where it pops out of the library shit
 struct LibraryOverlayView: View {
     @Binding var currentView: AppViews
+    @Binding var currentChords: [[Any]]?
     var body: some View {
         NavigationView{
-            NavigationLink(destination: LibraryView(currentView: $currentView)) {
+            NavigationLink(destination: LibraryView(currentView: $currentView, currentChords: $currentChords)) {
                 Text("Trade View Link")
             }.simultaneousGesture(TapGesture().onEnded(){
                 currentView = AppViews.libraryView

@@ -17,7 +17,9 @@ enum AppViews {
 @main
 struct dottiApp: App {
     @State var currentView = AppViews.titleView
+    @State var currentChords: [[Any]]?
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    
     
     var body: some Scene {
         WindowGroup {
@@ -25,40 +27,44 @@ struct dottiApp: App {
             case .titleView:
                 TitleView(currentView: $currentView).transition(.move(edge: .bottom))
             case .libraryView:
-                LibraryView(currentView: $currentView).transition(.move(edge: .bottom))
+                LibraryView(currentView: $currentView, currentChords: $currentChords).transition(.move(edge: .bottom))
             case .resultsView:
                 EmptyView()
             case .lessonView:
-                GuitarLessonView(chordProgression: [
-                    Chord(root: Note.g_sharp, quality: Chord.Quality.maj),
-                    // Chord(root: Note.e_sharp, quality: Chord.Quality.min),
-                    // Chord(root: Note.c_sharp, quality: Chord.Quality.maj),
-                    // Chord(root: Note.d_sharp, quality: Chord.Quality.maj, seventh: true),
-                    // Chord(root: Note.g_sharp, quality: Chord.Quality.maj),
-                    // Chord(root: Note.e_sharp, quality: Chord.Quality.min),
-                    // Chord(root: Note.c_sharp, quality: Chord.Quality.maj),
-                    // Chord(root: Note.d_sharp, quality: Chord.Quality.maj, seventh: true),
-                    // Chord(root: Note.g_sharp, quality: Chord.Quality.maj),
-                    // Chord(root: Note.e_sharp, quality: Chord.Quality.min),
-                    // Chord(root: Note.c_sharp, quality: Chord.Quality.maj),
-                    // Chord(root: Note.d_sharp, quality: Chord.Quality.maj, seventh: true),
-                    // Chord(root: Note.g_sharp, quality: Chord.Quality.maj),
-                    // Chord(root: Note.e_sharp, quality: Chord.Quality.min),
-                    // Chord(root: Note.c_sharp, quality: Chord.Quality.maj),
-                    // Chord(root: Note.d_sharp, quality: Chord.Quality.maj, seventh: true),
-                    // Chord(root: Note.g_sharp, quality: Chord.Quality.maj),
-                    // Chord(root: Note.e_sharp, quality: Chord.Quality.min),
-                    // Chord(root: Note.c_sharp, quality: Chord.Quality.maj),
-                    // Chord(root: Note.d_sharp, quality: Chord.Quality.maj, seventh: true),
-
-                    Chord(root: Note.a, quality: Chord.Quality.maj),
-                    Chord(root: Note.b, quality: Chord.Quality.maj),
-                    Chord(root: Note.c, quality: Chord.Quality.maj),
-                    Chord(root: Note.d, quality: Chord.Quality.maj),
-                    Chord(root: Note.e, quality: Chord.Quality.maj),
-                    Chord(root: Note.f, quality: Chord.Quality.maj),
-                    Chord(root: Note.g, quality: Chord.Quality.maj),
-                ])
+                GuitarLessonView(chordProgression: currentChords!)
+            
+//            case .lessonView:
+//                GuitarLessonView(chordProgression: $song.chords!)
+//                GuitarLessonView(chordProgression: [
+//                    Chord(root: Note.g_sharp, quality: Chord.Quality.maj),
+//                    // Chord(root: Note.e_sharp, quality: Chord.Quality.min),
+//                    // Chord(root: Note.c_sharp, quality: Chord.Quality.maj),
+//                    // Chord(root: Note.d_sharp, quality: Chord.Quality.maj, seventh: true),
+//                    // Chord(root: Note.g_sharp, quality: Chord.Quality.maj),
+//                    // Chord(root: Note.e_sharp, quality: Chord.Quality.min),
+//                    // Chord(root: Note.c_sharp, quality: Chord.Quality.maj),
+//                    // Chord(root: Note.d_sharp, quality: Chord.Quality.maj, seventh: true),
+//                    // Chord(root: Note.g_sharp, quality: Chord.Quality.maj),
+//                    // Chord(root: Note.e_sharp, quality: Chord.Quality.min),
+//                    // Chord(root: Note.c_sharp, quality: Chord.Quality.maj),
+//                    // Chord(root: Note.d_sharp, quality: Chord.Quality.maj, seventh: true),
+//                    // Chord(root: Note.g_sharp, quality: Chord.Quality.maj),
+//                    // Chord(root: Note.e_sharp, quality: Chord.Quality.min),
+//                    // Chord(root: Note.c_sharp, quality: Chord.Quality.maj),
+//                    // Chord(root: Note.d_sharp, quality: Chord.Quality.maj, seventh: true),
+//                    // Chord(root: Note.g_sharp, quality: Chord.Quality.maj),
+//                    // Chord(root: Note.e_sharp, quality: Chord.Quality.min),
+//                    // Chord(root: Note.c_sharp, quality: Chord.Quality.maj),
+//                    // Chord(root: Note.d_sharp, quality: Chord.Quality.maj, seventh: true),
+//
+//                    Chord(root: Note.a, quality: Chord.Quality.maj),
+//                    Chord(root: Note.b, quality: Chord.Quality.maj),
+//                    Chord(root: Note.c, quality: Chord.Quality.maj),
+//                    Chord(root: Note.d, quality: Chord.Quality.maj),
+//                    Chord(root: Note.e, quality: Chord.Quality.maj),
+//                    Chord(root: Note.f, quality: Chord.Quality.maj),
+//                    Chord(root: Note.g, quality: Chord.Quality.maj),
+//                ])
             }
             EmptyView()
         }
