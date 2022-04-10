@@ -14,7 +14,7 @@ def getsong(request):
     
     cursor = connection.cursor()
     #named table songs for now
-    cursor.execute('SELECT * FROM songs')
+    cursor.execute('SELECT * FROM songs ORDER BY name ASC')
     rows = cursor.fetchall()
     #need to change once tables are set up in db
     # response['name'] = result['name']
