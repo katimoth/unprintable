@@ -180,7 +180,7 @@ struct GuitarLessonView: View {
                         ///Done button - sends the recording to the chord analyzer that tim made, just returns a json back that means essentially nothing (Tim implementing it rn)
                         Image(systemName: "xmark")
                             .onTapGesture {
-                                audioPlayer.stopTapped()
+                                audioPlayer.doneTapped()
                                 startBtnHidden = true
                                 timerGoing = false
                                 currentView = .libraryView
