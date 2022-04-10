@@ -77,7 +77,6 @@ struct GuitarLessonView: View {
             self.beats.append(arr[1] as! Int)
         }
     }
-    
     @StateObject private var audioPlayer = AudioPlayer()
     @State private var lessonStarted = false
     @State private var playHidden = true
@@ -123,7 +122,9 @@ struct GuitarLessonView: View {
                                     if(counter >= time) {
                                         if timerGoing{
                                             audioPlayer.recTapped()
-                                            audioPlayer.doneTapped()
+                                            
+                                            audioPlayer.doneTapped(chord: nextChords?[nextChords!.startIndex])
+                                                
                                             getNextChord()
                                             if(current_beat == beats.count - 1) {
                                                 timer.invalidate()
@@ -177,10 +178,15 @@ struct GuitarLessonView: View {
                         
                         Spacer()
                         
+                        Text("\(audioPlayer.correctChordsPlayed)")
+                        
+                        Spacer()
                         ///Done button - sends the recording to the chord analyzer that tim made, just returns a json back that means essentially nothing (Tim implementing it rn)
                         Image(systemName: "xmark")
                             .onTapGesture {
-                                audioPlayer.doneTapped()
+                                if startBtnHidden {
+                                    audioPlayer.doneTapped(chord: "nil")
+                                }
                                 startBtnHidden = true
                                 timerGoing = false
                                 currentView = .libraryView
