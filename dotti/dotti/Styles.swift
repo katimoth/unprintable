@@ -38,9 +38,10 @@ extension Color {
     static let deep_champagne = Color("deep-champagne")
     static let floral_white = Color("floral-white")
     static let pearl_aqua = Color("pearl-aqua")
-    static let ruber = Color("ruber")
+    static let ruber = Color(red: 206/255, green: 70/255, blue: 116/255)
 }
 
 extension Font {
-    static let gochiHand = Font.custom("GochiHand-Regular", size: 16)
+    static let h1 = Font.custom("Comfortaa-Regular", size: 40)
+    static let h2 = Font.custom("Comfortaa-Regular", size: 30)
 }
