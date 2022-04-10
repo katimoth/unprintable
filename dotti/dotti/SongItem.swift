@@ -22,10 +22,17 @@ struct SongItem: View {
             if !overlayActive{
                 VStack(alignment: .leading, spacing: 6, content: {
                 
-                    RoundedRectangle(cornerRadius: 4)
-                        .fill(Color.gray.opacity(0.5))
+                    Text(song.artist!)
                         .frame(height: 22)
+                        .foregroundColor(.black)
+                        .font(.system(size: 16).italic())
                         .padding(.trailing)
+                    
+//                    Text("BPM: " + String(song.bpm!))
+//                        .frame(height: 22)
+//                        .foregroundColor(.black)
+//                        .font(.system(size: 16).italic())
+//                        .padding(.trailing, 85)
                     
                     RoundedRectangle(cornerRadius: 4)
                         .fill(Color.gray.opacity(0.5))

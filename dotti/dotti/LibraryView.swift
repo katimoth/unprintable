@@ -9,6 +9,7 @@ import SwiftUI
 
 struct LibraryView: View {
     @ObservedObject var store = SongStore.shared
+    @State private var searchSongs: [Song] = []
     @State private var searchText = ""
     @State private var isSearching = false
     //For Scroll Offset
@@ -31,17 +32,23 @@ struct LibraryView: View {
                     HStack {
                         Image(systemName: "magnifyingglass")
                             .foregroundColor(.gray)
-                        TextField("Search by song or artist", text: $searchText)
+                    TextField("Search by song or artist", text: $searchText, onCommit: {
+                            getSearchResults(search: searchText)
+                        })
                             .onTapGesture { self.isSearching = true }
                             .frame(maxWidth: .infinity, alignment: .leading)
                         if isSearching {
-                            Button(action: { self.searchText = "" }) {
+                            Button(action: {
+                                self.searchText = ""
+                                searchSongs = store.songs
+                            }) {
                                 Image(systemName: "multiply.circle.fill")
                                     .foregroundColor(.gray)
                             }
                             Button(action: {
                                 self.isSearching = false
                                 self.hideKeyboard()
+                                searchSongs = store.songs
                             }) {
                                 Text("Cancel")
                             }
@@ -70,7 +77,7 @@ struct LibraryView: View {
                         ScrollView(.vertical, showsIndicators: false, content: {
                             
                             VStack(spacing: 25) {
-                                ForEach(store.songs){index in
+                                ForEach(searchSongs){index in
                                     SongItem(currentView: $currentView, songVar: $song, song: index)
                                 }
 //                                List(store.songs.indices, id: \.self) {
@@ -89,6 +96,7 @@ struct LibraryView: View {
                             }
                             .task {
                                 await store.getSongs()
+                                searchSongs = store.songs
                             }
                             .padding()
                             
@@ -147,6 +155,21 @@ struct LibraryView: View {
             .animation(.linear(duration: 0.7))
         }
         
+    }
+    
+    func getSearchResults(search: String) {
+        var results: [Song] = []
+        for song in searchSongs {
+            let title = song.title!.lowercased()
+            let artist = song.artist!.lowercased()
+            if title.contains(search.lowercased()) {
+                results.append(song)
+            }
+            else if artist.contains(search.lowercased()) {
+                results.append(song)
+            }
+        }
+        searchSongs = results
     }
 }
 
