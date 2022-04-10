@@ -83,6 +83,7 @@ struct GuitarLessonView: View {
     @State private var playHidden = true
     @State private var recHidden = false
     @State private var startBtnHidden = false
+    @State private var timerGoing = true
     @State private var countdown: Double?
     var body: some View {
         ZStack {
@@ -108,7 +109,7 @@ struct GuitarLessonView: View {
                             }
                         }
                     
-                        if !startBtnHidden {
+                        if !startBtnHidden && timerGoing {
                             Button(action: {
                             
                                 startBtnHidden = true
@@ -120,16 +121,18 @@ struct GuitarLessonView: View {
                                 let timer = Timer.scheduledTimer(withTimeInterval: 0.001, repeats: true) { timer in
                                     counter += 0.001
                                     if(counter >= time) {
-                                        audioPlayer.recTapped()
-                                        audioPlayer.doneTapped()
-                                        getNextChord()
-                                        if(current_beat == beats.count - 1) {
-                                            timer.invalidate()
-                                        }
-                                        counter = 0.0
-                                        current_beat += 1
-                                        time = (Double(beats[current_beat]) * 60.0) / Double(song.bpm!)
+                                        if timerGoing{
                                             audioPlayer.recTapped()
+                                            audioPlayer.doneTapped()
+                                            getNextChord()
+                                            if(current_beat == beats.count - 1) {
+                                                timer.invalidate()
+                                            }
+                                            counter = 0.0
+                                            current_beat += 1
+                                            time = (Double(beats[current_beat]) * 60.0) / Double(song.bpm!)
+                                            audioPlayer.recTapped()
+                                        }
                                     }
                                     countdown = time - counter
                                     
@@ -176,7 +179,13 @@ struct GuitarLessonView: View {
                         
                         ///Done button - sends the recording to the chord analyzer that tim made, just returns a json back that means essentially nothing (Tim implementing it rn)
                         Image(systemName: "xmark")
-                            .onTapGesture { currentView = .libraryView }
+                            .onTapGesture {
+                                audioPlayer.stopTapped()
+                                startBtnHidden = true
+                                timerGoing = false
+                                currentView = .libraryView
+                                
+                            }
                     }
                         .font(.system(size: TextSize.s()))
                         .padding(.top, 5)
