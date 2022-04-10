@@ -22,4 +22,5 @@ urlpatterns = [
     path('getsong/', views.getsong, name='getsong'),
     path('postaccuracy/', views.postaccuracy, name='postaccuracy'),
     path('getmetrics/', views.getmetrics, name='getmetrics'),
+    path('extractchord/', views.extractchord, name='extractchord'),
 ]
