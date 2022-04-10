@@ -10,6 +10,8 @@ import SwiftUI
 
 /// - Invariant: UI orientation must always be landscape
 struct GuitarLessonView: View {
+    
+
     enum TextSize: CGFloat {
         case xs = 20
         case s = 30
@@ -63,12 +65,12 @@ struct GuitarLessonView: View {
     ///Audio View Helper
     ///
 //    @StateObject private var audioPlayer = AudioPlayer()
-
-    init(song: Song) {
+    @Binding var currentView: AppViews
+    init(song: Song, currentView: Binding<AppViews>) {
         self.song = song
         self.orientation = startingOrientation
-        
         self.chords = []
+        self._currentView = currentView
         self.beats = []
         for arr in song.chords! {
             self.chords.append(arr[0] as! String)
@@ -81,7 +83,7 @@ struct GuitarLessonView: View {
     @State private var playHidden = true
     @State private var recHidden = false
     @State private var startBtnHidden = false
-    
+    @State private var countdown: Double?
     var body: some View {
         ZStack {
             HStack(spacing: 0) {
@@ -129,6 +131,8 @@ struct GuitarLessonView: View {
                                         time = (Double(beats[current_beat]) * 60.0) / Double(song.bpm!)
                                             audioPlayer.recTapped()
                                     }
+                                    countdown = time - counter
+                                    
                                 }
                                 //for beat in beats {
                                     //var finished = false
@@ -163,44 +167,16 @@ struct GuitarLessonView: View {
                 Spacer()
                 VStack(alignment: .trailing) {
                     HStack {
+                    
                         
-                        /// RECORDING AREA
-                        ///
-                        /// When recording is clicked then re-clicked, a new recording is made (essentially the lesson should restart)
-                        if recHidden {
-                            Image(systemName: "pause")
-                                .onTapGesture {
-                                    audioPlayer.recTapped()
-                                    playHidden = false
-                                    recHidden.toggle()
-                                }
-                        } else {
-                            Image(systemName: "largecircle.fill.circle")
-                                .onTapGesture {
-                                    audioPlayer.recTapped()
-                                    recHidden.toggle()
-                                }
-                        }
-                        
-                        Spacer()
-                        
-                        ///Playback button - disabled until a recording is made, hidden while recording
-                        if !recHidden {
-                            Image(systemName: "play")
-                                .onTapGesture {
-                                    audioPlayer.playTapped()
-                                }
-                                .disabled(playHidden)
-                        } else {
-                            Image(systemName: "play")
-                                .hidden()
-                        }
+                        Text("\(countdown ?? 0, specifier: "%.2f")")
+
                         
                         Spacer()
                         
                         ///Done button - sends the recording to the chord analyzer that tim made, just returns a json back that means essentially nothing (Tim implementing it rn)
                         Image(systemName: "xmark")
-                            .onTapGesture { audioPlayer.doneTapped() }
+                            .onTapGesture { currentView = .libraryView }
                     }
                         .font(.system(size: TextSize.s()))
                         .padding(.top, 5)
@@ -304,18 +280,6 @@ struct GuitarLessonView: View {
             .onDisappear { 
                 AppDelegate.orientationMask = UIInterfaceOrientationMask.all
             }
-    }
-    
-    func advanceTimer() {
-        print("Timer")
-    }
-
-    func pause() {
-        print("pause")
-    }
-
-    func exit() {
-        print("exit")
     }
 
     /// Updates `nextChords`, shifting the array slice to the right by 1.

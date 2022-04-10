@@ -31,7 +31,7 @@ struct dottiApp: App {
             case .resultsView:
                 EmptyView()
             case .lessonView:
-                GuitarLessonView(song: song!)
+                GuitarLessonView(song: song!, currentView: $currentView)
             
 //            case .lessonView:
 //                GuitarLessonView(chordProgression: $song.chords!)
