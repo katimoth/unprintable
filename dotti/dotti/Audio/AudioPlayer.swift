@@ -218,7 +218,7 @@ final class AudioPlayer: NSObject, ObservableObject, AVAudioRecorderDelegate, AV
     func sendToML() {
         ///audioFilePath <- path to file ->
         ///
-        guard let apiUrl =  URL(string: "https://34.139.144.50/extractchord/") else {
+        guard let apiUrl =  URL(string: "https://35.227.89.255/extractchord/") else {
             print("Bad URL")
             return
         }

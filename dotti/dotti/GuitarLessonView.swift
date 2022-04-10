@@ -108,34 +108,39 @@ struct GuitarLessonView: View {
                     
                         if !startBtnHidden {
                             Button(action: {
-                                Task {
-                                    startBtnHidden = true
-                                    var time = (Double(beats[0]) * 60.0) / Double(song.bpm!)
-                                    var counter = 0.0
-                                    var current_beat = 0
-                                    let timer = Timer.scheduledTimer(withTimeInterval: 0.001, repeats: true) { timer in
-                                        counter += 0.001
-                                        if(counter >= time) {
-                                            getNextChord()
-                                            if(current_beat == beats.count - 1) {
-                                                timer.invalidate()
-                                            }
-                                            counter = 0.0
-                                            current_beat += 1
-                                            time = (Double(beats[current_beat]) * 60.0) / Double(song.bpm!)
+                            
+                                startBtnHidden = true
+                                var time = (Double(beats[0]) * 60.0) / Double(song.bpm!)
+                                var counter = 0.0
+                                var current_beat = 0
+                                audioPlayer.recTapped()
+                                recHidden.toggle()
+                                let timer = Timer.scheduledTimer(withTimeInterval: 0.001, repeats: true) { timer in
+                                    counter += 0.001
+                                    if(counter >= time) {
+                                        audioPlayer.recTapped()
+                                        audioPlayer.doneTapped()
+                                        getNextChord()
+                                        if(current_beat == beats.count - 1) {
+                                            timer.invalidate()
                                         }
+                                        counter = 0.0
+                                        current_beat += 1
+                                        time = (Double(beats[current_beat]) * 60.0) / Double(song.bpm!)
+                                            audioPlayer.recTapped()
                                     }
-                                    //for beat in beats {
-                                        //var finished = false
-                                        //let time = (Double(beat) * 60.0) / Double(song.bpm!)
-                                        //var counter = 0.0
+                                }
+                                //for beat in beats {
+                                    //var finished = false
+                                    //let time = (Double(beat) * 60.0) / Double(song.bpm!)
+                                    //var counter = 0.0
 
 
 //                                        try? await Task.sleep(nanoseconds: UInt64(time * 1_000_000_000))
 //                                        getNextChord()
-                                    //}
-                                    //await changeChords.setChord(song: currentSong ?? Song())
-                                }
+                                //}
+                                //await changeChords.setChord(song: currentSong ?? Song())
+                            
                             }, label: {
                                 Text("start")
                                     .foregroundColor(Color.black)
