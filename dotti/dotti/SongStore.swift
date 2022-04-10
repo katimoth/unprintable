@@ -14,7 +14,7 @@ final class SongStore: ObservableObject {
     @Published private(set) var songs = [Song]()
     private let nFields = 4
 
-    private let serverUrl = "https://34.139.144.50/"
+    private let serverUrl = "https://35.227.89.255/"
 
     @MainActor
     func getSongs() async {
