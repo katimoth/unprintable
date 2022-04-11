@@ -5,6 +5,7 @@
 //  Created by Evan Griffith on 4/8/22.
 //
 import AVFoundation
+import SwiftUI
 
 
 struct songDetails {
@@ -83,7 +84,7 @@ enum TransEvent {
 
 final class AudioPlayer: NSObject, ObservableObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
     @Published var playerState = PlayerState.start(.standby)
-    
+    @Published var correctChordsPlayed = 0
     var audio: Data!
     private let audioFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("guitaraudio.m4a")
     
@@ -196,7 +197,8 @@ final class AudioPlayer: NSObject, ObservableObject, AVAudioRecorderDelegate, AV
         playerState.transition(.recTapped)
     }
     
-    func doneTapped() {
+    func doneTapped(chord: String?) {
+        @Binding var correctChordsPlayed: Int
         defer {
             playerState.transition(.doneTapped)
         }
@@ -211,11 +213,15 @@ final class AudioPlayer: NSObject, ObservableObject, AVAudioRecorderDelegate, AV
         if playerState == .recording {
             recTapped()
         }
-        sendToML()
-        audioRecorder.deleteRecording()  // clean up
+        sendToML(chord: chord!)
+        audioRecorder.deleteRecording()
+
     }
     
-    func sendToML() {
+    struct ChordStruct: Codable {
+        var chords: [String] = []
+    }
+    func sendToML(chord: String){
         ///audioFilePath <- path to file ->
         ///
         guard let apiUrl =  URL(string: "https://35.227.89.255/extractchord/") else {
@@ -235,7 +241,7 @@ final class AudioPlayer: NSObject, ObservableObject, AVAudioRecorderDelegate, AV
         var request = URLRequest(url: apiUrl)
         request.httpMethod = "POST"
         request.httpBody = jsonData
-
+        
         URLSession.shared.dataTask(with: request) { data, response, error in
             guard let _ = data, error == nil else {
                 print("postAudio: NETWORKING ERROR")
@@ -248,9 +254,23 @@ final class AudioPlayer: NSObject, ObservableObject, AVAudioRecorderDelegate, AV
                     return
                 }
             }
+            let decoder = JSONDecoder()
             
-            if let data = data, let dataString = String(data: data, encoding: .utf8) {
+            if let data = data, let dataString = String(data: data, encoding: .utf8)?.data(using: .utf8)! {
                 print("Response data string:\n \(dataString)")
+                do {
+                    let dataChords = try decoder.decode(ChordStruct.self, from: dataString)
+                    print(dataChords.chords)
+                    if dataChords.chords.contains(chord) {
+                        print("correct")
+                        DispatchQueue.main.async {
+                            self.correctChordsPlayed += 1
+                        }
+                    }
+                } catch {
+                    print("decode error")
+                    return
+                }
             }
             
         }.resume()

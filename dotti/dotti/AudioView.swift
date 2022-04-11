@@ -108,9 +108,9 @@ struct AudioView: View {
         .onChange(of: audioPlayer.playerState) {
             playerUIState.propagate($0)
         }
-        .onDisappear {
-            audioPlayer.doneTapped()
-        }
+//        .onDisappear {
+//            await audioPlayer.doneTapped(chord: "nil")
+//        }
     }
 }
 
@@ -148,7 +148,7 @@ struct DoneButton: View {
     
     var body: some View {
         Button(action: {
-            audioPlayer.doneTapped()
+            audioPlayer.doneTapped(chord: "nil")
         }) {
             playerUIState.doneIcon.scaleEffect(2.0).padding(.trailing, 40)
         }
