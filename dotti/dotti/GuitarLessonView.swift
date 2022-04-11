@@ -112,42 +112,53 @@ struct GuitarLessonView: View {
                             Button(action: {
                             
                                 startBtnHidden = true
-                                var time = (Double(beats[0]) * 60.0) / Double(song.bpm!)
-                                var counter = 0.0
-                                var current_beat = 0
-                                audioPlayer.recTapped()
-                                recHidden.toggle()
-                                let timer = Timer.scheduledTimer(withTimeInterval: 0.001, repeats: true) { timer in
-                                    counter += 0.001
-                                    if(counter >= time) {
-                                        if timerGoing{
-                                            audioPlayer.recTapped()
-                                            
-                                            audioPlayer.doneTapped(chord: nextChords?[nextChords!.startIndex])
-                                                
-                                            getNextChord()
-                                            if(current_beat == beats.count - 1) {
-                                                timer.invalidate()
-                                            }
-                                            counter = 0.0
-                                            current_beat += 1
-                                            time = (Double(beats[current_beat]) * 60.0) / Double(song.bpm!)
-                                            audioPlayer.recTapped()
-                                        }
+                                var guitarDetected = false
+                                
+                                let detection_timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: true) {
+                                    detection_timer in
+                                    //TODO: call guitar detection every 2 seconds
+                                    //guitarDetected = await detect_guitar(model.frame)
+                                    guitarDetected = true
+                                    if guitarDetected {
+                                        detection_timer.invalidate()
                                     }
-                                    countdown = time - counter
-                                    
                                 }
-                                //for beat in beats {
-                                    //var finished = false
-                                    //let time = (Double(beat) * 60.0) / Double(song.bpm!)
-                                    //var counter = 0.0
-
-
-//                                        try? await Task.sleep(nanoseconds: UInt64(time * 1_000_000_000))
-//                                        getNextChord()
-                                //}
-                                //await changeChords.setChord(song: currentSong ?? Song())
+                                
+                                if guitarDetected {
+                                    var time = (Double(beats[0]) * 60.0) / Double(song.bpm!)
+                                    var counter = 0.0
+                                    var current_beat = 0
+                                    var overlayFetched = false
+                                    audioPlayer.recTapped()
+                                    recHidden.toggle()
+                                    let timer = Timer.scheduledTimer(withTimeInterval: 0.001, repeats: true) { timer in
+                                        counter += 0.001
+                                        if(counter >= (time + 2) && overlayFetched == false) {
+                                            overlayFetched = true
+                                            //TODO: call get overlay on current frame and chords[current_beat]
+                                        }
+                                        if(counter >= time) {
+                                            if timerGoing{
+                                                audioPlayer.recTapped()
+                                                
+                                                audioPlayer.doneTapped(chord: nextChords?[nextChords!.startIndex])
+                                                    
+                                                getNextChord()
+                                                if(current_beat == beats.count - 1) {
+                                                    timer.invalidate()
+                                                }
+                                                counter = 0.0
+                                                current_beat += 1
+                                                overlayFetched = false
+                                                time = (Double(beats[current_beat]) * 60.0) / Double(song.bpm!)
+                                                audioPlayer.recTapped()
+                                                //TODO: add overlay to model.frame
+                                            }
+                                        }
+                                        countdown = time - counter
+                                        
+                                    }
+                                }
                             
                             }, label: {
                                 Text("start")
