@@ -112,7 +112,6 @@ struct GuitarLessonView: View {
                             Image("fretboard_1")
                                 .resizable()
                                 .scaledToFit()
-                                .frame(height: 40)
                         }
                         
                     
