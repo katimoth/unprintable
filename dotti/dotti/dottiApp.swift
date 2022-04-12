@@ -24,10 +24,7 @@ struct dottiApp: App {
         WindowGroup {
             switch (currentView) {
             case .titleView:
-                ZStack {
-                    TitleView(currentView: $currentView).transition(.move(edge: .bottom))
-                    ResultsView()
-                }
+                TitleView(currentView: $currentView).transition(.move(edge: .bottom))
             case .libraryView:
                 LibraryView(currentView: $currentView, song: $song).transition(.move(edge: .bottom))
             case .lessonView:

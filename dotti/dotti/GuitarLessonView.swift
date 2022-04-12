@@ -270,6 +270,10 @@ struct GuitarLessonView: View {
                     .onTapGesture(count: 2) { getPrevChord() }
                     .onTapGesture(count: 1) { getNextChord() }
             }
+            if nextChords == nil {
+                ResultsView(audioPlayer: audioPlayer, totalNumChords: Double(chords.count))
+                    .edgesIgnoringSafeArea(.all)
+            }
         }  
             // Want sidebar to go into safe area only when `landscapeRight`
             .ignoresSafeArea(

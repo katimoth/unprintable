@@ -5,20 +5,12 @@ import SwiftUI
 /// After a guitar lesson is completed, this view will be overlayed onto the UI
 /// by `GuitarLessonView`
 struct ResultsView: View {
-    // @Binding var currentView: AppViews
+    @ObservedObject var audioPlayer: AudioPlayer
 
-    // @ObservedObject var audioPlayer: AudioPlayer
-    var audioPlayer = AudioPlayer()
-
-    let totalNumChords = 99.0
+    let totalNumChords: Double
 
     /// The width of the circular progress bar's stroke, not the entire bar
     let progressBarWidth = 20.0
-
-    init() {
-        audioPlayer.correctChordsPlayed = 77
-        print(Double(audioPlayer.correctChordsPlayed) / totalNumChords)
-    }
 
     var body: some View {
         VStack {
