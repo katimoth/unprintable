@@ -61,6 +61,7 @@ struct GuitarLessonView: View {
     /// Camera View Helper
     ///
     @StateObject private var model = ContentViewModel()
+    @StateObject var sendFrame = SendFrame()
     
     ///Audio View Helper
     ///
@@ -117,8 +118,12 @@ struct GuitarLessonView: View {
                                 let detection_timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: true) {
                                     detection_timer in
                                     //TODO: call guitar detection every 2 seconds
-                                    //guitarDetected = await detect_guitar(model.frame)
-                                    guitarDetected = true
+                                    sendFrame.sendFrame(frame: model.frame!, chord: chords[0])
+                                    
+                                    if (sendFrame.frame != nil) {
+                                        guitarDetected = true
+                                    }
+                                    
                                     if guitarDetected {
                                         detection_timer.invalidate()
                                     }

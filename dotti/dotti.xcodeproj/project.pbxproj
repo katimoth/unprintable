@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2816F9F32802052A00691460 /* SongStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2816F9F22802052A00691460 /* SongStore.swift */; };
 		2816F9F52802053F00691460 /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2816F9F42802053F00691460 /* Song.swift */; };
+		2839AE5B2804FD5700D21227 /* SendFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2839AE5A2804FD5700D21227 /* SendFrame.swift */; };
 		3A6A631727E655810089A620 /* LibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6A631627E655810089A620 /* LibraryView.swift */; };
 		3A6A631927E67FC40089A620 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6A631827E67FC40089A620 /* Utilities.swift */; };
 		3A8AE82B27FE499F00308BF0 /* MusicUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8AE82A27FE499E00308BF0 /* MusicUtilities.swift */; };
@@ -33,6 +34,7 @@
 /* Begin PBXFileReference section */
 		2816F9F22802052A00691460 /* SongStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongStore.swift; sourceTree = "<group>"; };
 		2816F9F42802053F00691460 /* Song.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
+		2839AE5A2804FD5700D21227 /* SendFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendFrame.swift; sourceTree = "<group>"; };
 		3A6A631627E655810089A620 /* LibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryView.swift; sourceTree = "<group>"; };
 		3A6A631827E67FC40089A620 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		3A8AE82A27FE499E00308BF0 /* MusicUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicUtilities.swift; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 				2816F9F22802052A00691460 /* SongStore.swift */,
 				2816F9F42802053F00691460 /* Song.swift */,
 				8310C886280364BE001C5210 /* correctChordsView.swift */,
+				2839AE5A2804FD5700D21227 /* SendFrame.swift */,
 			);
 			path = dotti;
 			sourceTree = "<group>";
@@ -225,6 +228,7 @@
 				3ABDCBEB27E0E91B006AC03A /* Styles.swift in Sources */,
 				3AD178C327DBAA1300E2A774 /* TitleView.swift in Sources */,
 				830B38D42800EE6600CDA7A7 /* FrameManager.swift in Sources */,
+				2839AE5B2804FD5700D21227 /* SendFrame.swift in Sources */,
 				830B38CF2800E57600CDA7A7 /* FrameView.swift in Sources */,
 				3AD178C127DBAA1300E2A774 /* dottiApp.swift in Sources */,
 				83E7903927FA1E5200BC742A /* SongItem.swift in Sources */,
@@ -364,7 +368,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"dotti/Preview Content\"";
-				DEVELOPMENT_TEAM = U942498C9V;
+				DEVELOPMENT_TEAM = XWY7H753JC;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = dotti/Info.plist;
@@ -380,7 +384,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = edu.umich.maryketa.dott;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.umich.maryketa.dotti;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -414,7 +418,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = edu.umich.maryketa.dott;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.umich.maryketa.dotti;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
