@@ -149,7 +149,10 @@ struct GuitarLessonView: View {
                                             }
                                             counter = 0.0
                                             current_beat += 1
-                                            time = (Double(beats[current_beat]) * 60.0) / (Double(song.bpm!) * playBackspeed)
+                                            if(current_beat < beats.count) {
+                                                time = (Double(beats[current_beat]) * 60.0) / (Double(song.bpm!) * playBackspeed)
+                                            }
+
                                             audioPlayer.recTapped()
                                         }
                                     }
@@ -301,7 +304,7 @@ struct GuitarLessonView: View {
                 setUIOrientation(to: startingOrientation)
 
                 // Load sidebar data
-                nextChords = chords.prefix(maxNumNextChords)
+                nextChords = chords.suffix(maxNumNextChords)
             }
             .onRotate { newOrientation in
                 // Keep track of UI's orientation
