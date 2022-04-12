@@ -36,31 +36,31 @@ struct TitleView: View {
                     }
                     Spacer()
                     HStack{
+//                        Button(action: {
+//                            print("tapped!")
+//                            currentView = AppViews.libraryView
+//                        }, label: {
+//                            Text("**REGISTER**")
+//                                .foregroundColor(Color.american_bronze)
+//                                .frame(width: 120, height: 40)
+//                                .background(.clear)
+//                                .cornerRadius(5)
+//                                .font(.system(size: 16))
+//                                .overlay(
+//                                    RoundedRectangle(cornerRadius: 5.0)
+//                                        .stroke(Color.american_bronze, lineWidth: 2.0)
+//                                )
+//                                .padding()
+//                        })
                         Button(action: {
                             print("tapped!")
                             currentView = AppViews.libraryView
                         }, label: {
-                            Text("**REGISTER**")
-                                .foregroundColor(Color.american_bronze)
-                                .frame(width: 120, height: 40)
-                                .background(.clear)
-                                .cornerRadius(5)
-                                .font(.system(size: 16))
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 5.0)
-                                        .stroke(Color.american_bronze, lineWidth: 2.0)
-                                )
-                                .padding()
-                        })
-                        Button(action: {
-                            print("tapped!")
-                            currentView = AppViews.libraryView
-                        }, label: {
-                            Text("**LOGIN**")
+                            Text("**CONTINUE**")
                                 .foregroundColor(Color.floral_white)
-                                .frame(width: 180, height: 40)
+                                .frame(width: 340, height: 40)
                                 .background(Color.american_bronze)
-                                .font(.system(size: 16))
+                                .font(.system(size: 20))
                                 .cornerRadius(5)
                                 .padding()
                         })

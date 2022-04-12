@@ -86,7 +86,7 @@ struct GuitarLessonView: View {
     @State private var countdown: Double?
     var body: some View {
         ZStack {
-            HStack(spacing: 0) {
+            HStack {
                 ZStack {
                     // Camera Feed
                     FrameView(image: model.frame, orientation: $orientation)
@@ -107,6 +107,14 @@ struct GuitarLessonView: View {
                             default: break
                             }
                         }
+                    
+                        .overlay(alignment: .bottom) {
+                            Image("fretboard_1")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(height: 40)
+                        }
+                        
                     
                         if !startBtnHidden && timerGoing {
                             Button(action: {
@@ -153,27 +161,17 @@ struct GuitarLessonView: View {
                                     }
                                     
                                 }
-                                //for beat in beats {
-                                    //var finished = false
-                                    //let time = (Double(beat) * 60.0) / Double(song.bpm!)
-                                    //var counter = 0.0
 
-
-//                                        try? await Task.sleep(nanoseconds: UInt64(time * 1_000_000_000))
-//                                        getNextChord()
-                                //}
-                                //await changeChords.setChord(song: currentSong ?? Song())
-                            
                             }, label: {
                                 Text("start")
                                     .foregroundColor(Color.black)
                                     .frame(width: 120, height: 40)
-                                    .background(.blue)
+                                    .background(Color.floral_white)
                                     .cornerRadius(5)
                                     .font(.system(size: 30))
                                     .overlay(
                                         RoundedRectangle(cornerRadius: 5.0)
-                                            .stroke(Color.blue, lineWidth: 2.0)
+                                            .stroke(Color.ruber, lineWidth: 2.0)
                                     )
                                     .padding()
                             })
@@ -277,12 +275,13 @@ struct GuitarLessonView: View {
                     .onTapGesture(count: 2) { getPrevChord() }
                     .onTapGesture(count: 1) { getNextChord() }
             }.border(audioPlayer.borderColor, width: 10)
-                .cornerRadius(25)
+                .cornerRadius(50)
                 .animation(.spring())
                 .edgesIgnoringSafeArea(.all)
             
+            
             if nextChords == nil {
-                ResultsView(audioPlayer: audioPlayer, totalNumChords: Double(chords.count))
+                ResultsView(audioPlayer: audioPlayer, currentView: $currentView, totalNumChords: Double(chords.count))
                     .edgesIgnoringSafeArea(.all)
             }
             
@@ -300,7 +299,7 @@ struct GuitarLessonView: View {
                 setUIOrientation(to: startingOrientation)
 
                 // Load sidebar data
-                nextChords = chords.suffix(maxNumNextChords)
+                nextChords = chords.prefix(maxNumNextChords)
             }
             .onRotate { newOrientation in
                 // Keep track of UI's orientation

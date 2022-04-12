@@ -6,7 +6,7 @@ import SwiftUI
 /// by `GuitarLessonView`
 struct ResultsView: View {
     @ObservedObject var audioPlayer: AudioPlayer
-
+    @Binding var currentView: AppViews
     let totalNumChords: Double
 
     /// The width of the circular progress bar's stroke, not the entire bar
@@ -20,7 +20,7 @@ struct ResultsView: View {
             // Circular progress bar
             ZStack {
                 let accuracy = Double(audioPlayer.correctChordsPlayed) / totalNumChords
-
+                
                 // "Outline" of the progress bar
                 Circle()
                     .stroke(lineWidth: progressBarWidth)
@@ -47,15 +47,25 @@ struct ResultsView: View {
                     // 100% if user did not truly get 100% but got, say, 99.9%
                     Text(String(Int(accuracy * 100)))
                         .font(Font.custom(Font.comfortaa_regular, size: 60))
+                        .foregroundColor(Color.floral_white)
                         .bold()
                     Text("%")
                         .font(Font.custom(Font.comfortaa_regular, size: 40))
+                        .foregroundColor(Color.floral_white)
                         .bold()
                 }
+            }.frame(width: 200.0, height: 200.0)
+            .overlay(alignment: .topTrailing) {
+                Image(systemName: "xmark")
+                .onTapGesture {
+                    currentView = .libraryView
+                }
+                .frame(width: 20, height: 20, alignment: .topTrailing)
+                .foregroundColor(Color.floral_white)
             }
-                .frame(width: 200.0, height: 200.0)
         }.animation(.spring())
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(.black.opacity(0.80))
+
     }
 }
