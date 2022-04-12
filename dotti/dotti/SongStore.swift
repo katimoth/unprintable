@@ -14,11 +14,9 @@ final class SongStore: ObservableObject {
     @Published private(set) var songs = [Song]()
     private let nFields = 4
 
-    private let serverUrl = "https://35.227.89.255/"
-
     @MainActor
     func getSongs() async {
-        guard let apiUrl = URL(string: serverUrl+"getsong/") else {
+        guard let apiUrl = URL(string: "https://\(URL.serverIP)/getsong/") else {
             print("getSong: Bad URL")
             return
         }

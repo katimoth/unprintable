@@ -7,6 +7,10 @@
 
 import SwiftUI
 
+extension URL {
+    static let serverIP = "35.243.195.141"
+}
+
 #if DEBUG
 extension UIDeviceOrientation: CustomStringConvertible {
     public var description: String {

@@ -17,7 +17,7 @@ class SendFrame: ObservableObject {
     }
 
     func sendFrame(frame: CGImage, chord: String, detected: String) {
-        guard let apiUrl =  URL(string: "https://35.227.89.255/getoverlay/") else {
+        guard let apiUrl =  URL(string: "https://\(URL.serverIP)/getoverlay/") else {
             print("Bad URL")
             return
         }
