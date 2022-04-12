@@ -140,7 +140,9 @@ struct GuitarLessonView: View {
                                     if guitarDetected {
                                         detection_timer.invalidate()
                                         let newImageData = Data(base64Encoded: sendFrame.final_frame!)
-                                        overlay = UIImage(data: newImageData!)
+                                        if let image = newImageData {
+                                            overlay = UIImage(data: image)
+                                        }
 //                                        overlay = CIImage(cgImage: ui_overlay!.cgImage!) as! CGImage
 //                                        print(overlay)
                                         

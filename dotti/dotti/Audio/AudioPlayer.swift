@@ -213,9 +213,9 @@ final class AudioPlayer: NSObject, ObservableObject, AVAudioRecorderDelegate, AV
         if playerState == .recording {
             recTapped()
         }
-        DispatchQueue.main.async {
-            self.sendToML(chord: chord!)
-        }
+//        DispatchQueue.main.async {
+//            self.sendToML(chord: chord!)
+//        }
         
         audioRecorder.deleteRecording()
 
