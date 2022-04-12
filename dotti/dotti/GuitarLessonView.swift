@@ -360,6 +360,7 @@ struct GuitarLessonView: View {
                 ResultsView(audioPlayer: audioPlayer, totalNumChords: Double(chords.count))
                     .edgesIgnoringSafeArea(.all)
             }
+        }
             // Want sidebar to go into safe area only when `landscapeRight`
             .ignoresSafeArea(
                 edges: orientation == .landscapeRight ?
@@ -392,13 +393,13 @@ struct GuitarLessonView: View {
             .onDisappear { 
                 AppDelegate.orientationMask = UIInterfaceOrientationMask.all
             }
-        }.overlay(
-            Text((!guitarDetected && startBtnHidden) ? "detecting guitar..." : "")
-             .zIndex(1)
-             .foregroundColor(Color.floral_white)
-             
-             .font(.system(size: 40))
-        )
+            .overlay(
+                Text((!guitarDetected && startBtnHidden) ? "detecting guitar..." : "")
+                    .zIndex(1)
+                    .foregroundColor(Color.floral_white)
+                    
+                    .font(.system(size: 40))
+            )
     }
 
     /// Updates `nextChords`, shifting the array slice to the right by 1.
