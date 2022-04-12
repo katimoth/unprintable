@@ -144,7 +144,7 @@ struct GuitarLessonView: View {
                             startBtnHidden = true
                              // <-- I want this!!!!
                             guitarDetected = false
-                            
+
                             let detection_timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: true) {
                                 detection_timer in
                                     
@@ -170,12 +170,21 @@ struct GuitarLessonView: View {
                             }
                             
                             if(guitarDetected) {
-                                var time = (Double(beats[0]) * 60.0) / Double(song.bpm!)
+                                /*
+                                 The button in SongItem (build to see it) is what changes the variable
+                                 Possible values: 1x speed, 0.75x speed, 0.50x speed, 0.25x speed.
+                                 Thank you!
+                                 */
+                                let playBackspeed = song.playBackspeed
+                                
+                                startBtnHidden = true
+                                var time = (Double(beats[0]) * 60.0) / (Double(song.bpm!) * playBackspeed)
                                 var counter = 0.0
                                 var current_beat = 0
                                 var overlayFetched = true
                                 audioPlayer.recTapped()
                                 recHidden.toggle()
+
                                 let timer = Timer.scheduledTimer(withTimeInterval: 0.001, repeats: true) { timer in
                                     counter += 0.001
                                     
@@ -207,19 +216,23 @@ struct GuitarLessonView: View {
                                             counter = 0.0
 
                                             overlayFetched = false
-                                            time = (Double(beats[current_beat]) * 60.0) / Double(song.bpm!)
+                                            current_beat += 1
+                                            time = (Double(beats[current_beat]) * 60.0) / (Double(song.bpm!) * playBackspeed)
                                             audioPlayer.recTapped()
                                             
                                             //TODO: add overlay to model.frame
                                         }
                                     }
-                                    if(guitarDetected) {
+                                    if nextChords == nil {
+                                        audioPlayer.doneTapped(chord: "nil")
+                                        timer.invalidate()
+                                        startBtnHidden = true
+                                        timerGoing = false
+                                    } else if (guitarDetected) {
                                         countdown = time - counter
+                                    } else {
+                                      countdown = 0.0
                                     }
-                                    else {
-                                        countdown = 0.0
-                                    }
-                                
                                 }
                             } else {
                                 //Overlay
@@ -338,7 +351,15 @@ struct GuitarLessonView: View {
                     .background(.black)
                     .onTapGesture(count: 2) { getPrevChord() }
                     .onTapGesture(count: 1) { getNextChord() }
-        }  //
+            }.border(audioPlayer.borderColor, width: 10)
+                .cornerRadius(25)
+                .animation(.spring())
+                .edgesIgnoringSafeArea(.all)
+            
+            if nextChords == nil {
+                ResultsView(audioPlayer: audioPlayer, totalNumChords: Double(chords.count))
+                    .edgesIgnoringSafeArea(.all)
+            }
             // Want sidebar to go into safe area only when `landscapeRight`
             .ignoresSafeArea(
                 edges: orientation == .landscapeRight ?
@@ -351,7 +372,7 @@ struct GuitarLessonView: View {
                 setUIOrientation(to: startingOrientation)
 
                 // Load sidebar data
-                nextChords = chords.prefix(maxNumNextChords)
+                nextChords = chords.suffix(maxNumNextChords)
             }
             .onRotate { newOrientation in
                 // Keep track of UI's orientation
@@ -427,6 +448,11 @@ struct GuitarLessonView: View {
             nextChords.endIndex
 
         self.nextChords = chords[nextChords.startIndex - 1..<newEndIndex]
+    }
+    
+    func stopRecording() -> some View {
+        audioPlayer.doneTapped(chord: "nil")
+        return EmptyView()
     }
     #endif
 }

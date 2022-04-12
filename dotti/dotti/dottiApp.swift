@@ -10,7 +10,6 @@ import SwiftUI
 enum AppViews {
     case titleView
     case libraryView
-    case resultsView
     case lessonView
 }
 
@@ -28,8 +27,6 @@ struct dottiApp: App {
                 TitleView(currentView: $currentView).transition(.move(edge: .bottom))
             case .libraryView:
                 LibraryView(currentView: $currentView, song: $song).transition(.move(edge: .bottom))
-            case .resultsView:
-                EmptyView()
             case .lessonView:
                 GuitarLessonView(song: song!, currentView: $currentView)
             

@@ -14,6 +14,7 @@
 		3A6A631927E67FC40089A620 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6A631827E67FC40089A620 /* Utilities.swift */; };
 		3A8AE82B27FE499F00308BF0 /* MusicUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8AE82A27FE499E00308BF0 /* MusicUtilities.swift */; };
 		3AA3A1CB27E5BCC900D5E005 /* Fonts in Resources */ = {isa = PBXBuildFile; fileRef = 3AA3A1CA27E5BCC900D5E005 /* Fonts */; };
+		3AA4D0BE2804F5BB0062012A /* LibraryOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA4D0BD2804F5BB0062012A /* LibraryOverlayView.swift */; };
 		3ABDCBEB27E0E91B006AC03A /* Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ABDCBEA27E0E91B006AC03A /* Styles.swift */; };
 		3AD178C127DBAA1300E2A774 /* dottiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD178C027DBAA1300E2A774 /* dottiApp.swift */; };
 		3AD178C327DBAA1300E2A774 /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD178C227DBAA1300E2A774 /* TitleView.swift */; };
@@ -25,7 +26,6 @@
 		830B38D72800EF8500CDA7A7 /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830B38D62800EF8500CDA7A7 /* ContentViewModel.swift */; };
 		8310C88028011983001C5210 /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8310C87F28011983001C5210 /* AudioPlayer.swift */; };
 		8310C88328012032001C5210 /* AudioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8310C88228012032001C5210 /* AudioView.swift */; };
-		8310C887280364BE001C5210 /* correctChordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8310C886280364BE001C5210 /* correctChordsView.swift */; };
 		8370B1A527F921B900C53EC0 /* ResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8370B1A427F921B900C53EC0 /* ResultsView.swift */; };
 		8370B1A727F9238400C53EC0 /* GuitarLessonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8370B1A627F9238400C53EC0 /* GuitarLessonView.swift */; };
 		83E7903927FA1E5200BC742A /* SongItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E7903827FA1E5200BC742A /* SongItem.swift */; };
@@ -40,6 +40,7 @@
 		3A8AE82A27FE499E00308BF0 /* MusicUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicUtilities.swift; sourceTree = "<group>"; };
 		3AA3A1CA27E5BCC900D5E005 /* Fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Fonts; sourceTree = "<group>"; };
 		3AA3A1CC27E5BCFB00D5E005 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		3AA4D0BD2804F5BB0062012A /* LibraryOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryOverlayView.swift; sourceTree = "<group>"; };
 		3ABDCBEA27E0E91B006AC03A /* Styles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Styles.swift; sourceTree = "<group>"; };
 		3AD178BD27DBAA1300E2A774 /* dotti.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dotti.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AD178C027DBAA1300E2A774 /* dottiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dottiApp.swift; sourceTree = "<group>"; };
@@ -52,7 +53,6 @@
 		830B38D62800EF8500CDA7A7 /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
 		8310C87F28011983001C5210 /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
 		8310C88228012032001C5210 /* AudioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioView.swift; sourceTree = "<group>"; };
-		8310C886280364BE001C5210 /* correctChordsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = correctChordsView.swift; sourceTree = "<group>"; };
 		8370B1A427F921B900C53EC0 /* ResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsView.swift; sourceTree = "<group>"; };
 		8370B1A627F9238400C53EC0 /* GuitarLessonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuitarLessonView.swift; sourceTree = "<group>"; };
 		83E7903827FA1E5200BC742A /* SongItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongItem.swift; sourceTree = "<group>"; };
@@ -88,28 +88,29 @@
 		3AD178BF27DBAA1300E2A774 /* dotti */ = {
 			isa = PBXGroup;
 			children = (
-				8310C87E28011940001C5210 /* Audio */,
-				830B38D52800EF7200CDA7A7 /* ViewModels */,
-				830B38D02800E97800CDA7A7 /* Camera */,
-				3AA3A1CC27E5BCFB00D5E005 /* Info.plist */,
-				3AD178C027DBAA1300E2A774 /* dottiApp.swift */,
-				3AD178C227DBAA1300E2A774 /* TitleView.swift */,
 				3AD178C427DBAA1700E2A774 /* Assets.xcassets */,
-				3AD178C627DBAA1700E2A774 /* Preview Content */,
-				3ABDCBEA27E0E91B006AC03A /* Styles.swift */,
-				3AA3A1CA27E5BCC900D5E005 /* Fonts */,
-				3A6A631627E655810089A620 /* LibraryView.swift */,
-				3A6A631827E67FC40089A620 /* Utilities.swift */,
-				8370B1A427F921B900C53EC0 /* ResultsView.swift */,
-				83E7903827FA1E5200BC742A /* SongItem.swift */,
-				8370B1A627F9238400C53EC0 /* GuitarLessonView.swift */,
-				3A8AE82A27FE499E00308BF0 /* MusicUtilities.swift */,
-				830B38CE2800E57600CDA7A7 /* FrameView.swift */,
+				8310C87E28011940001C5210 /* Audio */,
 				8310C88228012032001C5210 /* AudioView.swift */,
-				2816F9F22802052A00691460 /* SongStore.swift */,
+				830B38D02800E97800CDA7A7 /* Camera */,
+				3AD178C027DBAA1300E2A774 /* dottiApp.swift */,
+				3AA3A1CA27E5BCC900D5E005 /* Fonts */,
+				830B38CE2800E57600CDA7A7 /* FrameView.swift */,
+				8370B1A627F9238400C53EC0 /* GuitarLessonView.swift */,
+				3AA3A1CC27E5BCFB00D5E005 /* Info.plist */,
+				3A6A631627E655810089A620 /* LibraryView.swift */,
+				3AA4D0BD2804F5BB0062012A /* LibraryOverlayView.swift */,
+				3A8AE82A27FE499E00308BF0 /* MusicUtilities.swift */,
+				3AD178C627DBAA1700E2A774 /* Preview Content */,
+				8370B1A427F921B900C53EC0 /* ResultsView.swift */,
 				2816F9F42802053F00691460 /* Song.swift */,
+				83E7903827FA1E5200BC742A /* SongItem.swift */,
+				2816F9F22802052A00691460 /* SongStore.swift */,
 				8310C886280364BE001C5210 /* correctChordsView.swift */,
 				2839AE5A2804FD5700D21227 /* SendFrame.swift */,
+				3ABDCBEA27E0E91B006AC03A /* Styles.swift */,
+				3AD178C227DBAA1300E2A774 /* TitleView.swift */,
+				3A6A631827E67FC40089A620 /* Utilities.swift */,
+				830B38D52800EF7200CDA7A7 /* ViewModels */,
 			);
 			path = dotti;
 			sourceTree = "<group>";
@@ -220,7 +221,6 @@
 			files = (
 				8370B1A727F9238400C53EC0 /* GuitarLessonView.swift in Sources */,
 				830B38D72800EF8500CDA7A7 /* ContentViewModel.swift in Sources */,
-				8310C887280364BE001C5210 /* correctChordsView.swift in Sources */,
 				3A6A631927E67FC40089A620 /* Utilities.swift in Sources */,
 				3A8AE82B27FE499F00308BF0 /* MusicUtilities.swift in Sources */,
 				3A6A631727E655810089A620 /* LibraryView.swift in Sources */,
@@ -235,6 +235,7 @@
 				830B38D22800E98C00CDA7A7 /* CameraManager.swift in Sources */,
 				8310C88028011983001C5210 /* AudioPlayer.swift in Sources */,
 				2816F9F52802053F00691460 /* Song.swift in Sources */,
+				3AA4D0BE2804F5BB0062012A /* LibraryOverlayView.swift in Sources */,
 				2816F9F32802052A00691460 /* SongStore.swift in Sources */,
 				8310C88328012032001C5210 /* AudioView.swift in Sources */,
 			);

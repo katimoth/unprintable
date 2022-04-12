@@ -38,10 +38,13 @@ extension Color {
     static let deep_champagne = Color("deep-champagne")
     static let floral_white = Color("floral-white")
     static let pearl_aqua = Color("pearl-aqua")
+    static let pearl_aqua_tint_50 = Color("pearl-aqua_tint-50")
+    static let pearl_aqua_tint_80 = Color("pearl-aqua_tint-80")
     static let ruber = Color(red: 206/255, green: 70/255, blue: 116/255)
 }
 
 extension Font {
-    static let h1 = Font.custom("Comfortaa-Regular", size: 40)
-    static let h2 = Font.custom("Comfortaa-Regular", size: 30)
+    static let comfortaa_regular = "Comfortaa-Regular"
+    static let h1 = Font.custom(comfortaa_regular, size: 40)
+    static let h2 = Font.custom(comfortaa_regular, size: 30)
 }
