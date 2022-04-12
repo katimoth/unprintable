@@ -26,13 +26,15 @@ from app.detection.major_functions import ROI, find_frets, draw_overlay
 # = Main
 # ========================================
 
-def run(frame, chord):
+def run(frame, chord=None):
     roi = detect_guitar(frame)
     if roi is None:
         print('Not found')
         return None
     frame_alpha = cv2.cvtColor(frame, cv2.COLOR_RGB2RGBA)
-    return place_chord(roi, chord, frame_alpha)
+    i
+    placed = place_chord(roi, chord, frame_alpha)
+    return placed.T
 
 def combine_overlay(frame, overlay):
     frame_alpha = cv2.cvtColor(frame, cv2.COLOR_RGB2RGBA)

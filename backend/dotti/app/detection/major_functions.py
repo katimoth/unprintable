@@ -63,7 +63,7 @@ def draw_lines(img_orig, lines, color=(0,0,255), text=None, thickness=10):
             cv2.line(img, (x1, y1), (x2, y2), color, thickness, cv2.LINE_AA)
     return img
 
-def draw_overlay(frame, frets, chord, radius=30, color=(0,0,255, 255)):
+def draw_overlay(frame, frets, chord, radius=15, color=(0,0,255, 255)):
     img = np.zeros_like(frame)
     strings, bar = get_chord_info(chord, frets)
     for loc in strings:
