@@ -24,7 +24,6 @@
 		830B38D72800EF8500CDA7A7 /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830B38D62800EF8500CDA7A7 /* ContentViewModel.swift */; };
 		8310C88028011983001C5210 /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8310C87F28011983001C5210 /* AudioPlayer.swift */; };
 		8310C88328012032001C5210 /* AudioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8310C88228012032001C5210 /* AudioView.swift */; };
-		8310C887280364BE001C5210 /* correctChordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8310C886280364BE001C5210 /* correctChordsView.swift */; };
 		8370B1A527F921B900C53EC0 /* ResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8370B1A427F921B900C53EC0 /* ResultsView.swift */; };
 		8370B1A727F9238400C53EC0 /* GuitarLessonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8370B1A627F9238400C53EC0 /* GuitarLessonView.swift */; };
 		83E7903927FA1E5200BC742A /* SongItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E7903827FA1E5200BC742A /* SongItem.swift */; };
@@ -50,7 +49,6 @@
 		830B38D62800EF8500CDA7A7 /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
 		8310C87F28011983001C5210 /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
 		8310C88228012032001C5210 /* AudioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioView.swift; sourceTree = "<group>"; };
-		8310C886280364BE001C5210 /* correctChordsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = correctChordsView.swift; sourceTree = "<group>"; };
 		8370B1A427F921B900C53EC0 /* ResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsView.swift; sourceTree = "<group>"; };
 		8370B1A627F9238400C53EC0 /* GuitarLessonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuitarLessonView.swift; sourceTree = "<group>"; };
 		83E7903827FA1E5200BC742A /* SongItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongItem.swift; sourceTree = "<group>"; };
@@ -106,7 +104,6 @@
 				8310C88228012032001C5210 /* AudioView.swift */,
 				2816F9F22802052A00691460 /* SongStore.swift */,
 				2816F9F42802053F00691460 /* Song.swift */,
-				8310C886280364BE001C5210 /* correctChordsView.swift */,
 			);
 			path = dotti;
 			sourceTree = "<group>";
@@ -217,7 +214,6 @@
 			files = (
 				8370B1A727F9238400C53EC0 /* GuitarLessonView.swift in Sources */,
 				830B38D72800EF8500CDA7A7 /* ContentViewModel.swift in Sources */,
-				8310C887280364BE001C5210 /* correctChordsView.swift in Sources */,
 				3A6A631927E67FC40089A620 /* Utilities.swift in Sources */,
 				3A8AE82B27FE499F00308BF0 /* MusicUtilities.swift in Sources */,
 				3A6A631727E655810089A620 /* LibraryView.swift in Sources */,
@@ -364,7 +360,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"dotti/Preview Content\"";
-				DEVELOPMENT_TEAM = U942498C9V;
+				DEVELOPMENT_TEAM = XWY7H753JC;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = dotti/Info.plist;
@@ -380,7 +376,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = edu.umich.maryketa.dott;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.umich.maryketa.dotti;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -398,7 +394,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"dotti/Preview Content\"";
-				DEVELOPMENT_TEAM = U942498C9V;
+				DEVELOPMENT_TEAM = XWY7H753JC;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = dotti/Info.plist;
@@ -414,7 +410,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = edu.umich.maryketa.dott;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.umich.maryketa.dotti;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;

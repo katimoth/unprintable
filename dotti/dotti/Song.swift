@@ -13,4 +13,5 @@ struct Song: Identifiable {
     var artist: String?
     var bpm: Int?
     var chords: Array<Array<Any>>?
+    var playBackspeed: Double = 1
 }
