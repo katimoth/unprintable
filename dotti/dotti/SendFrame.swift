@@ -10,9 +10,10 @@ import SwiftUI
 
 class SendFrame: ObservableObject {
     
-    @Published var frame: String?
+    @Published var final_frame: String?
+    var almost_final_frame: String = ""
     struct FrameStruct: Codable {
-        var frame: String
+        var overlay: String
     }
 
     func sendFrame(frame: CGImage, chord: String) {
@@ -23,7 +24,7 @@ class SendFrame: ObservableObject {
         let frame_uiimage = UIImage(cgImage: frame)
         let png_data = frame_uiimage.jpegData(compressionQuality: 0)
         let imageBase64String = png_data?.base64EncodedString()
-        let jsonObj = ["frame": imageBase64String, "chord": chord]
+        let jsonObj = ["frame": imageBase64String, "chord": chord, "detected": "0"]
         
         guard let jsonData = try? JSONSerialization.data(withJSONObject: jsonObj) else {
             print("postAudio: jsonData serialization error")
@@ -52,9 +53,10 @@ class SendFrame: ObservableObject {
             if let data = data, let dataString = String(data: data, encoding: .utf8)?.data(using: .utf8)! {
                 print("Response data string:\n \(dataString)")
                 do {
-                    print(dataString)
                     let dataFrame = try decoder.decode(FrameStruct.self, from: dataString)
-                    print(dataFrame.frame)
+                    print(dataFrame.overlay)
+                    self.almost_final_frame = dataFrame.overlay
+                    
                 } catch {
                     print("decode error")
                     return
@@ -62,6 +64,9 @@ class SendFrame: ObservableObject {
             }
             
         }.resume()
+        if(almost_final_frame != nil && almost_final_frame != "") {
+            final_frame = almost_final_frame
+        }
     }
 
 }
