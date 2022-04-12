@@ -71,6 +71,7 @@ struct GuitarLessonView: View {
         self.orientation = startingOrientation
         self.chords = []
         self._currentView = currentView
+        self.fretboardImage = ""
         self.beats = []
         for arr in song.chords! {
             self.chords.append(arr[0] as! String)
@@ -84,6 +85,7 @@ struct GuitarLessonView: View {
     @State private var startBtnHidden = false
     @State private var timerGoing = true
     @State private var countdown: Double?
+    @State private var fretboardImage: String
     var body: some View {
         ZStack {
             HStack {
@@ -109,7 +111,7 @@ struct GuitarLessonView: View {
                         }
                     
                         .overlay(alignment: .bottom) {
-                            Image("fretboard_1")
+                            Image(fretboardImage)
                                 .resizable()
                                 .scaledToFit()
                         }
@@ -117,7 +119,7 @@ struct GuitarLessonView: View {
                     
                         if !startBtnHidden && timerGoing {
                             Button(action: {
-                            
+                                fretboardImage = "overlay_" + (nextChords?[nextChords!.startIndex] ?? "")
                                 /*
                                  The button in SongItem (build to see it) is what changes the variable
                                  Possible values: 1x speed, 0.75x speed, 0.50x speed, 0.25x speed.
@@ -141,6 +143,7 @@ struct GuitarLessonView: View {
                                             audioPlayer.doneTapped(chord: nextChords?[nextChords!.startIndex])
                                                 
                                             getNextChord()
+                                            fretboardImage = "overlay_" + (nextChords?[nextChords!.startIndex] ?? "")
                                             if(current_beat == beats.count - 1) {
                                                 timer.invalidate()
                                             }
