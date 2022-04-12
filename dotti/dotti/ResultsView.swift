@@ -13,7 +13,7 @@ struct ResultsView: View {
     let progressBarWidth = 20.0
     var body: some View {
         VStack {
-            Text("Results")
+            Text("Accuracy")
                 .font(Font.h1)
                 .foregroundColor(Color.floral_white)
             
@@ -54,7 +54,7 @@ struct ResultsView: View {
                 }
             }
                 .frame(width: 200.0, height: 200.0)
-        }
+        }.animation(.spring())
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(.black.opacity(0.80))
     }

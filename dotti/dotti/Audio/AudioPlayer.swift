@@ -85,6 +85,7 @@ enum TransEvent {
 final class AudioPlayer: NSObject, ObservableObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
     @Published var playerState = PlayerState.start(.standby)
     @Published var correctChordsPlayed = 0
+    @Published var borderColor: Color = Color.clear
     var audio: Data!
     private let audioFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("guitaraudio.m4a")
     
@@ -267,6 +268,11 @@ final class AudioPlayer: NSObject, ObservableObject, AVAudioRecorderDelegate, AV
                         print("correct")
                         DispatchQueue.main.async {
                             self.correctChordsPlayed += 1
+                            self.borderColor = Color.green
+                        }
+                    } else {
+                        DispatchQueue.main.async {
+                            self.borderColor = Color.red
                         }
                     }
                 } catch {

@@ -143,7 +143,14 @@ struct GuitarLessonView: View {
                                             audioPlayer.recTapped()
                                         }
                                     }
-                                    countdown = time - counter
+                                    if nextChords == nil {
+                                        audioPlayer.doneTapped(chord: "nil")
+                                        timer.invalidate()
+                                        startBtnHidden = true
+                                        timerGoing = false
+                                    } else {
+                                        countdown = time - counter
+                                    }
                                     
                                 }
                                 //for beat in beats {
@@ -269,18 +276,18 @@ struct GuitarLessonView: View {
                     .background(.black)
                     .onTapGesture(count: 2) { getPrevChord() }
                     .onTapGesture(count: 1) { getNextChord() }
-            }
-           
+            }.border(audioPlayer.borderColor, width: 10)
+                .cornerRadius(25)
+                .animation(.spring())
+                .edgesIgnoringSafeArea(.all)
             
             if nextChords == nil {
-                stopRecording()
                 ResultsView(audioPlayer: audioPlayer, totalNumChords: Double(chords.count))
                     .edgesIgnoringSafeArea(.all)
-            } else {
-                EmptyView()
             }
             
-        }  
+                
+        }
             // Want sidebar to go into safe area only when `landscapeRight`
             .ignoresSafeArea(
                 edges: orientation == .landscapeRight ?
@@ -293,7 +300,7 @@ struct GuitarLessonView: View {
                 setUIOrientation(to: startingOrientation)
 
                 // Load sidebar data
-                nextChords = chords.prefix(maxNumNextChords)
+                nextChords = chords.suffix(maxNumNextChords)
             }
             .onRotate { newOrientation in
                 // Keep track of UI's orientation
@@ -365,8 +372,6 @@ struct GuitarLessonView: View {
     }
     
     func stopRecording() -> some View {
-        self.timerGoing = false
-        self.startBtnHidden = true
         audioPlayer.doneTapped(chord: "nil")
         return EmptyView()
     }
