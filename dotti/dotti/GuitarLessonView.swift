@@ -86,131 +86,150 @@ struct GuitarLessonView: View {
     @State private var timerGoing = true
     @State private var countdown: Double?
     @State private var overlay: UIImage?
+    @State private var sleepTimer: String = "3"
+    @State private var sleepTimerOverlay: Bool = false
     var body: some View {
         ZStack {
             HStack(spacing: 0) {
                 ZStack {
                     // Camera Feed
-                    if overlay == nil {
-                        FrameView(image: model.frame, orientation: $orientation)
-                            .edgesIgnoringSafeArea(.all)
-                    
-                            .onRotate { newOrientation in
-                                switch newOrientation {
-                                // home button on the RIGHT
-                                case .landscapeLeft:
-                                    FrameView(image: model.frame, orientation: $orientation)
-                                        .edgesIgnoringSafeArea(.all)
-                                    break
-                                // home button on the LEFT
-                                case .landscapeRight:
-                                    FrameView(image: model.frame, orientation: $orientation)
-                                        .edgesIgnoringSafeArea(.all)
-                                    break
-                                default: break
-                                }
+                    FrameView(image: model.frame, orientation: $orientation)
+                        .edgesIgnoringSafeArea(.all)
+                        // .overlay(Text(sleepTimerOverlay ? sleepTimer : ""))
+                        .onRotate { newOrientation in
+                            switch newOrientation {
+                            // home button on the RIGHT
+                            case .landscapeLeft:
+                                FrameView(image: model.frame, orientation: $orientation)
+                                    .edgesIgnoringSafeArea(.all)
+                                break
+                            // home button on the LEFT
+                            case .landscapeRight:
+                                FrameView(image: model.frame, orientation: $orientation)
+                                    .edgesIgnoringSafeArea(.all)
+                                break
+                            default: break
                             }
-                    }
+                        }
                     if overlay != nil {
                         Image(uiImage: overlay!)
                             .resizable()
                             .scaledToFit()
                     }
+                    // if sleepTimerOverlay {
+                    //     Text(sleepTimer)
+                    // }
                     
-                    
-                        if !startBtnHidden && timerGoing {
-                            Button(action: {
+                    if !startBtnHidden {
+                        Button(action: {
+                            startBtnHidden = true
+                            sleepTimerOverlay = true
+                            sleep(1)
+                            sleepTimer = "2"
+                            sleep(1)
+                            sleepTimer = "1"
+                            sleep(1)
                             
-                                startBtnHidden = true
-                                var guitarDetected = false
+                             // <-- I want this!!!!
+                            var guitarDetected = false
+                            
+                            let detection_timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: true) {
+                                detection_timer in
+                                    
+                                    //Call guitar detection every 2 seconds
+                                    sendFrame.sendFrame(frame: model.frame!, chord: chords[0], detected: "0")
                                 
-                                let detection_timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: true) {
-                                    detection_timer in
-                                    //TODO: call guitar detection every 2 seconds
-                                    DispatchQueue.main.async {
-                                        sendFrame.sendFrame(frame: model.frame!, chord: chords[0])
+                                
+                                
+                                if (sendFrame.final_frame != nil && sendFrame.final_frame!.count > 70) {
+                                    guitarDetected = true
+                                    print(sendFrame.final_frame)
+                                }
+                                
+                                if guitarDetected {
+                                    detection_timer.invalidate()
+                                    let newImageData = Data(base64Encoded: sendFrame.final_frame!)
+                                    if let image = newImageData {
+                                        overlay = UIImage(data: image)
                                     }
-                                    
-                                    
-                                    if (sendFrame.final_frame != nil && sendFrame.final_frame != "") {
-                                        guitarDetected = true
-                                        print(sendFrame.final_frame)
-                                    }
-                                    
-                                    if guitarDetected {
-                                        detection_timer.invalidate()
-                                        let newImageData = Data(base64Encoded: sendFrame.final_frame!)
-                                        if let image = newImageData {
-                                            overlay = UIImage(data: image)
-                                        }
 //                                        overlay = CIImage(cgImage: ui_overlay!.cgImage!) as! CGImage
 //                                        print(overlay)
-                                        
-                                    }
-                                }
-                                
-
-                                var time = (Double(beats[0]) * 60.0) / Double(song.bpm!)
-                                var counter = 0.0
-                                var current_beat = 0
-                                var overlayFetched = false
-                                audioPlayer.recTapped()
-                                recHidden.toggle()
-                                let timer = Timer.scheduledTimer(withTimeInterval: 0.001, repeats: true) { timer in
-                                    counter += 0.001
-//                                        if(counter >= (time + 2) && overlayFetched == false) {
-//                                            overlayFetched = true
-//                                            //TODO: call get overlay on current frame and chords[current_beat]
-//                                        }
-                                    if(counter >= time) {
-                                        if timerGoing{
-                                            audioPlayer.recTapped()
-                                            
-                                            audioPlayer.doneTapped(chord: nextChords?[nextChords!.startIndex])
-                                            
-                                            if(guitarDetected) {
-
-                                                getNextChord()
-                                                current_beat += 1
-                                            }
-                                            if(current_beat == beats.count - 1) {
-                                                timer.invalidate()
-                                            }
-                                            counter = 0.0
-
-                                            overlayFetched = false
-                                            time = (Double(beats[current_beat]) * 60.0) / Double(song.bpm!)
-                                            audioPlayer.recTapped()
-                                           
-                                            //TODO: add overlay to model.frame
-                                        }
-                                    }
-                                    if(guitarDetected) {
-                                        countdown = time - counter
-                                    }
-                                    else {
-                                        countdown = 0.0
-                                    }
                                     
                                 }
-                                
+                            }
                             
-                            }, label: {
-                                Text("start")
-                                    .foregroundColor(Color.black)
-                                    .frame(width: 120, height: 40)
-                                    .background(.blue)
-                                    .cornerRadius(5)
-                                    .font(.system(size: 30))
-                                    .overlay(
-                                        RoundedRectangle(cornerRadius: 5.0)
-                                            .stroke(Color.blue, lineWidth: 2.0)
-                                    )
-                                    .padding()
-                            })
-                        }
+
+                            var time = (Double(beats[0]) * 60.0) / Double(song.bpm!)
+                            var counter = 0.0
+                            var current_beat = 0
+                            var overlayFetched = true
+                            audioPlayer.recTapped()
+                            recHidden.toggle()
+                            let timer = Timer.scheduledTimer(withTimeInterval: 0.001, repeats: true) { timer in
+                                counter += 0.001
+                            
+                            if(counter >= time && overlayFetched == false && guitarDetected == true) {
+                                overlayFetched = true
+                                sendFrame.sendFrame(frame: model.frame!, chord: chords[current_beat], detected: "1")
+                                
+                            }
+                                if(counter >= time) {
+                                    if timerGoing{
+                                        audioPlayer.recTapped()
+                                        
+                                        audioPlayer.doneTapped(chord: nextChords?[nextChords!.startIndex])
+                                        
+                                        if(guitarDetected) {
+
+                                            getNextChord()
+                                            current_beat += 1
+            
+                                            let newImageData = Data(base64Encoded: sendFrame.final_frame!)
+                                            if let image = newImageData {
+                                                overlay = UIImage(data: image)
+                                            }
+                                
+                                            
+                                        }
+                                        if(current_beat == beats.count - 1) {
+                                            timer.invalidate()
+                                        }
+                                        counter = 0.0
+
+                                        overlayFetched = false
+                                        time = (Double(beats[current_beat]) * 60.0) / Double(song.bpm!)
+                                        audioPlayer.recTapped()
+                                        
+                                        //TODO: add overlay to model.frame
+                                    }
+                                }
+                                if(guitarDetected) {
+                                    countdown = time - counter
+                                }
+                                else {
+                                    countdown = 0.0
+                                }
+                                
+                            }
+                            
+                        
+                        }, label: {
+                            Text("start")
+                                .foregroundColor(Color.black)
+                                .frame(width: 120, height: 40)
+                                .background(.blue)
+                                .cornerRadius(5)
+                                .font(.system(size: 30))
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 5.0)
+                                        .stroke(Color.blue, lineWidth: 2.0)
+                                )
+                                .padding()
+                        })
+                    }
                 }
-                
+
+            
                 
 
                 // Sidebar
@@ -307,8 +326,7 @@ struct GuitarLessonView: View {
                     .background(.black)
                     .onTapGesture(count: 2) { getPrevChord() }
                     .onTapGesture(count: 1) { getNextChord() }
-            }
-        }  
+        }
             // Want sidebar to go into safe area only when `landscapeRight`
             .ignoresSafeArea(
                 edges: orientation == .landscapeRight ?
@@ -341,6 +359,7 @@ struct GuitarLessonView: View {
             .onDisappear { 
                 AppDelegate.orientationMask = UIInterfaceOrientationMask.all
             }
+        }
     }
 
     /// Updates `nextChords`, shifting the array slice to the right by 1.

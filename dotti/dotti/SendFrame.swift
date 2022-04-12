@@ -16,7 +16,7 @@ class SendFrame: ObservableObject {
         var overlay: String
     }
 
-    func sendFrame(frame: CGImage, chord: String) {
+    func sendFrame(frame: CGImage, chord: String, detected: String) {
         guard let apiUrl =  URL(string: "https://35.227.89.255/getoverlay/") else {
             print("Bad URL")
             return
@@ -24,7 +24,11 @@ class SendFrame: ObservableObject {
         let frame_uiimage = UIImage(cgImage: frame)
         let png_data = frame_uiimage.jpegData(compressionQuality: 0)
         let imageBase64String = png_data?.base64EncodedString()
-        let jsonObj = ["frame": imageBase64String, "chord": chord, "detected": "0"]
+        var sent_frame = ""
+        if(detected == "0") {
+            sent_frame = imageBase64String!
+        }
+        let jsonObj = ["frame": sent_frame, "chord": chord,  "detected": detected]
         
         guard let jsonData = try? JSONSerialization.data(withJSONObject: jsonObj) else {
             print("postAudio: jsonData serialization error")

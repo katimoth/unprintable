@@ -216,6 +216,7 @@ final class AudioPlayer: NSObject, ObservableObject, AVAudioRecorderDelegate, AV
 //        DispatchQueue.main.async {
 //            self.sendToML(chord: chord!)
 //        }
+        // self.sendClearCache()
         
         audioRecorder.deleteRecording()
 
