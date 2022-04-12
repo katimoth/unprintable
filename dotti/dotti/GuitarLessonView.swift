@@ -117,6 +117,12 @@ struct GuitarLessonView: View {
                                 var current_beat = 0
                                 audioPlayer.recTapped()
                                 recHidden.toggle()
+                                /*
+                                 The button in SongItem (build to see it) is what changes the variable
+                                 Possible values: 1x speed, 0.75x speed, 0.50x speed, 0.25x speed.
+                                 Thank you!
+                                 */
+                                let playBackspeed = song.playBackspeed
                                 let timer = Timer.scheduledTimer(withTimeInterval: 0.001, repeats: true) { timer in
                                     counter += 0.001
                                     if(counter >= time) {
