@@ -11,7 +11,6 @@ struct ResultsView: View {
 
     /// The width of the circular progress bar's stroke, not the entire bar
     let progressBarWidth = 20.0
-
     var body: some View {
         VStack {
             Text("Results")

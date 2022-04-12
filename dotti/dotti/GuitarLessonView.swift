@@ -270,10 +270,16 @@ struct GuitarLessonView: View {
                     .onTapGesture(count: 2) { getPrevChord() }
                     .onTapGesture(count: 1) { getNextChord() }
             }
+           
+            
             if nextChords == nil {
+                stopRecording()
                 ResultsView(audioPlayer: audioPlayer, totalNumChords: Double(chords.count))
                     .edgesIgnoringSafeArea(.all)
+            } else {
+                EmptyView()
             }
+            
         }  
             // Want sidebar to go into safe area only when `landscapeRight`
             .ignoresSafeArea(
@@ -356,6 +362,13 @@ struct GuitarLessonView: View {
             nextChords.endIndex
 
         self.nextChords = chords[nextChords.startIndex - 1..<newEndIndex]
+    }
+    
+    func stopRecording() -> some View {
+        self.timerGoing = false
+        self.startBtnHidden = true
+        audioPlayer.doneTapped(chord: "nil")
+        return EmptyView()
     }
     #endif
 }

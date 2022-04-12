@@ -90,7 +90,6 @@
 				8310C87E28011940001C5210 /* Audio */,
 				8310C88228012032001C5210 /* AudioView.swift */,
 				830B38D02800E97800CDA7A7 /* Camera */,
-				8310C886280364BE001C5210 /* correctChordsView.swift */,
 				3AD178C027DBAA1300E2A774 /* dottiApp.swift */,
 				3AA3A1CA27E5BCC900D5E005 /* Fonts */,
 				830B38CE2800E57600CDA7A7 /* FrameView.swift */,
@@ -365,7 +364,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"dotti/Preview Content\"";
-				DEVELOPMENT_TEAM = WSB3PDR76Q;
+				DEVELOPMENT_TEAM = U942498C9V;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = dotti/Info.plist;
@@ -381,7 +380,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "edu.umich.unprintable-ios.dotti";
+				PRODUCT_BUNDLE_IDENTIFIER = "edu.umich.unprintable-ios.dotti.dotti";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -399,7 +398,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"dotti/Preview Content\"";
-				DEVELOPMENT_TEAM = WSB3PDR76Q;
+				DEVELOPMENT_TEAM = U942498C9V;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = dotti/Info.plist;
@@ -415,7 +414,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "edu.umich.unprintable-ios.dotti";
+				PRODUCT_BUNDLE_IDENTIFIER = "edu.umich.unprintable-ios.dotti.dotti";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
