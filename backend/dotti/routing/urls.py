@@ -20,7 +20,7 @@ from app import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('getsong/', views.getsong, name='getsong'),
-    path('postaccuracy/', views.postaccuracy, name='postaccuracy'),
     path('getmetrics/', views.getmetrics, name='getmetrics'),
     path('extractchord/', views.extractchord, name='extractchord'),
+    path('getoverlay/', views.getoverlay, name='getoverlay'),
 ]
