@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-c3c*b5t)sni5h6mzu!j*hi4q^kln_=iuwbyrpp*wue*k3#@h^n
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['34.139.144.50', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['35.243.195.141', '34.139.144.50', '35.227.89.255', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -127,3 +127,5 @@ STATIC_ROOT = BASE_DIR / 'static'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+DATA_UPLOAD_MAX_MEMORY_SIZE = 52428800
