@@ -48,6 +48,10 @@ struct GuitarLessonView: View {
     ///
     @StateObject private var model = ContentViewModel()
     
+    /// Guitar Detection Model
+    ///
+    private var guitarModel = GuitarModel()
+    
     ///Audio View Helper
     ///
 //    @StateObject private var audioPlayer = AudioPlayer()
@@ -75,9 +79,15 @@ struct GuitarLessonView: View {
     @State private var fretboardImage: String
     @State private var counter = 0.0
     @State private var current_beat = 0
+    @State private var guitarFound = false
     
     func createChordTimer() -> Timer {
         return Timer.scheduledTimer(withTimeInterval: 0.001, repeats: true) { timer in
+            //detect guitar
+            
+            
+            //if guitar detected:
+            
             counter += 0.001
             var time = (Double(beats[0]) * 60.0) / (Double(song.bpm!) * song.playBackspeed)
             if(counter >= time) {
@@ -145,19 +155,20 @@ struct GuitarLessonView: View {
                     
                         if !startBtnHidden && timerGoing {
                             Button(action: {
-                                fretboardImage = "overlay_" + (nextChords?[nextChords!.startIndex] ?? "")
-                                /*
-                                 The button in SongItem (build to see it) is what changes the variable
-                                 Possible values: 1x speed, 0.75x speed, 0.50x speed, 0.25x speed.
-                                 Thank you!
-                                 */
                                 
                                 startBtnHidden = true
-            
-                                audioPlayer.recTapped()
-                                recHidden.toggle()
+                                
+                                detectGuitar()
+                                
+                                // begin chord timers if guitar is found
+                                if guitarFound {
+                                    fretboardImage = "overlay_" + (nextChords?[nextChords!.startIndex] ?? "")
+                
+                                    audioPlayer.recTapped()
+                                    recHidden.toggle()
 
-                                let timer = createChordTimer()
+                                    createChordTimer()
+                                }
 
                             }, label: {
                                 Text("start")
@@ -250,6 +261,17 @@ struct GuitarLessonView: View {
         let newEndIndex = min(chords.count, nextChords.endIndex + 1)
 
         self.nextChords = chords[nextChords.startIndex + 1..<newEndIndex]
+    }
+    
+    func detectGuitar() {
+        Timer.scheduledTimer(withTimeInterval: 0.4, repeats: true) {_ in
+            if guitarModel.detectGuitarFromFrame(buffer: model.frameBuffer!) != nil {
+                print("guitar found!")
+                guitarFound = true
+            } else {
+                print("No guitar in frame")
+            }
+        }
     }
 
     #if DEBUG

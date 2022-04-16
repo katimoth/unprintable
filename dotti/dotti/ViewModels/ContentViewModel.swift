@@ -11,6 +11,7 @@ import VideoToolbox
 class ContentViewModel: ObservableObject {
     // 1
     @Published var frame: CGImage?
+    @Published var frameBuffer: CMSampleBuffer?
     // 2
     private let frameManager = FrameManager.shared
 
@@ -25,7 +26,7 @@ class ContentViewModel: ObservableObject {
             .receive(on: RunLoop.main)
             // 3
             .compactMap { buffer in
-                if (buffer != nil){
+                if (buffer != nil) {
                     return self.createImage(from: buffer!)
                 }
                 return nil
@@ -37,7 +38,29 @@ class ContentViewModel: ObservableObject {
     func createImage(from pixelBuffer: CVPixelBuffer) -> CGImage? {
         var cgImage: CGImage?
         VTCreateCGImageFromCVPixelBuffer(pixelBuffer, options: nil, imageOut: &cgImage)
+        frameBuffer = createSampleBufferFrom(pixelBuffer: pixelBuffer)
         return cgImage
+    }
+    
+    func createSampleBufferFrom(pixelBuffer: CVPixelBuffer) -> CMSampleBuffer? {
+        var sampleBuffer: CMSampleBuffer?
+        
+        var timimgInfo  = CMSampleTimingInfo()
+        var formatDescription: CMFormatDescription? = nil
+        CMVideoFormatDescriptionCreateForImageBuffer(allocator: kCFAllocatorDefault, imageBuffer: pixelBuffer, formatDescriptionOut: &formatDescription)
+        
+        CMSampleBufferCreateReadyWithImageBuffer(
+          allocator: kCFAllocatorDefault,
+          imageBuffer: pixelBuffer,
+          formatDescription: formatDescription!,
+          sampleTiming: &timimgInfo,
+          sampleBufferOut: &sampleBuffer
+        )
+        guard let buffer = sampleBuffer else {
+            print("Cannot create sample buffer")
+            return nil
+        }
+        return buffer
     }
 }
 

@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		22590EC128078CAE00B6C517 /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22590EC028078CAE00B6C517 /* SidebarView.swift */; };
+		22590EE5280A19C800B6C517 /* GuitarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22590EE4280A19C800B6C517 /* GuitarModel.swift */; };
+		22590EF0280B18A300B6C517 /* model.tflite in Resources */ = {isa = PBXBuildFile; fileRef = 22590EEF280B18A300B6C517 /* model.tflite */; };
 		2816F9F32802052A00691460 /* SongStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2816F9F22802052A00691460 /* SongStore.swift */; };
 		2816F9F52802053F00691460 /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2816F9F42802053F00691460 /* Song.swift */; };
 		3A6A631727E655810089A620 /* LibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6A631627E655810089A620 /* LibraryView.swift */; };
@@ -20,6 +22,7 @@
 		3AD178C327DBAA1300E2A774 /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD178C227DBAA1300E2A774 /* TitleView.swift */; };
 		3AD178C527DBAA1700E2A774 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AD178C427DBAA1700E2A774 /* Assets.xcassets */; };
 		3AD178C827DBAA1700E2A774 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AD178C727DBAA1700E2A774 /* Preview Assets.xcassets */; };
+		66DAB9E46FF87D7F9FDD6DE0 /* Pods_dotti.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6711089E685C8365C1311032 /* Pods_dotti.framework */; };
 		830B38CF2800E57600CDA7A7 /* FrameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830B38CE2800E57600CDA7A7 /* FrameView.swift */; };
 		830B38D22800E98C00CDA7A7 /* CameraManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830B38D12800E98C00CDA7A7 /* CameraManager.swift */; };
 		830B38D42800EE6600CDA7A7 /* FrameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830B38D32800EE6600CDA7A7 /* FrameManager.swift */; };
@@ -33,6 +36,8 @@
 
 /* Begin PBXFileReference section */
 		22590EC028078CAE00B6C517 /* SidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
+		22590EE4280A19C800B6C517 /* GuitarModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuitarModel.swift; sourceTree = "<group>"; };
+		22590EEF280B18A300B6C517 /* model.tflite */ = {isa = PBXFileReference; lastKnownFileType = file; name = model.tflite; path = "../../../../../Downloads/newmodeldotti/model-export/iod/tflite-guitars_20220415085538-2022-04-16T14:53:19.969044Z/model.tflite"; sourceTree = "<group>"; };
 		2816F9F22802052A00691460 /* SongStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongStore.swift; sourceTree = "<group>"; };
 		2816F9F42802053F00691460 /* Song.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
 		3A6A631627E655810089A620 /* LibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryView.swift; sourceTree = "<group>"; };
@@ -47,6 +52,7 @@
 		3AD178C227DBAA1300E2A774 /* TitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
 		3AD178C427DBAA1700E2A774 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3AD178C727DBAA1700E2A774 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		6711089E685C8365C1311032 /* Pods_dotti.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_dotti.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		830B38CE2800E57600CDA7A7 /* FrameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameView.swift; sourceTree = "<group>"; };
 		830B38D12800E98C00CDA7A7 /* CameraManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraManager.swift; sourceTree = "<group>"; };
 		830B38D32800EE6600CDA7A7 /* FrameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameManager.swift; sourceTree = "<group>"; };
@@ -56,6 +62,8 @@
 		8370B1A427F921B900C53EC0 /* ResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsView.swift; sourceTree = "<group>"; };
 		8370B1A627F9238400C53EC0 /* GuitarLessonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuitarLessonView.swift; sourceTree = "<group>"; };
 		83E7903827FA1E5200BC742A /* SongItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongItem.swift; sourceTree = "<group>"; };
+		A5C3ADCAD1CA31F15B7ECC9F /* Pods-dotti.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dotti.debug.xcconfig"; path = "Target Support Files/Pods-dotti/Pods-dotti.debug.xcconfig"; sourceTree = "<group>"; };
+		D00EA0FF926C08027ADA6657 /* Pods-dotti.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dotti.release.xcconfig"; path = "Target Support Files/Pods-dotti/Pods-dotti.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +71,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				66DAB9E46FF87D7F9FDD6DE0 /* Pods_dotti.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,6 +92,8 @@
 			children = (
 				3AD178BF27DBAA1300E2A774 /* dotti */,
 				3AD178BE27DBAA1300E2A774 /* Products */,
+				F5CC8D8452B16DAC0FEE1830 /* Pods */,
+				F550BC87714C1E76CC2B04CA /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -97,9 +108,11 @@
 		3AD178BF27DBAA1300E2A774 /* dotti */ = {
 			isa = PBXGroup;
 			children = (
+				22590EEF280B18A300B6C517 /* model.tflite */,
 				3AD178C427DBAA1700E2A774 /* Assets.xcassets */,
 				8310C87E28011940001C5210 /* Audio */,
 				8310C88228012032001C5210 /* AudioView.swift */,
+				22590EE4280A19C800B6C517 /* GuitarModel.swift */,
 				830B38D02800E97800CDA7A7 /* Camera */,
 				3AD178C027DBAA1300E2A774 /* dottiApp.swift */,
 				3AA3A1CA27E5BCC900D5E005 /* Fonts */,
@@ -155,6 +168,23 @@
 			path = Audio;
 			sourceTree = "<group>";
 		};
+		F550BC87714C1E76CC2B04CA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6711089E685C8365C1311032 /* Pods_dotti.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F5CC8D8452B16DAC0FEE1830 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A5C3ADCAD1CA31F15B7ECC9F /* Pods-dotti.debug.xcconfig */,
+				D00EA0FF926C08027ADA6657 /* Pods-dotti.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -162,9 +192,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3AD178CB27DBAA1700E2A774 /* Build configuration list for PBXNativeTarget "dotti" */;
 			buildPhases = (
+				E9CB44EE2363EAE635FCF47C /* [CP] Check Pods Manifest.lock */,
 				3AD178B927DBAA1200E2A774 /* Sources */,
 				3AD178BA27DBAA1200E2A774 /* Frameworks */,
 				3AD178BB27DBAA1200E2A774 /* Resources */,
+				C103C06F541D1DF2409CB031 /* [CP] Embed Pods Frameworks */,
+				B01266FD364C88B13409FDC6 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -216,10 +249,70 @@
 				3AA3A1CB27E5BCC900D5E005 /* Fonts in Resources */,
 				3AD178C827DBAA1700E2A774 /* Preview Assets.xcassets in Resources */,
 				3AD178C527DBAA1700E2A774 /* Assets.xcassets in Resources */,
+				22590EF0280B18A300B6C517 /* model.tflite in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		B01266FD364C88B13409FDC6 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-dotti/Pods-dotti-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-dotti/Pods-dotti-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-dotti/Pods-dotti-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C103C06F541D1DF2409CB031 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-dotti/Pods-dotti-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-dotti/Pods-dotti-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-dotti/Pods-dotti-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E9CB44EE2363EAE635FCF47C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-dotti-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		3AD178B927DBAA1200E2A774 /* Sources */ = {
@@ -227,6 +320,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8370B1A727F9238400C53EC0 /* GuitarLessonView.swift in Sources */,
+				22590EE5280A19C800B6C517 /* GuitarModel.swift in Sources */,
 				830B38D72800EF8500CDA7A7 /* ContentViewModel.swift in Sources */,
 				22590EC128078CAE00B6C517 /* SidebarView.swift in Sources */,
 				3A6A631927E67FC40089A620 /* Utilities.swift in Sources */,
@@ -369,6 +463,7 @@
 		};
 		3AD178CC27DBAA1700E2A774 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A5C3ADCAD1CA31F15B7ECC9F /* Pods-dotti.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -403,6 +498,7 @@
 		};
 		3AD178CD27DBAA1700E2A774 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D00EA0FF926C08027ADA6657 /* Pods-dotti.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
