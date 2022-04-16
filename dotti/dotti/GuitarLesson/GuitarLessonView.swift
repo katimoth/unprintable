@@ -7,7 +7,20 @@
 
 import SwiftUI
 
-
+/// Real-time interactive guitar lesson
+///
+/// The flow of a guitar lesson goes like this:
+/// - Wait for user to press start button
+/// - Once start button pressed, wait until guitar is detected by camera
+/// - Once guitar detected, begin lesson
+///   - Iterate through chord progression
+///   - For every chord, display fingering with AR and determine whether user
+///     plays the right chord with audio analysis
+///   - When there are no more chords, the lesson is finished
+/// - Once lesson finished, show results view
+///
+/// At any point, the user can exit the lessson by clicking the X at the top right
+///
 /// - Invariant: UI orientation must always be landscape
 struct GuitarLessonView: View {
     @Binding var currentView: AppViews
@@ -45,16 +58,25 @@ struct GuitarLessonView: View {
     @State var orientation: UIInterfaceOrientation
 
     /// Camera View Helper
-    ///
     @StateObject private var model = ContentViewModel()
     
     /// Guitar Detection Model
-    ///
     private var guitarModel = GuitarModel()
-    
-    ///Audio View Helper
-    ///
-//    @StateObject private var audioPlayer = AudioPlayer()
+
+    @State private var guitarDetectionTimer: Timer? = nil
+
+    @StateObject private var audioPlayer = AudioPlayer()
+    @State private var recHidden = false
+    @State private var startBtnHidden = false
+    @State private var timerGoing = true
+    @State private var countdown: Double?
+    @State private var fretboardImage: String
+    @State private var counter = 0.0
+    @State private var current_beat = 0
+
+    /// False until user hits start button and guitar is detected. Then, stays
+    /// true even guitar is moved away from camera
+    @State private var guitarFound = false
 
     init(song: Song, currentView: Binding<AppViews>) {
         self.song = song
@@ -68,26 +90,9 @@ struct GuitarLessonView: View {
             self.beats.append(arr[1] as! Int)
         }
     }
-    
-    @StateObject private var audioPlayer = AudioPlayer()
-    @State private var lessonStarted = false
-    @State private var playHidden = true
-    @State private var recHidden = false
-    @State private var startBtnHidden = false
-    @State private var timerGoing = true
-    @State private var countdown: Double?
-    @State private var fretboardImage: String
-    @State private var counter = 0.0
-    @State private var current_beat = 0
-    @State private var guitarFound = false
-    
+
     func createChordTimer() -> Timer {
         return Timer.scheduledTimer(withTimeInterval: 0.001, repeats: true) { timer in
-            //detect guitar
-            
-            
-            //if guitar detected:
-            
             counter += 0.001
             var time = (Double(beats[0]) * 60.0) / (Double(song.bpm!) * song.playBackspeed)
             if(counter >= time) {
@@ -118,10 +123,9 @@ struct GuitarLessonView: View {
             } else {
                 countdown = time - counter
             }
-            
         }
     }
-    
+
     var body: some View {
         ZStack {
             HStack {
@@ -129,7 +133,7 @@ struct GuitarLessonView: View {
                     // Camera Feed
                     FrameView(image: model.frame, orientation: $orientation)
                         .edgesIgnoringSafeArea(.all)
-                
+                        // Make sure frame isn't upside down or something
                         .onRotate { newOrientation in
                             switch newOrientation {
                             // home button on the RIGHT
@@ -145,31 +149,18 @@ struct GuitarLessonView: View {
                             default: break
                             }
                         }
-                    
+                        // Display correct fingering on user's guitar with AR
                         .overlay(alignment: .bottom) {
                             Image(fretboardImage)
                                 .resizable()
                                 .scaledToFit()
                         }
-                        
-                    
-                        if !startBtnHidden && timerGoing {
+
+                        if !startBtnHidden {
+                            // Start Button
                             Button(action: {
-                                
                                 startBtnHidden = true
-                                
-                                detectGuitar()
-                                
-                                // begin chord timers if guitar is found
-                                if guitarFound {
-                                    fretboardImage = "overlay_" + (nextChords?[nextChords!.startIndex] ?? "")
-                
-                                    audioPlayer.recTapped()
-                                    recHidden.toggle()
-
-                                    createChordTimer()
-                                }
-
+                                startGuitarDetection()
                             }, label: {
                                 Text("start")
                                     .foregroundColor(Color.black)
@@ -186,8 +177,6 @@ struct GuitarLessonView: View {
                         }
                 }
 
-                // Sidebar
-                Spacer()
                 SidebarView(
                     currentView: $currentView,
                     chords: chords,
@@ -204,13 +193,16 @@ struct GuitarLessonView: View {
                 .cornerRadius(50)
                 .animation(.spring())
                 .edgesIgnoringSafeArea(.all)
-        
+
+            // Show results at end of lesson
             if nextChords == nil {
-                ResultsView(audioPlayer: audioPlayer, currentView: $currentView, totalNumChords: Double(chords.count))
+                ResultsView(
+                    audioPlayer: audioPlayer,
+                    currentView: $currentView,
+                    totalNumChords: Double(chords.count)
+                )
                     .edgesIgnoringSafeArea(.all)
             }
-            
-                
         }
             // Want sidebar to go into safe area only when `landscapeRight`
             .ignoresSafeArea(
@@ -242,6 +234,7 @@ struct GuitarLessonView: View {
             }
             .onDisappear { 
                 AppDelegate.orientationMask = UIInterfaceOrientationMask.all
+                guitarDetectionTimer?.invalidate()
             }
     }
 
@@ -263,10 +256,19 @@ struct GuitarLessonView: View {
         self.nextChords = chords[nextChords.startIndex + 1..<newEndIndex]
     }
     
-    func detectGuitar() {
-        Timer.scheduledTimer(withTimeInterval: 0.4, repeats: true) {_ in
+    func startGuitarDetection() {
+        guitarDetectionTimer = Timer.scheduledTimer(withTimeInterval: 0.4, repeats: true) {_ in
             if guitarModel.detectGuitarFromFrame(buffer: model.frameBuffer!) != nil {
                 print("guitar found!")
+
+                // If this is the first time guitar detected, begin the lesson
+                if !guitarFound {
+                    fretboardImage = "overlay_" + (nextChords?[nextChords!.startIndex] ?? "")
+                    audioPlayer.recTapped()
+                    recHidden.toggle()
+                    createChordTimer()
+                }
+
                 guitarFound = true
             } else {
                 print("No guitar in frame")

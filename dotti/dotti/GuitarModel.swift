@@ -52,8 +52,9 @@ class GuitarModel {
     func detectGuitarFromFrame(buffer: CMSampleBuffer) -> Any? {
         let image = VisionImage(buffer: buffer)
         image.orientation = imageOrientation(
-          deviceOrientation: UIDevice.current.orientation,
-          cameraPosition: .front)
+            deviceOrientation: UIDevice.current.orientation,
+            cameraPosition: .front
+        )
         
         let objectDetector = ObjectDetector.objectDetector(options: options!)
         var boundingBox: Any?
@@ -75,19 +76,19 @@ class GuitarModel {
       deviceOrientation: UIDeviceOrientation,
       cameraPosition: AVCaptureDevice.Position
     ) -> UIImage.Orientation {
-      switch deviceOrientation {
-      case .portrait:
-          return cameraPosition == .front ? .leftMirrored : .right
-      case .landscapeLeft:
-          return cameraPosition == .front ? .downMirrored : .up
-      case .portraitUpsideDown:
-          return cameraPosition == .front ? .rightMirrored : .left
-      case .landscapeRight:
-          return cameraPosition == .front ? .upMirrored : .down
-      case .faceDown, .faceUp, .unknown:
-          return .up
-      @unknown default:
-          return .up
-      }
+        switch deviceOrientation {
+        case .portrait:
+            return cameraPosition == .front ? .leftMirrored : .right
+        case .landscapeLeft:
+            return cameraPosition == .front ? .downMirrored : .up
+        case .portraitUpsideDown:
+            return cameraPosition == .front ? .rightMirrored : .left
+        case .landscapeRight:
+            return cameraPosition == .front ? .upMirrored : .down
+        case .faceDown, .faceUp, .unknown:
+            return .up
+        @unknown default:
+            return .up
+        }
     }
 }
