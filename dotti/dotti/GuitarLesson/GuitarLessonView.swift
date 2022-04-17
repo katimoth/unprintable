@@ -91,41 +91,6 @@ struct GuitarLessonView: View {
         }
     }
 
-    func createChordTimer() -> Timer {
-        return Timer.scheduledTimer(withTimeInterval: 0.001, repeats: true) { timer in
-            counter += 0.001
-            var time = (Double(beats[0]) * 60.0) / (Double(song.bpm!) * song.playBackspeed)
-            if(counter >= time) {
-                if timerGoing{
-                    audioPlayer.recTapped()
-                    
-                    audioPlayer.doneTapped(chord: nextChords?[nextChords!.startIndex])
-                        
-                    getNextChord()
-                    fretboardImage = "overlay_" + (nextChords?[nextChords!.startIndex] ?? "")
-                    if(current_beat == beats.count - 1) {
-                        timer.invalidate()
-                    }
-                    counter = 0.0
-                    current_beat += 1
-                    if(current_beat < beats.count) {
-                        time = (Double(beats[current_beat]) * 60.0) / (Double(song.bpm!) * song.playBackspeed)
-                    }
-
-                    audioPlayer.recTapped()
-                }
-            }
-            if nextChords == nil {
-                audioPlayer.doneTapped(chord: "nil")
-                timer.invalidate()
-                startBtnHidden = true
-                timerGoing = false
-            } else {
-                countdown = time - counter
-            }
-        }
-    }
-
     var body: some View {
         ZStack {
             HStack {
@@ -258,7 +223,7 @@ struct GuitarLessonView: View {
     
     func startGuitarDetection() {
         guitarDetectionTimer = Timer.scheduledTimer(withTimeInterval: 0.4, repeats: true) {_ in
-            if guitarModel.detectGuitarFromFrame(buffer: model.frameBuffer!) != nil {
+            if sendFrame(frame: model.frame!) {
                 print("guitar found!")
 
                 // If this is the first time guitar detected, begin the lesson
@@ -272,6 +237,92 @@ struct GuitarLessonView: View {
                 guitarFound = true
             } else {
                 print("No guitar in frame")
+            }
+        }
+    }
+
+    func sendFrame(frame: CGImage) -> Bool {
+        guard let apiUrl =  URL(string: "https://35.227.89.255/findguitar/") else {
+            print("Bad URL")
+            return false
+        }
+        
+        let guitarFound = false
+        let frame_uiimage = UIImage(cgImage: frame)
+        let png_data = frame_uiimage.jpegData(compressionQuality: 0)
+        let imageBase64String = png_data?.base64EncodedString()
+        
+        let jsonObj = ["image": imageBase64String]
+        
+        guard let jsonData = try? JSONSerialization.data(withJSONObject: jsonObj) else {
+            print("findGuitar: jsonData serialization error")
+            return false
+        }
+        
+        var request = URLRequest(url: apiUrl)
+        request.httpMethod = "POST"
+        request.httpBody = jsonData
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let _ = data, error == nil else {
+                print("findGuitar: NETWORKING ERROR")
+                return
+            }
+
+            if let httpStatus = response as? HTTPURLResponse {
+                if httpStatus.statusCode != 200 {
+                    print("findGuitar: HTTP STATUS: \(httpStatus.statusCode)")
+                    return
+                }
+            }
+            let decoder = JSONDecoder()
+            
+            
+            if let data = data, let dataString = String(data: data, encoding: .utf8)?.data(using: .utf8)! {
+                do {
+                    print("Response data string:\n \(dataString)")
+                } catch {
+                    print("decode error")
+                    return
+                }
+            }
+            
+        }.resume()
+        
+        return guitarFound
+    }
+    
+    func createChordTimer() -> Timer {
+        return Timer.scheduledTimer(withTimeInterval: 0.001, repeats: true) { timer in
+            counter += 0.001
+            var time = (Double(beats[0]) * 60.0) / (Double(song.bpm!) * song.playBackspeed)
+            if(counter >= time) {
+                if timerGoing{
+                    audioPlayer.recTapped()
+                    
+                    audioPlayer.doneTapped(chord: nextChords?[nextChords!.startIndex])
+                        
+                    getNextChord()
+                    fretboardImage = "overlay_" + (nextChords?[nextChords!.startIndex] ?? "")
+                    if(current_beat == beats.count - 1) {
+                        timer.invalidate()
+                    }
+                    counter = 0.0
+                    current_beat += 1
+                    if(current_beat < beats.count) {
+                        time = (Double(beats[current_beat]) * 60.0) / (Double(song.bpm!) * song.playBackspeed)
+                    }
+
+                    audioPlayer.recTapped()
+                }
+            }
+            if nextChords == nil {
+                audioPlayer.doneTapped(chord: "nil")
+                timer.invalidate()
+                startBtnHidden = true
+                timerGoing = false
+            } else {
+                countdown = time - counter
             }
         }
     }

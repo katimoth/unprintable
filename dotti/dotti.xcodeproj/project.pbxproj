@@ -13,7 +13,6 @@
 		2816F9F52802053F00691460 /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2816F9F42802053F00691460 /* Song.swift */; };
 		3A6A631727E655810089A620 /* LibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6A631627E655810089A620 /* LibraryView.swift */; };
 		3A6A631927E67FC40089A620 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6A631827E67FC40089A620 /* Utilities.swift */; };
-		3A8ACAD7280B445E00BC9307 /* model.tflite in Resources */ = {isa = PBXBuildFile; fileRef = 3A8ACAD6280B445E00BC9307 /* model.tflite */; };
 		3A8AE82B27FE499F00308BF0 /* MusicUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8AE82A27FE499E00308BF0 /* MusicUtilities.swift */; };
 		3AA3A1CB27E5BCC900D5E005 /* Fonts in Resources */ = {isa = PBXBuildFile; fileRef = 3AA3A1CA27E5BCC900D5E005 /* Fonts */; };
 		3AA4D0BE2804F5BB0062012A /* LibraryOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA4D0BD2804F5BB0062012A /* LibraryOverlayView.swift */; };
@@ -41,7 +40,6 @@
 		2816F9F42802053F00691460 /* Song.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
 		3A6A631627E655810089A620 /* LibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryView.swift; sourceTree = "<group>"; };
 		3A6A631827E67FC40089A620 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
-		3A8ACAD6280B445E00BC9307 /* model.tflite */ = {isa = PBXFileReference; lastKnownFileType = file; path = model.tflite; sourceTree = "<group>"; };
 		3A8AE82A27FE499E00308BF0 /* MusicUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicUtilities.swift; sourceTree = "<group>"; };
 		3AA3A1CA27E5BCC900D5E005 /* Fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Fonts; sourceTree = "<group>"; };
 		3AA3A1CC27E5BCFB00D5E005 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -108,7 +106,6 @@
 		3AD178BF27DBAA1300E2A774 /* dotti */ = {
 			isa = PBXGroup;
 			children = (
-				3A8ACAD6280B445E00BC9307 /* model.tflite */,
 				3AD178C427DBAA1700E2A774 /* Assets.xcassets */,
 				8310C87E28011940001C5210 /* Audio */,
 				8310C88228012032001C5210 /* AudioView.swift */,
@@ -249,7 +246,6 @@
 				3AA3A1CB27E5BCC900D5E005 /* Fonts in Resources */,
 				3AD178C827DBAA1700E2A774 /* Preview Assets.xcassets in Resources */,
 				3AD178C527DBAA1700E2A774 /* Assets.xcassets in Resources */,
-				3A8ACAD7280B445E00BC9307 /* model.tflite in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -471,7 +467,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"dotti/Preview Content\"";
-				DEVELOPMENT_TEAM = WSB3PDR76Q;
+				DEVELOPMENT_TEAM = U942498C9V;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = dotti/Info.plist;
@@ -487,12 +483,12 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "edu.umich.unprintable-ios.dotti";
+				PRODUCT_BUNDLE_IDENTIFIER = edu.umich.evgriff;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -506,7 +502,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"dotti/Preview Content\"";
-				DEVELOPMENT_TEAM = WSB3PDR76Q;
+				DEVELOPMENT_TEAM = U942498C9V;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = dotti/Info.plist;
@@ -522,12 +518,12 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "edu.umich.unprintable-ios.dotti";
+				PRODUCT_BUNDLE_IDENTIFIER = edu.umich.evgriff;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
