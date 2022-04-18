@@ -344,18 +344,19 @@ struct GuitarLessonView: View {
         @Binding var guitar: Guitar?
         @State private var dragAmount: CGPoint?
         @State private var angle: Angle = .degrees(.zero)
+        @State var scale: CGFloat = 1.0
         var body: some View {
             GeometryReader { gp in // just to center initial position
                 ZStack(){
                     Image(fretboardImage)
                         .resizable()
-                        .scaledToFill()
-                        .frame(width: 100, height: 100)
+                        .frame(width: 500, height: 100)
                         .animation(.default)
                         .position(self.dragAmount ?? CGPoint(x: gp.size.width / 2, y: gp.size.height / 2))
                         .rotationEffect(self.angle)
-                        .position(x: gp.size.width * calcX(), y: gp.size.height/2 * calcY())
+                        .position(x: gp.size.width * calcX(), y: gp.size.height * calcY())
                         .zIndex(1)
+                        .scaleEffect(scale)
                         .highPriorityGesture(  // << to do no action on drag !!
                             DragGesture()
                                 .onChanged { self.dragAmount = $0.location})
