@@ -234,7 +234,7 @@ final class AudioPlayer: NSObject, ObservableObject, AVAudioRecorderDelegate, AV
 
         let name = "peepee"
         let artist = "poopoo"
-        let jsonObj = ["name": name, "artist": artist, "audio": audio.base64EncodedString()]
+        let jsonObj = ["name": name, "artist": artist, "audio": audio.base64EncodedString() ?? ""]
 
         guard let jsonData = try? JSONSerialization.data(withJSONObject: jsonObj) else {
             print("postAudio: jsonData serialization error")

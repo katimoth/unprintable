@@ -73,6 +73,8 @@ struct GuitarLessonView: View {
     @State private var fretboardImage: String
     @State private var counter = 0.0
     @State private var current_beat = 0
+    @State private var customCenter = 0.0
+    @State private var guitarLive: Guitar?
 
     /// False until user hits start button and guitar is detected. Then, stays
     /// true even guitar is moved away from camera
@@ -116,9 +118,7 @@ struct GuitarLessonView: View {
                         }
                         // Display correct fingering on user's guitar with AR
                         .overlay(alignment: .bottom) {
-                            Image(fretboardImage)
-                                .resizable()
-                                .scaledToFit()
+                            FretBoard(fretboardImage: $fretboardImage, guitar: $guitarLive)
                         }
 
                         if !startBtnHidden {
@@ -222,19 +222,19 @@ struct GuitarLessonView: View {
     }
     
     func startGuitarDetection() {
-        guitarDetectionTimer = Timer.scheduledTimer(withTimeInterval: 0.4, repeats: true) {_ in
+        guitarDetectionTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) {_ in
             if sendFrame(frame: model.frame!) {
                 print("guitar found!")
 
                 // If this is the first time guitar detected, begin the lesson
-                if !guitarFound {
+                if guitarFound {
                     fretboardImage = "overlay_" + (nextChords?[nextChords!.startIndex] ?? "")
                     audioPlayer.recTapped()
                     recHidden.toggle()
+//                    guitarDetectionTimer?.invalidate()
                     createChordTimer()
                 }
 
-                guitarFound = true
             } else {
                 print("No guitar in frame")
             }
@@ -247,7 +247,6 @@ struct GuitarLessonView: View {
             return false
         }
         
-        let guitarFound = false
         let frame_uiimage = UIImage(cgImage: frame)
         let png_data = frame_uiimage.jpegData(compressionQuality: 0)
         let imageBase64String = png_data?.base64EncodedString()
@@ -280,7 +279,11 @@ struct GuitarLessonView: View {
             
             if let data = data, let dataString = String(data: data, encoding: .utf8)?.data(using: .utf8)! {
                 do {
-                    print("Response data string:\n \(dataString)")
+                    let guitarData = try decoder.decode(Guitar.self, from: data)
+                    if guitarData.bounding_box.count > 0 {
+                        guitarFound = true
+                        guitarLive = guitarData
+                    }
                 } catch {
                     print("decode error")
                     return
@@ -292,8 +295,17 @@ struct GuitarLessonView: View {
         return guitarFound
     }
     
-    func createChordTimer() -> Timer {
-        return Timer.scheduledTimer(withTimeInterval: 0.001, repeats: true) { timer in
+    struct Guitar: Codable {
+        var bounding_box: [Coordinates]
+    }
+    
+    struct Coordinates: Codable {
+        var x: Float
+        var y: Float
+    }
+    
+    func createChordTimer() {
+       Timer.scheduledTimer(withTimeInterval: 0.001, repeats: true) { timer in
             counter += 0.001
             var time = (Double(beats[0]) * 60.0) / (Double(song.bpm!) * song.playBackspeed)
             if(counter >= time) {
@@ -326,6 +338,52 @@ struct GuitarLessonView: View {
             }
         }
     }
+    
+    struct FretBoard: View {
+        @Binding var fretboardImage: String
+        @Binding var guitar: Guitar?
+        @State private var dragAmount: CGPoint?
+        @State private var angle: Angle = .degrees(.zero)
+        var body: some View {
+            GeometryReader { gp in // just to center initial position
+                ZStack(){
+                    Image(fretboardImage)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 100, height: 100)
+                        .animation(.default)
+                        .position(self.dragAmount ?? CGPoint(x: gp.size.width / 2, y: gp.size.height / 2))
+                        .rotationEffect(self.angle)
+                        .position(x: gp.size.width * calcX(), y: gp.size.height/2 * calcY())
+                        .zIndex(1)
+                        .highPriorityGesture(  // << to do no action on drag !!
+                            DragGesture()
+                                .onChanged { self.dragAmount = $0.location})
+                        .gesture(
+                            RotationGesture()
+                                .onChanged{ angle in self.angle = angle})
+                        
+                    }
+                }
+            }
+        
+            func calcX() -> CGFloat {
+                if guitar != nil {
+                    return (CGFloat((guitar!.bounding_box[0].x)) + CGFloat(guitar!.bounding_box[1].x)) / 2
+                } else {
+                    return 0.0
+                }
+            }
+            
+            func calcY() -> CGFloat {
+                if guitar != nil {
+                    return (CGFloat((guitar!.bounding_box[0].y)) + CGFloat(guitar!.bounding_box[1].y)) / 2
+                } else {
+                    return 0.0
+                }
+            }
+        }
+
 
     #if DEBUG
     /// Updates `nextChords`, shifting the array slice to the left by 1.
