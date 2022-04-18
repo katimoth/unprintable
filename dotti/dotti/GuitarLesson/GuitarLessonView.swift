@@ -76,8 +76,10 @@ struct GuitarLessonView: View {
     @State private var customCenter = 0.0
     @State private var guitarLive: Guitar?
 
-    /// False until user hits start button and guitar is detected. Then, stays
-    /// true even guitar is moved away from camera
+    /// True until user hits start button and guitar is detected for the
+    // first time. Then, stays false forever
+    @State private var firstTimeGuitarFound = true
+
     @State private var guitarFound = false
 
     init(song: Song, currentView: Binding<AppViews>) {
@@ -227,7 +229,8 @@ struct GuitarLessonView: View {
                 print("guitar found!")
 
                 // If this is the first time guitar detected, begin the lesson
-                if guitarFound {
+                if firstTimeGuitarFound {
+                    firstTimeGuitarFound = false
                     fretboardImage = "overlay_" + (nextChords?[nextChords!.startIndex] ?? "")
                     audioPlayer.recTapped()
                     recHidden.toggle()
