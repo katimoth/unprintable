@@ -6,6 +6,6 @@ target 'dotti' do
   use_frameworks!
 
   # Pods for dotti
-  pod 'GoogleMLKit/ObjectDetectionCustom', '2.6.0'
+#  pod 'GoogleMLKit/ObjectDetectionCustom', '2.6.0'
 
 end

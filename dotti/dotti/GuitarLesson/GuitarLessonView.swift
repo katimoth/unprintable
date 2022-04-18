@@ -59,9 +59,6 @@ struct GuitarLessonView: View {
 
     /// Camera View Helper
     @StateObject private var model = ContentViewModel()
-    
-    /// Guitar Detection Model
-    private var guitarModel = GuitarModel()
 
     @State private var guitarDetectionTimer: Timer? = nil
 
