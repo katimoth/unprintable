@@ -315,7 +315,7 @@ struct GuitarLessonView: View {
                     audioPlayer.doneTapped(chord: nextChords?[nextChords!.startIndex])
                         
                     getNextChord()
-                    fretboardImage = "overlay_" + (nextChords?[nextChords!.startIndex] ?? "")
+                    fretboardImage = (nextChords?[nextChords!.startIndex] ?? "")
                     if(current_beat == beats.count - 1) {
                         timer.invalidate()
                     }
