@@ -19,11 +19,6 @@ def getsong(request):
     #named table songs for now
     cursor.execute('SELECT * FROM songs ORDER BY name ASC')
     rows = cursor.fetchall()
-    #need to change once tables are set up in db
-    # response['name'] = result['name']
-    # response['artist'] = result['artist']
-    # response['bpm'] = result['bpm']
-    # response['chords'] = result['chords']
     for i, row in enumerate(rows):
         song = list(row)
         try:
@@ -33,18 +28,6 @@ def getsong(request):
             continue
         
     response['songs'] = rows
-    
-    return JsonResponse(response)
-
-def clearcache(request):
-    if request.method != 'GET':
-        return HttpResponse(status=404)
-    response = {}
-    num_chords = len(OVERLAY_CACHE)
-    OVERLAY_CACHE.clear()
-    if os.path.exists("in_file.png"):
-        os.remove("in_file.png")
-    response['message'] = f'{num_chords} chords cleared'
     
     return JsonResponse(response)
 

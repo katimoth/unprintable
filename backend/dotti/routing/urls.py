@@ -20,7 +20,6 @@ from app import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('getsong/', views.getsong, name='getsong'),
-    path('clearcache/', views.clearcache, name='clearcache'),
     path('extractchord/', views.extractchord, name='extractchord'),
     path('findguitar/', views.findguitar, name='findguitar'),
 ]
