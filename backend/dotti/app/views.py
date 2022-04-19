@@ -2,12 +2,10 @@ from django.shortcuts import render
 from django.http import JsonResponse, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.db import connection
-from app.models import CHORDS, OVERLAY_CACHE
-from app.detection.detect_guitar import run
+from app.models import PREDICTION_CLIENT
 from app.utils import convert_chords
-from PIL import Image
+from app.predict import get_prediction
 import autochord
-import cv2
 import base64
 import json
 import os
@@ -73,41 +71,23 @@ def extractchord(request):
 # Create your views here.
 
 @csrf_exempt
-def getoverlay(request):
+def findguitar(request):
     if request.method != 'POST':
         return HttpResponse(status=404)
     response = {}
     data = json.loads(request.body)
-    detected = data.get('detected')
-    chord = data.get('chord')
-    b64_frame = data.get('frame')
-    # frame = cv2.imread("detection/images/guitar_4.png")
-    if chord is None or detected is None or (b64_frame is None and detected == '0'):
-        return JsonResponse({'error': 'missing params'})
-    # check cache
-    if chord in OVERLAY_CACHE:
-        return JsonResponse({'overlay': OVERLAY_CACHE[chord]})
-    # if os.path.exists("overlay.jpg"):
-    #     os.remove("overlay.jpg")
-    # convert input img to jpeg
-    if detected == '0':
-        with open("in_file.png", 'wb') as in_file:
-            img_bin = base64.b64decode(b64_frame)
-            in_file.write(img_bin)
-    if detected == '1' and not os.path.exists('in_file.png'):
-        return JsonResponse({'error': 'No previous detection found. Try setting detected to False.'})
-    # process img
-    frame = cv2.imread('in_file.png')
-    overlay = run(frame, CHORDS[chord])
-    if overlay is not None:
-        cv2.imwrite('overlay.png', overlay)
-        im1 = Image.open('overlay.png')
-        im1.save('overlay.jpg')
-        with open('overlay.jpg', 'rb') as out:
-            b64_str = base64.b64encode(out.read())
-            decoded = b64_str.decode('utf-8')
-            response['overlay'] = decoded
-            OVERLAY_CACHE[chord] = decoded
-    else:
-        response['overlay'] = 'could not find an overlay'
+    imageb64 = data.get('image')
+    bounding_box = {}
+    prediction = get_prediction(PREDICTION_CLIENT, imageb64).payload
+    if len(prediction) > 0 and prediction[0].image_object_detection.score >= 0.9:
+        vertices = prediction[0].image_object_detection.bounding_box.normalized_vertices
+        bounding_box = [
+            {"x": vertices[0].x,
+            "y": vertices[0].y},
+            {"x": vertices[1].x,
+            "y": vertices[1].y}
+        ]
+    response = {"bounding_box": bounding_box}
+
     return JsonResponse(response)
+
