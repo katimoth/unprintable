@@ -118,29 +118,31 @@ struct GuitarLessonView: View {
                             FretBoard(fretboardImage: $fretboardImage, guitar: $guitarLive)
                             if overlayEditing {
                                 VStack{
-                                    Group{
-                                        Text("Please rotate fretboard to your liking, then press start.")
-                                        Text("lesson will begin in 3 seconds.")
-                                    }
+                                    Text("Please rotate/move Fretboard, then press:")
+                                    
+                                    Text("Lesson will begin in 3 seconds.")
+                                }
                                     .font(.system(size: 30))
                                     .foregroundColor(Color.floral_white)
-                                    Button("ready!") {
-                                        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                                            createChordTimer()
-                                        }
-                                        overlayEditing = false
+                                    .frame(width: 400, height: 400, alignment: .center)
+                                Button("ready!") {
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                                        createChordTimer()
                                     }
-                                    .foregroundColor(Color.black)
-                                    .frame(width: 120, height: 40)
-                                    .background(Color.floral_white)
-                                    .cornerRadius(5)
-                                    .font(.system(size: 30))
-                                    .overlay(
-                                        RoundedRectangle(cornerRadius: 5.0)
-                                            .stroke(Color.ruber, lineWidth: 2.0)
-                                    )
-                                    .padding()
+                                    overlayEditing = false
                                 }
+                                .offset(x: 10, y: 0)
+                                .foregroundColor(Color.black)
+                                .frame(width: 120, height: 40)
+                                .background(Color.floral_white)
+                                .cornerRadius(5)
+                                .font(.system(size: 30))
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 5.0)
+                                        .stroke(Color.ruber, lineWidth: 2.0)
+                                )
+                                    
+                                
                             }
                         }
 
@@ -149,6 +151,7 @@ struct GuitarLessonView: View {
                             Button(action: {
                                 startBtnHidden = true
                                 timerGoing = true
+                                
                                 startGuitarDetection()
                             }, label: {
                                 Text("start")
@@ -373,10 +376,11 @@ struct GuitarLessonView: View {
     struct FretBoard: View {
         @Binding var fretboardImage: String
         @Binding var guitar: Guitar?
-        @State private var dragAmount: CGPoint?
+        @State private var dragAmount: CGPoint? = nil
         @State private var angle: Angle = .degrees(.zero)
         @State var scale: CGFloat = 1.0
         var body: some View {
+            
             GeometryReader { gp in // just to center initial position
                 ZStack(){
                     Image(fretboardImage)
@@ -387,7 +391,7 @@ struct GuitarLessonView: View {
                         .rotationEffect(self.angle)
                         .position(x: gp.size.width * calcX(), y: gp.size.height * calcY())
                         .zIndex(1)
-                        .opacity(0.75)
+//                        .opacity(0.75)
                         .scaleEffect(scale)
                         .highPriorityGesture(  // << to do no action on drag !!
                             DragGesture()
@@ -398,7 +402,8 @@ struct GuitarLessonView: View {
                         
                     }
                 }
-            }
+        }
+            
         
             func calcX() -> CGFloat {
                 if guitar != nil {
