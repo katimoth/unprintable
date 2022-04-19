@@ -16,5 +16,6 @@ To run dotti on your iPhone, Apple requires you to sign this project with a deve
 
 ## Back End
 API server: 35.227.89.255
+The back end server uses ngnix and gunicorn in a Django web framework. Hosted on a GCP instance.
 
 **YOU WILL HAVE TO DO THIS EVERY TIME AFTER `git pull` CHANGES YOUR CODE!**
