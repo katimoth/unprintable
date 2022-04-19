@@ -65,19 +65,17 @@ struct GuitarLessonView: View {
     @StateObject private var audioPlayer = AudioPlayer()
     @State private var recHidden = false
     @State private var startBtnHidden = false
-    @State private var timerGoing = true
+    @State private var timerGoing = false
     @State private var countdown: Double?
     @State private var fretboardImage: String
     @State private var counter = 0.0
     @State private var current_beat = 0
     @State private var customCenter = 0.0
     @State private var guitarLive: Guitar?
-
-    /// True until user hits start button and guitar is detected for the
-    // first time. Then, stays false forever
-    @State private var firstTimeGuitarFound = true
+    @State private var guitarFoundBefore = false
 
     @State private var guitarFound = false
+    @State private var overlayEditing = false
 
     init(song: Song, currentView: Binding<AppViews>) {
         self.song = song
@@ -118,12 +116,39 @@ struct GuitarLessonView: View {
                         // Display correct fingering on user's guitar with AR
                         .overlay(alignment: .bottom) {
                             FretBoard(fretboardImage: $fretboardImage, guitar: $guitarLive)
+                            if overlayEditing {
+                                VStack{
+                                    Group{
+                                        Text("Please rotate fretboard to your liking, then press start.")
+                                        Text("lesson will begin in 3 seconds.")
+                                    }
+                                    .font(.system(size: 30))
+                                    .foregroundColor(Color.floral_white)
+                                    Button("ready!") {
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                                            createChordTimer()
+                                        }
+                                        overlayEditing = false
+                                    }
+                                    .foregroundColor(Color.black)
+                                    .frame(width: 120, height: 40)
+                                    .background(Color.floral_white)
+                                    .cornerRadius(5)
+                                    .font(.system(size: 30))
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 5.0)
+                                            .stroke(Color.ruber, lineWidth: 2.0)
+                                    )
+                                    .padding()
+                                }
+                            }
                         }
 
                         if !startBtnHidden {
                             // Start Button
                             Button(action: {
                                 startBtnHidden = true
+                                timerGoing = true
                                 startGuitarDetection()
                             }, label: {
                                 Text("start")
@@ -139,6 +164,9 @@ struct GuitarLessonView: View {
                                     .padding()
                             })
                         }
+                        
+                        
+                        
                 }
 
                 SidebarView(
@@ -224,16 +252,16 @@ struct GuitarLessonView: View {
         guitarDetectionTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) {_ in
             if sendFrame(frame: model.frame!) {
                 print("guitar found!")
-
-                // If this is the first time guitar detected, begin the lesson
-                if firstTimeGuitarFound {
-                    firstTimeGuitarFound = false
-                    fretboardImage = "overlay_" + (nextChords?[nextChords!.startIndex] ?? "")
-                    audioPlayer.recTapped()
-                    recHidden.toggle()
-//                    guitarDetectionTimer?.invalidate()
-                    createChordTimer()
+                
+                if !guitarFoundBefore {
+                    overlayEditing = true
+                    guitarFoundBefore = true
                 }
+                
+                fretboardImage = (nextChords?[nextChords!.startIndex] ?? "")
+                audioPlayer.recTapped()
+                recHidden.toggle()
+        
 
             } else {
                 print("No guitar in frame")
@@ -336,6 +364,9 @@ struct GuitarLessonView: View {
             } else {
                 countdown = time - counter
             }
+           if !timerGoing {
+               timer.invalidate()
+           }
         }
     }
     
@@ -350,12 +381,13 @@ struct GuitarLessonView: View {
                 ZStack(){
                     Image(fretboardImage)
                         .resizable()
-                        .frame(width: 500, height: 100)
+                        .frame(width: 450, height: 75)
                         .animation(.default)
                         .position(self.dragAmount ?? CGPoint(x: gp.size.width / 2, y: gp.size.height / 2))
                         .rotationEffect(self.angle)
                         .position(x: gp.size.width * calcX(), y: gp.size.height * calcY())
                         .zIndex(1)
+                        .opacity(0.75)
                         .scaleEffect(scale)
                         .highPriorityGesture(  // << to do no action on drag !!
                             DragGesture()
@@ -383,7 +415,8 @@ struct GuitarLessonView: View {
                     return 0.0
                 }
             }
-        }
+    }
+    
 
 
     #if DEBUG
