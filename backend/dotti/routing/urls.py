@@ -22,5 +22,5 @@ urlpatterns = [
     path('getsong/', views.getsong, name='getsong'),
     path('clearcache/', views.clearcache, name='clearcache'),
     path('extractchord/', views.extractchord, name='extractchord'),
-    path('getoverlay/', views.getoverlay, name='getoverlay'),
+    path('findguitar/', views.findguitar, name='findguitar'),
 ]

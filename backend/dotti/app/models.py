@@ -1,8 +1,7 @@
 from django.db import models
-from app.detection.detect_guitar import load_json
+from google.cloud import automl_v1beta1
 
 # Create your models here.
-CHORDS = load_json("app/detection/chords.json")
 
 CONVERSIONS = {
   'C#': 'Db',
@@ -17,4 +16,4 @@ CONVERSIONS = {
   'Bb': 'A#',
 }
 
-OVERLAY_CACHE = {}
+PREDICTION_CLIENT = automl_v1beta1.PredictionServiceClient()
