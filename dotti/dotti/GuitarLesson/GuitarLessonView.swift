@@ -194,6 +194,7 @@ struct GuitarLessonView: View {
                 ResultsView(
                     audioPlayer: audioPlayer,
                     currentView: $currentView,
+                    chords: chords,
                     totalNumChords: Double(chords.count)
                 )
                     .edgesIgnoringSafeArea(.all)

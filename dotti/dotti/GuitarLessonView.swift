@@ -301,7 +301,7 @@ struct GuitarLessonView: View {
                 setUIOrientation(to: startingOrientation)
 
                 // Load sidebar data
-                nextChords = chords.prefix(maxNumNextChords)
+                nextChords = chords.suffix(maxNumNextChords)
             }
             .onRotate { newOrientation in
                 // Keep track of UI's orientation

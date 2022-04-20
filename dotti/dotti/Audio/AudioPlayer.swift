@@ -93,6 +93,15 @@ final class AudioPlayer: NSObject, ObservableObject, AVAudioRecorderDelegate, AV
     private var audioRecorder: AVAudioRecorder!
     private var audioPlayer: AVAudioPlayer!
 
+    /// Notes whether each chord has been played correctly or incorrectly
+    ///
+    /// e.g. If `GuitarLessonView.chords[5]` was played right,
+    ///      `self.chordsPlayedCorrectly[5]` is true
+    ///
+    /// At the moment, no memory is reserved upfront. Expensive copying of
+    /// memory can occur every now and then
+    @Published var chordsPlayedCorrectly: [Bool] = []
+
     override init() {
         super.init()
         setupRecorder()
@@ -269,10 +278,12 @@ final class AudioPlayer: NSObject, ObservableObject, AVAudioRecorderDelegate, AV
                         DispatchQueue.main.async {
                             self.correctChordsPlayed += 1
                             self.borderColor = Color.green
+                            self.chordsPlayedCorrectly.append(true)
                         }
                     } else {
                         DispatchQueue.main.async {
                             self.borderColor = Color.red
+                            self.chordsPlayedCorrectly.append(false)
                         }
                     }
                 } catch {
