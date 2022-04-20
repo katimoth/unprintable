@@ -5,7 +5,6 @@
 |[<img src="https://eecs441.eecs.umich.edu/img/admin/video.png">][demo_page]|[<img src="https://eecs441.eecs.umich.edu/img/admin/wiki.png">][wiki_page]|[<img src="https://eecs441.eecs.umich.edu/img/admin/trello.png">][process_page]|
 
 ![Elevator Pitch](https://github.com/katimoth/unprintable/blob/master/images/elevator_pitch.jpg) <!-- MUST be placed in user-images.githubusercontent.com -->
-![Team](/assets/team.png)
 
 [demo_page]: https://www.youtube.com/watch?v=MNDCpeQAoDA&ab_channel=ToheiIchikawa
 [wiki_page]: https://github.com/katimoth/unprintable/wiki
