@@ -7,7 +7,7 @@
 ![Elevator Pitch](https://github.com/katimoth/unprintable/blob/master/images/elevator_pitch.jpg) <!-- MUST be placed in user-images.githubusercontent.com -->
 ![Team](/assets/team.png)
 
-[demo_page]: https://youtu.be/sample
+[demo_page]: https://www.youtube.com/watch?v=MNDCpeQAoDA&ab_channel=ToheiIchikawa
 [wiki_page]: https://github.com/katimoth/unprintable/wiki
 [process_page]: https://trello.com/b/d3GNu9WP/unprintable
 # dotti
