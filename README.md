@@ -10,7 +10,7 @@
 [wiki_page]: https://github.com/katimoth/unprintable/wiki
 [process_page]: https://trello.com/b/d3GNu9WP/unprintable
 # dotti
-AR-Powered Guitar Learning Platform
+Guitar Learning Platform Powered by Computer Vision
 
 EECS 441 W22 iOS Project
 
