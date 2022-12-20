@@ -1,4 +1,4 @@
-# UM EECS441§3&4 F21 unprintable
+# UM EECS441§3&4 W22 unprintable
 
 | Demo  |  Wiki |  Trello  |
 |:-----:|:-----:|:--------:|
